@@ -3,6 +3,7 @@ import Logo from "../logo/logo";
 import UserProfile from "../user/userProfile";
 import HeaderContainer from "./headerContainer";
 import HeaderRoutes from "./headerRoutes";
+import LoginButton from "./loginButton";
 import { ModeToggle } from "./modeToggle";
 
 interface HeaderProps {
@@ -27,7 +28,7 @@ export default function Header ( { isAuthenticated } : HeaderProps ) {
           isAuthenticated ?
           <UserProfile />
           :
-          <a className="text-xs text-orange-500 p-2 rounded-lg border border-orange-500" href="/api/auth/login">Login / Signup</a>
+          <LoginButton />
           }
           <ModeToggle />
         </div>

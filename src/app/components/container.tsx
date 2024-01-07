@@ -3,12 +3,13 @@ interface ContainerProps {
   type?: string;
 }
 
-export default function Container ( { children, type } : ContainerProps ) {
+export default function Container ( { children, type = 'default'} : ContainerProps ) {
   const containerTypeStyle: { [key: string] : string } = {
-    'header' : 'border-b border-zinc-300 sticky top-0'
+    'header' : ' sticky top-0 h-fit w-full border-b border-b-border border-t-2 border-t-coral z-50',
+    'default' : 'h-full w-full'
   }
   return (
-    <div className={`flex justify-center w-full h-full bg-background ${type && containerTypeStyle[`${type}`]}`}>
+    <div className={`flex justify-center bg-background ${type && containerTypeStyle[`${type}`]}`}>
       {children}
     </div>
   )
