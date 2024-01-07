@@ -5,6 +5,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import NextTopLoader from 'nextjs-toploader'
 import Header from './components/header/header'
+import { ThemeProvider } from './components/themeProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,12 +22,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistMono.variable}`} suppressHydrationWarning>
       <NextTopLoader showSpinner={true} color="#000000" />
-      <body className={`${inter.className} h-full w-full bg-white`}>
-        <Header />
-        <div className='w-full h-full bg-white'>
-          {children}
-        </div>
-      
+      <body className={`${inter.className} h-full w-full bg-white flex-col flex items-center text-jet`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <div className='w-full h-full bg-white max-w-7xl border border-gray-400'>
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )
