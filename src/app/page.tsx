@@ -7,13 +7,16 @@ export default async function Home() {
   const session = await getSession();
   const user = session?.user;
   return (
-    <>
-    {
-    user ? 
+    // <>
+    // {
+    // user ? 
+    // <Dashboard />
+    // :
+    // <LandingPage />
+    // }
+    // </>
+
     <Dashboard />
-    :
-    <LandingPage />
-    }
-    </>
+
   )
 }

@@ -15,14 +15,16 @@ export default function CheckAuth ( { isAuthenticated, children } : CheckAuthPro
 
   const path = usePathname()
   useEffect(() => {
-    if(path !== '/') redirect('/')
-  },[path])
+    if(path !== '/' && !isAuthenticated) redirect('/')
+  },[path, isAuthenticated])
 
   return (
     <>
       {
       isAuthenticated ?
+      <>
       {children}
+      </>
       :
       <LandingPage />
       }
