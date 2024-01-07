@@ -27,7 +27,7 @@ export default function UserProfile () {
       {
       !error && !isLoading && user && 
       <Popover>
-        <PopoverTrigger>
+        <PopoverTrigger className='h-full flex items-center'>
           <img className='h-8 w-8 rounded-full' src={user.picture} alt=''/>
         </PopoverTrigger>
         <PopoverContent className='w-fit text-xs border border-zinc-300'>

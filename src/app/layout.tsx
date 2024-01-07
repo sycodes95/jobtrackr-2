@@ -9,7 +9,7 @@ import { ThemeProvider } from './components/themeProvider'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import { redirect, usePathname } from 'next/navigation'
-import LandingPage from './landingPage/page'
+import LandingPage from './landingPage/landingPage'
 import CheckAuth from './hoc/checkAuth'
 
 
@@ -27,12 +27,13 @@ export default async function RootLayout({
 }) {
   const session = await getSession();
   const user = session?.user;
+
+  const isAuthenticated = user ? true : false;
   // const pathname = usePathname()
   // if(!user && pathname !== '/') redirect('/')
   return (
     <html lang="en" className={`${GeistMono.variable}`} suppressHydrationWarning>
       <UserProvider>
-        <NextTopLoader showSpinner={true} color="#000000" />
         <body className={`${inter.className} h-full w-full bg-white flex-col flex items-center text-jet`}>
           <ThemeProvider
             attribute="class"
@@ -40,9 +41,10 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
+            <NextTopLoader showSpinner={true} color="#000000" />
+            <Header  isAuthenticated={isAuthenticated}/>
             <CheckAuth 
-            isAuthenticated={user ? true : false} 
+            isAuthenticated={isAuthenticated} 
             >
               {children}
             </CheckAuth>

@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { redirect, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Header from "../components/header/header";
-import LandingPage from "../landingPage/page";
+import LandingPage from "../landingPage/landingPage";
 
 interface CheckAuthProps {
   isAuthenticated: boolean;

@@ -1,22 +1,12 @@
 import Image from 'next/image'
-import Dashboard from './dashboard/page'
+import Dashboard from './dashboard/dashboard'
 import { getSession } from '@auth0/nextjs-auth0'
-import LandingPage from './landingPage/page'
+import LandingPage from './landingPage/landingPage'
 
 export default async function Home() {
   const session = await getSession();
   const user = session?.user;
   return (
-    // <>
-    // {
-    // user ? 
-    // <Dashboard />
-    // :
-    // <LandingPage />
-    // }
-    // </>
-
     <Dashboard />
-
   )
 }
