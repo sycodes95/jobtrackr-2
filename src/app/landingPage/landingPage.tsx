@@ -12,7 +12,6 @@ export default function LandingPage () {
     <>
       <Background className={`absolute ${`landing-page-background` }  top-0 left-0 h-32 bg-background w-full z-0`} />
       <PageContainer>
-
         <div className="flex flex-col items-center w-full h-full grow ">
           <Hero />
         </div>

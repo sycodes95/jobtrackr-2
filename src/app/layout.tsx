@@ -9,6 +9,7 @@ import { ThemeProvider } from './components/themeProvider'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import CheckAuth from './hoc/checkAuth'
+import Footer from './components/footer/footer'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -46,6 +47,8 @@ export default async function RootLayout({
             >
               {children}
             </CheckAuth>
+
+            <Footer  />
             
           </ThemeProvider>
         </body>

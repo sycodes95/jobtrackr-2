@@ -1,5 +1,5 @@
-import Background from "./background";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 export default function Hero () {
   return (
@@ -16,8 +16,8 @@ export default function Hero () {
           </a>
         </div>
         <div className=" flex w-full created-by-background absolute top-1/2 -translate-y-1/2 rounded-full z-10 h-[26px]"></div>
-        
       </div>
+
       <div className="flex flex-col items-center  font-inter-tight-display">
         <span className="text-6xl text-coral text-center glow-text-pink">Tracking your job applications</span>
         <span className="text-6xl text-jet text-center glow-text-black border-b border-zinc-300">made simple. </span>
@@ -31,9 +31,10 @@ export default function Hero () {
       </div>
 
       <div className="relative overflow-hidden h-fit rounded-lg group">
-        <a className="flex h-8 items-center text-sm text-white overflow-hidden rounded-lg p-2 bg-jet " href="/api/auth/login">
+        <button className="flex gap-2 h-8 items-center text-sm text-white overflow-hidden rounded-lg p-2 bg-jet " onClick={()=> window.location.href = '/api/auth/login'}>
           <span className="z-10">Get Started</span>
-        </a>
+          <ArrowOutwardIcon className='z-10' fontSize='inherit' />
+        </button>
         <div className="absolute h-full w-full bg-coral top-full transition-all duration-300 group-hover:top-0"></div>
       </div>
       
