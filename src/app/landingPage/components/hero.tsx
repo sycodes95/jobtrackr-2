@@ -3,7 +3,7 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 export default function Hero () {
   return (
-    <div className="flex flex-col h-fit items-center pt-28 gap-6  w-full">
+    <div className="flex flex-col h-fit items-center gap-6  w-full">
 
       <div className=" relative h-fit ">
         <div className="relative h-[24px] bg-white rounded-full z-20 group">

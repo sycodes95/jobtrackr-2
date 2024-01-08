@@ -78,7 +78,7 @@
 
 @font-face {
   font-family: InterTight;
-  src: url(./assets/fonts/InterTight-VariableFont_wght.ttf);
+  src: url(../assets/fonts/InterTight-VariableFont_wght.ttf);
 }
 
 .font-inter-tight{
