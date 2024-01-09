@@ -26,11 +26,13 @@ export default function Header ( { isAuthenticated } : HeaderProps ) {
         <div id="header-right" className="flex items-center gap-4">
           {
           isAuthenticated ?
+          <>
           <UserProfile />
+          <ModeToggle />
+          </>
           :
           <LoginButton />
           }
-          <ModeToggle />
         </div>
 
       </HeaderContainer>
