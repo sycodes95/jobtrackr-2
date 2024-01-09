@@ -1,7 +1,14 @@
+
+
 import PageContainer from "../components/pageContainer";
 import PageHeader from "../components/pageHeader";
 import FeedIcon from '@mui/icons-material/Feed';
-import CreateNew from "./components/createNew";
+import ApplicationForm from "./components/applicationForm";
+import AppModal from "./components/appModal";
+
+
+
+
 export default function Applications () {
   return (
     <PageContainer>
@@ -10,7 +17,8 @@ export default function Applications () {
           <FeedIcon />
         </PageHeader>
 
-        <CreateNew />
+        <AppModal />
+
       </div>
     </PageContainer>
   )
