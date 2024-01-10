@@ -3,94 +3,47 @@ import { useEffect, useState } from "react"
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
+  SheetClose,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet"
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import FormItem from "./formItem";
 
 import Rating from '@mui/material/Rating';
+import { Checkbox } from "@/components/ui/checkbox"
 
-interface ApplicationDetails {
-  company_name: FieldDetails<string>;
-  company_website: FieldDetails<string>;
-  favorite: FieldDetails<boolean>;
-  apply_date: FieldDetails<Date | null>;
-  apply_method: FieldDetails<'Company Website' | 'Job Board' | 'Recruiter' | 'Referral' | 'Email' | 'Other' | ''>;
-  apply_URL: FieldDetails<string>;
-  position: FieldDetails<string>;
-  fit_rating: FieldDetails<number | null>;
-  location: FieldDetails<'On Site' | 'Remote' | 'Hybrid' | 'Optional' | ''>;
-  interview_date: FieldDetails<Date | null>;
-  offer: FieldDetails<boolean>;
-  offer_amount: FieldDetails<number | null>;
-  offer_accepted: FieldDetails<boolean>;
-  rejected: FieldDetails<'From Response' | 'After Interview' | 'After Offer' | 'Other' | ''>;
-  contact_name: FieldDetails<string>;
-  contact_email: FieldDetails<string>;
-  contact_phone: FieldDetails<string>;
-  notes: FieldDetails<string>;
-}
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 
-interface FieldDetails<T> {
-  value: T;
-  label: string;
-  type: FieldType;
-}
+import { Textarea } from "@/components/ui/textarea"
 
-type FieldType =
-  | 'inputText'
-  | 'checkbox'
-  | 'date'
-  | 'select'
-  | 'rating'
-  | 'inputNumber'
-  | 'textArea'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
-
+import { Calendar as CalendarIcon } from "lucide-react"
+import { formatDate } from "@/utils/formatDate";
+import { isDate } from "date-fns";
+import { defaultApplicationDetails, selectOptions } from "../constants/constants";
+import { ApplicationDetails } from "../types/types";
 
 export default function ApplicationForm () {
 
-  //input text
-  //input number
-  //check box
-  //date selector
-  //selector
-  //textarea 
-  //rating
-
-  const defaultApplicationDetails: ApplicationDetails = {
-    company_name: { value: '', label: 'Company Name *', type: 'inputText' },
-    company_website: { value: '', label: 'Company Website', type: 'inputText' },
-    favorite: { value: false, label: 'Favorite', type: 'checkbox' },
-    apply_date: { value: null, label: 'Apply Date', type: 'date' },
-    apply_method: { value: '', label: 'Apply Method', type: 'select' },
-    apply_URL: { value: '', label: 'Apply URL', type: 'inputText' },
-    position: { value: '', label: 'Position', type: 'inputText' },
-    fit_rating: { value: null, label: 'Position', type: 'rating' },
-    location: { value: '', label: 'Location', type: 'select' },
-    interview_date: { value: null, label: 'Interview Date', type: 'date' },
-    offer: { value: false, label: 'Offer', type: 'checkbox' },
-    offer_amount: { value: null, label: 'Offer Amount', type: 'inputNumber' },
-    offer_accepted: { value: false, label: 'Offer Accepted', type: 'checkbox' },
-    rejected: { value: '', label: 'Rejected', type: 'select' },
-    contact_name: { value: '', label: 'Contact Name', type: 'inputText' },
-    contact_email: { value: '', label: 'Contact Email', type: 'inputText' },
-    contact_phone: { value: '', label: 'Company Phone', type: 'inputText' },
-    notes: { value: '', label: 'Company Name *', type: 'textArea' },
-  }
-
   const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(defaultApplicationDetails);
-
-  const resetApplicationDetails = () => {
-    setApplicationDetails(defaultApplicationDetails)
-  }
 
   const handleInputChange = <T extends keyof ApplicationDetails>(
     key: T,
@@ -99,11 +52,10 @@ export default function ApplicationForm () {
     setApplicationDetails((prev) => { return { ...prev, [key]: {...prev[key], value: value }}})
   }
 
-  useEffect(() => {
-    
-    
-  },[applicationDetails])
-
+  const resetApplicationDetails = () => {
+    setApplicationDetails(defaultApplicationDetails)
+  }
+  
   const createInput = <T extends keyof ApplicationDetails>(
     key: T,
     details: ApplicationDetails[T]
@@ -114,18 +66,123 @@ export default function ApplicationForm () {
         return (
           <FormItem key={key}>
             <Label>{details.label}</Label>
-            <Input className="border border-border" name="company_name" 
-            value={typeof details.value !== 'string' ? '' : details.value} placeholder="..." required
+            <Input className="border border-border" name="company_name" type="text" 
+            value={typeof details.value !== 'string' ? '' : details.value} placeholder="..." 
+            required={key === 'company_name' ? true: false}
             onChange={(e) => handleInputChange(key, e.target.value)}></Input>
           </FormItem>
         )
+      case 'inputNumber': 
+        return (
+          <FormItem key={key}>
+            <Label>{details.label}</Label>
+            <Input className="border border-border" name="company_name" type="number" 
+            value={typeof details.value !== 'number' ? undefined : details.value} placeholder="..."
+            onChange={(e) => handleInputChange(key, e.target.value)}></Input>
+          </FormItem>
+        )
+      case 'checkbox': 
+        return (
+          <FormItem key={key}>
+            <Label>{details.label}</Label>
+            <div className="flex h-full items-center">
+
+              <Checkbox 
+              checked={typeof details.value !== 'boolean' ? false : details.value} 
+              onCheckedChange={(value) => handleInputChange(key, value)}
+              />
+            </div>
+          </FormItem>
+        )
+      case 'date':
+        return (
+          <div className="flex flex-col gap-2">
+            <Label>{details.label}</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={
+                  ` w-full justify-start text-left font-normal border border-border",
+                    ${!details.value && "text-muted-foreground pl-2 pr-2" }`
+                  }
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {isDate(details.value) ? formatDate(details.value , "PPP") : <span>...</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={isDate(details.value) ? details.value : undefined}
+                  onSelect={(value) => handleInputChange(key, value)}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+
+          </div>
+        
+        )
+      case 'select':
+        //creates string type of key in order to get select options using the key
+        const keystring: string = key;
+        return (
+          <div className="flex flex-col gap-2">
+            <Label>{details.label}</Label>
+            <Select>
+              <SelectTrigger className="w-full border border-border">
+                <SelectValue placeholder="..." />
+              </SelectTrigger>
+              <SelectContent>
+                
+                {
+                selectOptions[keystring].map((option) => (
+                  <SelectItem className="hover:cursor-pointer focus:bg-foreground/15" key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))
+                }
+              </SelectContent>
+            </Select>
+          </div>
+        )
+      case 'rating':
+        return (
+          <div className="flex flex-col gap-2">
+            <Label>{details.label}</Label>
+            <div className="h-full flex items-center">
+              <Rating
+                className="w-fit text-emerald-400"
+                name="simple-controlled"
+                value={typeof details.value !== 'number' ? null : details.value}
+                onChange={(event, newValue) => {
+                  handleInputChange(key, newValue)
+                }}
+              />
+            </div>
+          </div>
+        )
+
+      case 'textArea':
+        return (
+          <div className="flex flex-col gap-2">
+            <Label>{details.label}</Label>
+            <Textarea 
+            value={typeof details.value === 'string' ? details.value : ''} 
+            onChange={(e)=> handleInputChange(key, e.target.value)}
+            />
+          </div>
+        )
+
+        
     }
   }
 
   return (
     <div className="relative flex flex-col flex-wrap w-full text-primary z-[60]">
-      <div className="top-0 sticky bg-coral/50 left-1/2 -translate-x-1/2 h-4 rounded-lg w-1/2"></div>
-      <SheetHeader className="p-4 flex items-center border-b border-t border-t-coral/50 border-b-border justify-start w-full">
+      <div className="top-0 sticky bg-foreground/90 h-6 rounded-t-lg w-full"></div>
+      <SheetHeader className="p-4 flex items-center border-b border-b-border justify-start w-full">
         <SheetTitle className="flex items-center justify-start w-full">
           <EditNoteIcon className="text-2xl" fontSize="inherit" />
           <span className="font-inter-tight-display text-xl p-2 flex items-center"> Add / Edit Application Details</span>
@@ -139,13 +196,12 @@ export default function ApplicationForm () {
           createInput(key as keyof ApplicationDetails, details)
         ))
         }
-        {/* <FormItem>
-          <Label>Company Name *</Label>
-          <Input className="border border-border" name="company_name" 
-          value={applicationDetails.company_name} placeholder="..." required
-          onChange={(e) => handleInputChange(e.target.name, e.target.value)}></Input>
-        </FormItem> */}
-        
+        <div className="w-full flex justify-end col-span-full items-center gap-4">
+          <SheetClose>
+            <Button className="bg-accent hover:bg-accent" type="submit">Close</Button>
+          </SheetClose>
+          <Button className="" type="submit">Submit</Button>
+        </div>
       </form>
     </div>
   )
