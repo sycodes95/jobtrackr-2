@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { FormEvent, useState } from "react"
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
 import {
@@ -40,20 +40,30 @@ import { formatDate } from "@/utils/formatDate";
 import { isDate } from "date-fns";
 import { defaultApplicationDetails, selectOptions } from "../constants/constants";
 import { ApplicationDetails } from "../types/types";
+import { submitApp } from "../services/submitApp";
 
 export default function ApplicationForm () {
 
   const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(defaultApplicationDetails);
+  const [submitIsLoading, setSubmitIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   const handleInputChange = <T extends keyof ApplicationDetails>(
     key: T,
     value: ApplicationDetails[T]['value']
   ) => {
-    setApplicationDetails((prev) => { return { ...prev, [key]: {...prev[key], value: value }}})
+    setApplicationDetails((prev) => ({ ...prev, [key]: {...prev[key], value }}))
   }
 
   const resetApplicationDetails = () => {
     setApplicationDetails(defaultApplicationDetails)
+  }
+
+  const handleFormSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setSubmitIsLoading(true)
+    await submitApp(applicationDetails)
+    setSubmitIsLoading(false)
   }
   
   const createInput = <T extends keyof ApplicationDetails>(
@@ -189,7 +199,7 @@ export default function ApplicationForm () {
         </SheetTitle>
       </SheetHeader>
 
-      <form className="grid grid-cols-3 gap-4 p-4">
+      <form className="grid grid-cols-3 gap-4 p-4" onSubmit={handleFormSubmit}>
 
         {
         Object.entries(applicationDetails).map(([key, details]) => (
