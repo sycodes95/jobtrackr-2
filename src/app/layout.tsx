@@ -10,6 +10,11 @@ import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import CheckAuth from './hoc/checkAuth'
 import Footer from './components/footer/footer'
+import { getUser } from './services/getUser'
+import { create } from 'domain'
+import { createUser } from './services/createUser'
+import { UserType } from './api/users/route'
+import { createUserObj } from '@/lib/createUserObj'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -26,8 +31,19 @@ export default async function RootLayout({
 }) {
   const session = await getSession();
   const user = session?.user;
-
   const isAuthenticated = user ? true : false;
+
+  //if auth0 user has session
+  if(user){
+    //get sub from auth0 user object
+    const sub = user['sub'];
+    console.log('LAYOUT SUB', sub);
+    // get user using sub 
+    const userObj: UserType | null = await getUser(sub);
+    //if user doesn't exist in PG, create user.
+    if(!userObj)
+    !userObj && createUser(createUserObj(user))
+  }
   // const pathname = usePathname()
   // if(!user && pathname !== '/') redirect('/')
   return (
