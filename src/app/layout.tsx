@@ -35,13 +35,12 @@ export default async function RootLayout({
 
   //if auth0 user has session
   if(user){
+    console.log(user);
     //get sub from auth0 user object
-    const sub = user['sub'];
-    console.log('LAYOUT SUB', sub);
+    const sub: string = user['sub'];
     // get user using sub 
     const userObj: UserType | null = await getUser(sub);
     //if user doesn't exist in PG, create user.
-    if(!userObj)
     !userObj && createUser(createUserObj(user))
   }
   // const pathname = usePathname()

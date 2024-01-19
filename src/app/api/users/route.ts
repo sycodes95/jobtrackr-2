@@ -1,27 +1,25 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import { db } from "../../../../drizzle/db";
-import { User } from "@/types/users";
 import { users } from "../../../../drizzle/schema";
+import { eq } from "drizzle-orm";
 
 export type UserType = typeof users.$inferInsert;
 
 export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
-    const userSub = JSON.parse(req.nextUrl.searchParams.get('sub') ?? '');
-    const result = await db.query.users.findFirst({
-      with: {
-        sub: userSub
-      }
-    });
 
-    return new Response(JSON.stringify(result))
-    // query db and see if matching sub exists in the users table
-    // if exists return { exist: true | false }
+    const userSub = req.nextUrl.searchParams.get('usersub')
+    
+    if(!userSub) return NextResponse.json(null)
+
+    const result = await db.select().from(users).where(eq(users.sub, userSub))
+    return NextResponse.json(result[0] ?? null)
+    
   } catch (er) {
-    return new Response(JSON.stringify(null))
     console.error('Error in user-exist GET endpoint', er)
+    return NextResponse.json(null)
   }
 }
 
