@@ -1,31 +1,13 @@
 import { selectOptions } from '@/app/applications/constants/constants';
 import { boolean, date, integer, pgEnum, pgTable, serial, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core';
 
-// declaring enum in database
-// export const popularityEnum = pgEnum('popularity', ['unknown', 'known', 'popular']);
-
 export const applyMethodEnum = pgEnum('apply_method', ['Company Website', 'Job Board', 'Recruiter', 'Referral', 'Email', 'Other']);
 
 export const locationEnum = pgEnum('location', ['On Site', 'Remote', 'Hybrid', 'Optional']);
 
 export const rejectedEnum = pgEnum('rejected', ['From Response', 'After Interview', 'After Offer', 'Other']);
 
-// export const countries = pgTable('countries', {
-  // id: serial('id').primaryKey(),
-  // name: varchar('name', { length: 256 }),
-// }, (countries) => {
-  // return {
-    // nameIndex: uniqueIndex('name_idx').on(countries.name),
-  // }
-// });
-// 
-// export const cities = pgTable('cities', {
-  // id: serial('id').primaryKey(),
-  // name: varchar('name', { length: 256 }),
-  // countryId: integer('country_id').references(() => countries.id),
-  // popularity: popularityEnum('popularity'),
-// });
-// 
+
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   nickname: text('nickname'),
@@ -61,3 +43,26 @@ export const applications = pgTable('applications', {
   user_id: integer('user_id').references(()=> users.id)
 
 });
+
+
+
+// declaring enum in database
+// export const popularityEnum = pgEnum('popularity', ['unknown', 'known', 'popular']);
+
+
+// export const countries = pgTable('countries', {
+  // id: serial('id').primaryKey(),
+  // name: varchar('name', { length: 256 }),
+// }, (countries) => {
+  // return {
+    // nameIndex: uniqueIndex('name_idx').on(countries.name),
+  // }
+// });
+// 
+// export const cities = pgTable('cities', {
+  // id: serial('id').primaryKey(),
+  // name: varchar('name', { length: 256 }),
+  // countryId: integer('country_id').references(() => countries.id),
+  // popularity: popularityEnum('popularity'),
+// });
+// 

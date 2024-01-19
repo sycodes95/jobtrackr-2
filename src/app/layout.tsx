@@ -35,7 +35,6 @@ export default async function RootLayout({
 
   //if auth0 user has session
   if(user){
-    console.log(user);
     //get sub from auth0 user object
     const sub: string = user['sub'];
     // get user using sub 

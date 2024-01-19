@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const result = await db.select().from(users).where(eq(users.sub, userSub))
     return NextResponse.json(result[0] ?? null)
-    
+
   } catch (er) {
     console.error('Error in user-exist GET endpoint', er)
     return NextResponse.json(null)
@@ -30,9 +30,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       user.updated_at = new Date(user.updated_at)
     } 
     const insert = await db.insert(users).values(user).returning();
-    return new Response(JSON.stringify(insert))
+    return NextResponse.json(insert)
   } catch (er) {
     console.error('Error saving User to PG', er)
-    return new Response(JSON.stringify(null))
+    return NextResponse.json(null)
+
   }
 }
