@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { db } from "../../../../drizzle/db";
 import { applications, users } from "../../../../drizzle/schema";
 import { eq } from "drizzle-orm";
+import { ApplicationDetails } from "@/app/applications/types/types";
 
 export type ApplicationType = typeof applications.$inferInsert;
 
@@ -28,18 +29,49 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
 export async function PUT(req: NextRequest, res: NextResponse) {
   try {
-    const appDetails: ApplicationType = await req.json();
+    // const pgAppDetails: ApplicationType  = {
+    //   company_name: '',
+    //   company_website: '',
+    //   favorite: false,
+    //   apply_date: undefined,
+    //   apply_method: undefined,
+    //   apply_url: '',
+    //   position: '',
+    //   fit_rating: null,
+    //   location: undefined,
+    //   interview_date: undefined,
+    //   offer: false,
+    //   offer_amount: undefined,
+    //   offer_accepted: false,
+    //   rejected: undefined,
+    //   contact_name: '',
+    //   contact_email: '',
+    //   contact_phone: '',
+    //   notes: '',
 
-    if(typeof appDetails.id !== 'number' || !appDetails.id || appDetails.id < 0) {
+    // } 
+
+    
+
+    
+    const { appDetails, user_id } : { appDetails: ApplicationType, user_id: number} = await req.json();
+
+    // Object.entries(appDetails).forEach(([key, value]) => {
+    //   pgAppDetails[key] = value
+    // })
+    appDetails.user_id = user_id
+
+    if(!appDetails.id) {
+      console.log(appDetails);
+      const inserted = await db.insert(applications).values(appDetails).returning();
+
       return NextResponse.json({
-        queryType: 'failed',
-        application : null
+        queryType: 'insert',
+        application : inserted
       })
     }
     
-    const app = await db.select().from(applications).where(eq(applications.id, appDetails.id));
-    //if application already exists
-    if(app.length > 0){
+    if(appDetails.id){
       //replace application
       const updated = await db.update(applications).set(appDetails).where(eq(applications.id, appDetails.id)).returning()
 
@@ -47,20 +79,14 @@ export async function PUT(req: NextRequest, res: NextResponse) {
         queryType: 'update',
         application : updated
       })
-    } else if (app.length === 0 || !app) {
-
-      const inserted = await db.insert(applications).values(appDetails).returning()
-      return NextResponse.json({
-        queryType: 'insert',
-        application : inserted
-      })
     }
     
   } catch (er) {
     console.error('Error PUT application', er)
     return NextResponse.json({
       queryType: 'failed',
-      application : null
+      application : null,
+      error: er
     })
   }
 }

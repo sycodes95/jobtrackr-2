@@ -6,7 +6,7 @@ export const defaultApplicationDetails: ApplicationDetails  = {
   favorite: { value: false, label: 'Favorite', type: 'checkbox' },
   apply_date: { value: undefined, label: 'Apply Date', type: 'date' },
   apply_method: { value: '', label: 'Apply Method', type: 'select' },
-  apply_URL: { value: '', label: 'Apply URL', type: 'inputText' },
+  apply_url: { value: '', label: 'Apply URL', type: 'inputText' },
   position: { value: '', label: 'Position', type: 'inputText' },
   fit_rating: { value: null, label: 'Fit Rating', type: 'rating' },
   location: { value: '', label: 'Location', type: 'select' },

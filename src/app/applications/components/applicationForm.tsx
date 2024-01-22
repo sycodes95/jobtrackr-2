@@ -1,5 +1,5 @@
 "use client"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
 import {
@@ -41,9 +41,10 @@ import { isDate } from "date-fns";
 import { defaultApplicationDetails, selectOptions } from "../constants/constants";
 import { ApplicationDetails } from "../types/types";
 import { submitApp } from "../services/submitApp";
+import useUserId from "@/app/hooks/useUserId";
 
 export default function ApplicationForm () {
-
+  const user = useUserId()
   const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(defaultApplicationDetails);
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
@@ -52,7 +53,8 @@ export default function ApplicationForm () {
     key: T,
     value: ApplicationDetails[T]['value']
   ) => {
-    setApplicationDetails((prev) => ({ ...prev, [key]: {...prev[key], value }}))
+    console.log(applicationDetails);
+    setApplicationDetails((prev) => ({ ...prev, [key]: {...prev[key], value: value }}))
   }
 
   const resetApplicationDetails = () => {
@@ -60,11 +62,18 @@ export default function ApplicationForm () {
   }
 
   const handleFormSubmit = async (e: FormEvent) => {
+    console.log('formsubmit');
     e.preventDefault();
     setSubmitIsLoading(true)
-    await submitApp(applicationDetails)
+    if(user?.id) {
+      await submitApp(applicationDetails, user.id)
+    }
     setSubmitIsLoading(false)
   }
+
+  // useEffect(()=> {
+  //   console.log(applicationDetails);
+  // },[applicationDetails])
   
   const createInput = <T extends keyof ApplicationDetails>(
     key: T,
@@ -208,7 +217,7 @@ export default function ApplicationForm () {
         }
         <div className="w-full flex justify-end col-span-full items-center gap-4">
           <SheetClose>
-            <Button className="bg-accent hover:bg-accent" type="submit">Close</Button>
+            <Button className="bg-black hover:bg-accent" >Close</Button>
           </SheetClose>
           <Button className="" type="submit">Submit</Button>
         </div>

@@ -1,11 +1,11 @@
 import { selectOptions } from '@/app/applications/constants/constants';
 import { boolean, date, integer, pgEnum, pgTable, serial, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core';
 
-export const applyMethodEnum = pgEnum('apply_method', ['Company Website', 'Job Board', 'Recruiter', 'Referral', 'Email', 'Other']);
+export const applyMethodEnum = pgEnum('apply_method', ['Company Website', 'Job Board', 'Recruiter', 'Referral', 'Email', 'Other', '']);
 
-export const locationEnum = pgEnum('location', ['On Site', 'Remote', 'Hybrid', 'Optional']);
+export const locationEnum = pgEnum('location', ['On Site', 'Remote', 'Hybrid', 'Optional', '']);
 
-export const rejectedEnum = pgEnum('rejected', ['From Response', 'After Interview', 'After Offer', 'Other']);
+export const rejectedEnum = pgEnum('rejected', ['From Response', 'After Interview', 'After Offer', 'Other', '']);
 
 
 export const users = pgTable('users', {
@@ -37,7 +37,7 @@ export const applications = pgTable('applications', {
   rejected: rejectedEnum('rejected'),
   contact_name: text('contact_name'),
   contact_email: text('contact_email'),
-  company_phone: text('contact_phone'),
+  contact_phone: text('contact_phone'),
   notes: text('notes'),
   updated_at: timestamp('updated_at'),
   user_id: integer('user_id').references(()=> users.id)

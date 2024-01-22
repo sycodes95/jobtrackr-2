@@ -4,7 +4,7 @@ export interface ApplicationDetails {
   favorite: FieldDetails<boolean>;
   apply_date: FieldDetails<Date | undefined>;
   apply_method: FieldDetails<'Company Website' | 'Job Board' | 'Recruiter' | 'Referral' | 'Email' | 'Other' | ''>;
-  apply_URL: FieldDetails<string>;
+  apply_url: FieldDetails<string>;
   position: FieldDetails<string>;
   fit_rating: FieldDetails<number | null>;
   location: FieldDetails<'On Site' | 'Remote' | 'Hybrid' | 'Optional' | ''>;

@@ -11,16 +11,16 @@ export default function useUserId () {
   const [sub, setSub] = useState<string>('')
   const [pgUser, setPGUser] = useState<UserType | null>(null)
 
-  useEffect(() => {
+  useEffect(() => {  
     if(user && user.sub && !error && !isLoading) setSub(user.sub)
   },[user, error, isLoading])
 
   useEffect(()=> {
     if(sub) {
       getUser(sub).then(user => setPGUser(user))
-    }
-  },[sub])
+    }     
+  },[sub]) 
 
-  if(pgUser) return { pgUser }
+  if(pgUser) return pgUser
   return null
 }
