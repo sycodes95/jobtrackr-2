@@ -25,7 +25,7 @@ export const submitApp = async ( applicationDetails: ApplicationDetails, user_id
     //   notes: '',
 
     // } 
-    const formattedAppDetails = formatAppForPG(applicationDetails, user_id)
+    // const formattedAppDetails = formatAppForPG(applicationDetails, user_id)
 
     const fetchPUT = await fetch('/api/applications', {
       method: 'PUT',
@@ -33,7 +33,7 @@ export const submitApp = async ( applicationDetails: ApplicationDetails, user_id
         'Content-Type' : 'application/json'
       },
       body: JSON.stringify({
-        appDetails: formattedAppDetails,
+        appDetails: applicationDetails,
         user_id
       })
     });

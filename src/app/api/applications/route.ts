@@ -13,7 +13,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const userId = Number(req.nextUrl.searchParams.get('userId'));
 
     if(appId) {
-      const getSingleApp = await db.select().from(applications).where(eq(applications.id, appId));
+      const getSingleApp = await db.select().from(applications).where(eq(applications.app_id, appId));
       return NextResponse.json(getSingleApp)
 
     } else if(userId) {
@@ -61,7 +61,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     // })
     appDetails.user_id = user_id
 
-    if(!appDetails.id) {
+    if(!appDetails.app_id) {
       console.log(appDetails);
       const inserted = await db.insert(applications).values(appDetails).returning();
 
@@ -71,9 +71,9 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       })
     }
     
-    if(appDetails.id){
+    if(appDetails.app_id){
       //replace application
-      const updated = await db.update(applications).set(appDetails).where(eq(applications.id, appDetails.id)).returning()
+      const updated = await db.update(applications).set(appDetails).where(eq(applications.app_id, appDetails.app_id)).returning()
 
       return NextResponse.json({
         queryType: 'update',

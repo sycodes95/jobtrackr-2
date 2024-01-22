@@ -1,25 +1,48 @@
 import { ApplicationDetails } from "../types/types"
 
+
 export const defaultApplicationDetails: ApplicationDetails  = {
-  company_name: { value: '', label: 'Company Name *', type: 'inputText' },
-  company_website: { value: '', label: 'Company Website', type: 'inputText' },
-  favorite: { value: false, label: 'Favorite', type: 'checkbox' },
-  apply_date: { value: undefined, label: 'Apply Date', type: 'date' },
-  apply_method: { value: '', label: 'Apply Method', type: 'select' },
-  apply_url: { value: '', label: 'Apply URL', type: 'inputText' },
-  position: { value: '', label: 'Position', type: 'inputText' },
-  fit_rating: { value: null, label: 'Fit Rating', type: 'rating' },
-  location: { value: '', label: 'Location', type: 'select' },
-  interview_date: { value: undefined, label: 'Interview Date', type: 'date' },
-  offer: { value: false, label: 'Offer', type: 'checkbox' },
-  offer_amount: { value: undefined, label: 'Offer Amount', type: 'inputNumber' },
-  offer_accepted: { value: false, label: 'Offer Accepted', type: 'checkbox' },
-  rejected: { value: '', label: 'Rejected', type: 'select' },
-  contact_name: { value: '', label: 'Contact Name', type: 'inputText' },
-  contact_email: { value: '', label: 'Contact Email', type: 'inputText' },
-  contact_phone: { value: '', label: 'Company Phone', type: 'inputText' },
-  notes: { value: '', label: 'Notes', type: 'textArea' },
+  company_name: '', 
+  company_website: '', 
+  favorite: false, 
+  apply_date: undefined, 
+  apply_method: '', 
+  apply_url: '', 
+  position: '', 
+  fit_rating: null, 
+  location: '', 
+  interview_date: undefined, 
+  offer: false, 
+  offer_amount: undefined, 
+  offer_accepted: false, 
+  rejected: '', 
+  contact_name: '', 
+  contact_email: '', 
+  contact_phone: '', 
+  notes: '', 
 }
+
+export const applicationDetailsFormAttr  = {
+  company_name: {  label: 'Company Name *', type: 'inputText' },
+  company_website: {  label: 'Company Website', type: 'inputText' },
+  favorite: {  label: 'Favorite', type: 'checkbox' },
+  apply_date: {  label: 'Apply Date', type: 'date' },
+  apply_method: {  label: 'Apply Method', type: 'select' },
+  apply_url: {  label: 'Apply URL', type: 'inputText' },
+  position: {  label: 'Position', type: 'inputText' },
+  fit_rating: { label: 'Fit Rating', type: 'rating' },
+  location: {  label: 'Location', type: 'select' },
+  interview_date: {  label: 'Interview Date', type: 'date' },
+  offer: {  label: 'Offer', type: 'checkbox' },
+  offer_amount: {  label: 'Offer Amount', type: 'inputNumber' },
+  offer_accepted: {  label: 'Offer Accepted', type: 'checkbox' },
+  rejected: {  label: 'Rejected', type: 'select' },
+  contact_name: {  label: 'Contact Name', type: 'inputText' },
+  contact_email: {  label: 'Contact Email', type: 'inputText' },
+  contact_phone: {  label: 'Company Phone', type: 'inputText' },
+  notes: {  label: 'Notes', type: 'textArea' },
+}
+
 
 export const selectOptions: {[key: string] : string[]} = {
   apply_method: [

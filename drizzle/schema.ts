@@ -20,7 +20,7 @@ export const users = pgTable('users', {
 });
 
 export const applications = pgTable('applications', {
-  id: serial('id').primaryKey(),
+  app_id: serial('id').primaryKey(),
   company_name: text('company_name').notNull(),
   company_website: text('company_website'),
   favorite: boolean('favorite'),

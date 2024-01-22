@@ -38,7 +38,7 @@ import {
 import { Calendar as CalendarIcon } from "lucide-react"
 import { formatDate } from "@/utils/formatDate";
 import { isDate } from "date-fns";
-import { defaultApplicationDetails, selectOptions } from "../constants/constants";
+import { applicationDetailsFormAttr, defaultApplicationDetails, selectOptions } from "../constants/constants";
 import { ApplicationDetails } from "../types/types";
 import { submitApp } from "../services/submitApp";
 import useUserId from "@/app/hooks/useUserId";
@@ -51,10 +51,9 @@ export default function ApplicationForm () {
 
   const handleInputChange = <T extends keyof ApplicationDetails>(
     key: T,
-    value: ApplicationDetails[T]['value']
+    value: ApplicationDetails[T]
   ) => {
-    console.log(applicationDetails);
-    setApplicationDetails((prev) => ({ ...prev, [key]: {...prev[key], value: value }}))
+    setApplicationDetails((prev) => ({ ...prev, [key]: value}))
   }
 
   const resetApplicationDetails = () => {
@@ -75,40 +74,39 @@ export default function ApplicationForm () {
   //   console.log(applicationDetails);
   // },[applicationDetails])
   
-  const createInput = <T extends keyof ApplicationDetails>(
+  const createInput = <T extends keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr>(
     key: T,
-    details: ApplicationDetails[T]
+    value: ApplicationDetails[T]
   ) => {
-    
-    switch(details.type) {
+    switch(applicationDetailsFormAttr[key].type) {
       case 'inputText': 
         return (
           <FormItem key={key}>
-            <Label>{details.label}</Label>
+            <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Input className="border border-border" name="company_name" type="text" 
-            value={typeof details.value !== 'string' ? '' : details.value} placeholder="..." 
+            value={typeof value !== 'string' ? '' : value} placeholder="..." 
             required={key === 'company_name' ? true: false}
-            onChange={(e) => handleInputChange(key, e.target.value)}></Input>
+            onChange={(e) => handleInputChange(key, e.target.value as ApplicationDetails[T])}></Input>
           </FormItem>
         )
       case 'inputNumber': 
         return (
           <FormItem key={key}>
-            <Label>{details.label}</Label>
+            <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Input className="border border-border" name="company_name" type="number" 
-            value={typeof details.value !== 'number' ? undefined : details.value} placeholder="..."
-            onChange={(e) => handleInputChange(key, e.target.value)}></Input>
+            value={typeof value !== 'number' ? undefined : value} placeholder="..."
+            onChange={(e) => handleInputChange(key, e.target.value as ApplicationDetails[T])}></Input>
           </FormItem>
         )
       case 'checkbox': 
         return (
           <FormItem key={key}>
-            <Label>{details.label}</Label>
+            <Label>{applicationDetailsFormAttr[key].label}</Label>
             <div className="flex h-full items-center">
 
               <Checkbox 
-              checked={typeof details.value !== 'boolean' ? false : details.value} 
-              onCheckedChange={(value) => handleInputChange(key, value)}
+              checked={typeof value !== 'boolean' ? false : value} 
+              onCheckedChange={(value) => handleInputChange(key, value as ApplicationDetails[T])}
               />
             </div>
           </FormItem>
@@ -116,25 +114,25 @@ export default function ApplicationForm () {
       case 'date':
         return (
           <div className="flex flex-col gap-2">
-            <Label>{details.label}</Label>
+            <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
                   className={
                   ` w-full justify-start text-left font-normal border border-border",
-                    ${!details.value && "text-muted-foreground pl-2 pr-2" }`
+                    ${!value && "text-muted-foreground pl-2 pr-2" }`
                   }
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {isDate(details.value) ? formatDate(details.value , "PPP") : <span>...</span>}
+                  {isDate(value) ? formatDate(value , "PPP") : <span>...</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
-                  selected={isDate(details.value) ? details.value : undefined}
-                  onSelect={(value) => handleInputChange(key, value)}
+                  selected={isDate(value) ? value : undefined}
+                  onSelect={(value) => handleInputChange(key, value as ApplicationDetails[T])}
                   initialFocus
                 />
               </PopoverContent>
@@ -148,7 +146,7 @@ export default function ApplicationForm () {
         const keystring: string = key;
         return (
           <div className="flex flex-col gap-2">
-            <Label>{details.label}</Label>
+            <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Select>
               <SelectTrigger className="w-full border border-border">
                 <SelectValue placeholder="..." />
@@ -169,14 +167,14 @@ export default function ApplicationForm () {
       case 'rating':
         return (
           <div className="flex flex-col gap-2">
-            <Label>{details.label}</Label>
+            <Label>{applicationDetailsFormAttr[key].label}</Label>
             <div className="h-full flex items-center">
               <Rating
                 className="w-fit text-emerald-400"
                 name="simple-controlled"
-                value={typeof details.value !== 'number' ? null : details.value}
+                value={typeof value !== 'number' ? null : value}
                 onChange={(event, newValue) => {
-                  handleInputChange(key, newValue)
+                  handleInputChange(key, newValue as ApplicationDetails[T])
                 }}
               />
             </div>
@@ -186,10 +184,10 @@ export default function ApplicationForm () {
       case 'textArea':
         return (
           <div className="flex flex-col gap-2">
-            <Label>{details.label}</Label>
+            <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Textarea 
-            value={typeof details.value === 'string' ? details.value : ''} 
-            onChange={(e)=> handleInputChange(key, e.target.value)}
+            value={typeof value === 'string' ? value : ''} 
+            onChange={(e)=> handleInputChange(key, e.target.value as ApplicationDetails[T])}
             />
           </div>
         )
@@ -211,9 +209,11 @@ export default function ApplicationForm () {
       <form className="grid grid-cols-3 gap-4 p-4" onSubmit={handleFormSubmit}>
 
         {
-        Object.entries(applicationDetails).map(([key, details]) => (
-          createInput(key as keyof ApplicationDetails, details)
-        ))
+        Object.entries(applicationDetails).map(([key, details]) => {
+          if(key !== 'user_id' && key !== 'app_id') {
+            return createInput(key as keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr, details)
+          }
+        })
         }
         <div className="w-full flex justify-end col-span-full items-center gap-4">
           <SheetClose>
