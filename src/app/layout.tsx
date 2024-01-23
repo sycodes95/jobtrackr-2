@@ -15,6 +15,7 @@ import { create } from 'domain'
 import { createUser } from './services/createUser'
 import { UserType } from './api/users/route'
 import { createUserObj } from '@/lib/createUserObj'
+import { Toaster } from '@/components/ui/sonner'
 
 
 const inter = Inter({ subsets: ['latin'] })

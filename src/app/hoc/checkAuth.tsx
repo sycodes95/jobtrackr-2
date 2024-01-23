@@ -5,6 +5,7 @@ import { redirect, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Header from "../components/header/header";
 import LandingPage from "../landingPage/landingPage";
+import { Toaster } from "sonner";
 
 interface CheckAuthProps {
   isAuthenticated: boolean;
@@ -28,6 +29,7 @@ export default function CheckAuth ( { isAuthenticated, children } : CheckAuthPro
       :
       <LandingPage />
       }
+      <Toaster />
     </>
   )
 }

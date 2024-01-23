@@ -33,7 +33,6 @@ export const applications = pgTable('applications', {
   interview_date: date('interview_date'),
   offer: boolean('offer'),
   offer_amount: integer('offer_amount'),
-  offer_accepted: boolean('offer_accepted'),
   rejected: rejectedEnum('rejected'),
   contact_name: text('contact_name'),
   contact_email: text('contact_email'),
