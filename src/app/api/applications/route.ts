@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server"
 import { db } from "../../../../drizzle/db";
 import { applications, users } from "../../../../drizzle/schema";
 import { eq } from "drizzle-orm";
-import { ApplicationDetails } from "@/app/applications/types/types";
 
 export type ApplicationType = typeof applications.$inferInsert;
 
@@ -14,11 +13,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if(appId) {
       const getSingleApp = await db.select().from(applications).where(eq(applications.app_id, appId));
-      return NextResponse.json(getSingleApp)
+      return NextResponse.json(getSingleApp);
 
     } else if(userId) {
       const getAllApps = await db.select().from(applications).where(eq(applications.user_id, userId));
-      return NextResponse.json(getAllApps)
+      return NextResponse.json(getAllApps);
     }
   } catch (er) {
     console.error(er)
@@ -29,36 +28,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
 export async function PUT(req: NextRequest, res: NextResponse) {
   try {
-    // const pgAppDetails: ApplicationType  = {
-    //   company_name: '',
-    //   company_website: '',
-    //   favorite: false,
-    //   apply_date: undefined,
-    //   apply_method: undefined,
-    //   apply_url: '',
-    //   position: '',
-    //   fit_rating: null,
-    //   location: undefined,
-    //   interview_date: undefined,
-    //   offer: false,
-    //   offer_amount: undefined,
-    //   offer_accepted: false,
-    //   rejected: undefined,
-    //   contact_name: '',
-    //   contact_email: '',
-    //   contact_phone: '',
-    //   notes: '',
-
-    // } 
-
-    
-
-    
     const { appDetails, user_id } : { appDetails: ApplicationType, user_id: number} = await req.json();
 
-    // Object.entries(appDetails).forEach(([key, value]) => {
-    //   pgAppDetails[key] = value
-    // })
     appDetails.user_id = user_id
 
     if(!appDetails.app_id) {

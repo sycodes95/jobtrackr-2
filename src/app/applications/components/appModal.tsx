@@ -14,7 +14,7 @@ import ApplicationForm from "./applicationForm"
 export default function AppModal () {
   return (
     <Sheet>
-      <SheetTrigger className="w-full flex justify-start">
+      <SheetTrigger className="w-fit flex justify-start">
         <span className="p-2 border font-bold rounded-lg border-primary text-sm text-primary">Create New +</span>
       </SheetTrigger>
       <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">

@@ -43,8 +43,19 @@ import { ApplicationDetails } from "../types/types";
 import { submitApp } from "../services/submitApp";
 import useUserId from "@/app/hooks/useUserId";
 
-export default function ApplicationForm () {
-  const user = useUserId()
+
+interface ApplicationFormProps {
+  appDetails?: ApplicationDetails;
+  mode?: 'edit' | 'create'
+}
+export default function ApplicationForm ( 
+  { 
+    appDetails,
+    mode = 'create' 
+  } 
+  : ApplicationFormProps 
+) {
+  const userId = useUserId()
   const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(defaultApplicationDetails);
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
@@ -64,8 +75,8 @@ export default function ApplicationForm () {
     console.log('formsubmit');
     e.preventDefault();
     setSubmitIsLoading(true)
-    if(user?.id) {
-      await submitApp(applicationDetails, user.id)
+    if(userId) {
+      await submitApp(applicationDetails, userId)
     }
     setSubmitIsLoading(false)
   }
