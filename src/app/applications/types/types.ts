@@ -13,7 +13,6 @@ export interface ApplicationDetails {
   fit_rating: number | null;
   location: 'On Site' | 'Remote' | 'Hybrid' | 'Optional' | '';
   interview_date: Date | undefined;
-  offer: boolean;
   offer_amount: number | undefined;
   rejected: 'From Response' | 'After Interview' | 'After Offer' | 'Other' | '';
   contact_name: string;

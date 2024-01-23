@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({
   })
 
   const colIsHidden = (cellColId: string | number) => {
-    if(cellColId !== "contact_email" && cellColId !== "contact_phone" && cellColId !== "contact_name" ){
+    if(cellColId !== "contact_email" && cellColId !== "contact_phone" && cellColId !== "contact_name" && cellColId !== "notes" ){
       return false
     }
     return true
@@ -43,7 +43,7 @@ export function DataTable<TData, TValue>({
   const applicationStatus = (original : ApplicationDetails) => {
     if(original.rejected) {
       return 'border-red-500'
-    } else if (original.offer){
+    } else if (original.offer_amount){
       return 'border-yellow-500'
     } else if (original.interview_date) {
       return 'border-blue-400'
@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
               {headerGroup.headers.map((header) => {
                 if(!colIsHidden(header.column.id)) {
                   return (
-                    <TableHead className="text-xs text-center" key={header.id}>
+                    <TableHead className="text-xs text-center whitespace-nowrap p-2" key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -82,14 +82,14 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               
                 <TableRow
-                  className="border-l-4 border-yellow-700"
+                  className="border-l-4 whitespace-nowrap text-center text-primary "
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell, index) => {
                     if(!colIsHidden(cell.column.id)) {
                       console.log(cell.column.id);
-                      return <TableCell className={`text-xs text-center ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
+                      return <TableCell className={`text-xs  text-center p-2 max-w-20 overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                     }

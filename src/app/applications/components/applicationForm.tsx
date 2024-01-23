@@ -81,9 +81,9 @@ export default function ApplicationForm (
     setSubmitIsLoading(false)
   }
 
-  // useEffect(()=> {
-  //   console.log(applicationDetails);
-  // },[applicationDetails])
+  useEffect(()=> {
+    console.log(applicationDetails);
+  },[applicationDetails])
   
   const createInput = <T extends keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr>(
     key: T,
@@ -158,7 +158,7 @@ export default function ApplicationForm (
         return (
           <div className="flex flex-col gap-2">
             <Label>{applicationDetailsFormAttr[key].label}</Label>
-            <Select>
+            <Select onValueChange={(newValue) => handleInputChange(key, newValue as ApplicationDetails[T])}>
               <SelectTrigger className="w-full border border-border">
                 <SelectValue placeholder="..." />
               </SelectTrigger>

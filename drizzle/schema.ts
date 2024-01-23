@@ -31,7 +31,6 @@ export const applications = pgTable('applications', {
   fit_rating: integer('fit_rating'),
   location: locationEnum('location'),
   interview_date: date('interview_date'),
-  offer: boolean('offer'),
   offer_amount: integer('offer_amount'),
   rejected: rejectedEnum('rejected'),
   contact_name: text('contact_name'),

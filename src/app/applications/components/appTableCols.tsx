@@ -13,6 +13,15 @@ import { copyToClip } from "@/app/utils/copyToClip"
 
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+import { formatDateToReadable } from "@/utils/formatDateToReadable"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 // export type Payment = {
@@ -25,33 +34,58 @@ import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     accessorKey: "apply_date",
-    header: "Apply Date",
+    header: "Date",
+    cell: ({row}) => {
+      const date: string = row.getValue('apply_date');
+      console.log('DATE', date);
+      return <span className="w-full text-center">{date ? formatDateToReadable(date) : 'n/a'}</span>
+    }
   },
   {
     accessorKey: "company_name",
-    header: () => <div className="text-left max-w-20">Company Name</div>,
+    header: "Name",
     cell: ({ row }) => {
-      return <div className="text-left font-medium max-w-20 overflow-hidden text-ellipsis ">{row.getValue('company_name')}</div>
+      return <span className=" font-medium  overflow-hidden text-ellipsis   ">{row.getValue('company_name')}</span>
     },
   },
   {
     accessorKey: "company_website",
-    header: "Company Site",
+    header: "Website",
     cell: ({ row }) => {
-      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('company_website'))}>{<ContentPasteIcon/>}</Button>
+      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('company_website'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
     },
   },
   {
+    id: "favorite",
     accessorKey: "favorite",
     header: "Favorite",
+    cell: ({ row }) => {
+      return (
+
+        <>
+          {
+          row.getValue('favorite') ?
+          <FavoriteIcon className="text-red-500" fontSize="small"/>
+          :
+          <FavoriteBorderIcon className="text-zinc-400" fontSize="small"/>
+          }
+        </>
+      )
+    }
   },
   {
     accessorKey: "apply_method",
     header: "Apply Method",
+    cell: ({ row }) => {
+      return <span>{row.getValue('apply_method')}</span>
+    },
   },
   {
     accessorKey: "apply_url",
     header: "Apply URL",
+    cell: ({ row }) => {
+      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('apply_url'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
+    },
   },
   {
     accessorKey: "position",
@@ -60,6 +94,17 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     accessorKey: "fit_rating",
     header: "Fit Rating",
+    cell: ({ row }) => {
+      return (
+        <Rating
+        className="text-emerald-400"
+          color="text-emerald-400"
+          size="small"
+          value={row.getValue('fit_rating')}
+          readOnly
+        />
+      )
+    }
   },
   {
     accessorKey: "location",
@@ -70,10 +115,6 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: "Interview Date",
   },
   {
-    accessorKey: "offer",
-    header: "Offer",
-  },
-  {
     accessorKey: "offer_amount",
     header: "Offer Amount",
   },
@@ -82,21 +123,24 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: "Rejected",
   },
   {
-    id: "contact_info",
-    accessorKey: "contact_info",
-    header: () => <div className="text-left max-w-20">Contact</div>,
+    id: "misc",
+    accessorKey: "misc",
+    header: () => <div className="text-center max-w-20">Misc</div>,
     cell: ({ row }) => {
       const contactName: string = row.getValue('contact_name')
       const contactEmail: string = row.getValue('contact_email')
       const contactPhone: string = row.getValue('contact_phone')
-
+      const notes: string = row.getValue('notes')
+      
       return (
         <Popover>
           <PopoverTrigger>
             <Button className="text-left text-xs w-12 h-8 overflow-hidden text-ellipsis bg-foreground text-background" variant={'outline'}>View</Button>
           </PopoverTrigger>
           <PopoverContent className="flex flex-col gap-2">
+
             <span className="text-xs font-bold p-2 border-b border-border">Contact Info</span>
+            
             <div className="p-2 text-xs flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="">Company Name:</span>
@@ -113,6 +157,16 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
 
             </div>
 
+            <span className="text-xs font-bold p-2 border-b border-border">Notes</span>
+            <div className="p-2 text-xs flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span>{notes}</span>
+              </div>
+
+            </div>
+
+
+
           </PopoverContent>
         </Popover>
       )
@@ -121,24 +175,10 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     accessorKey: "notes",
     header: () => {
-      return <div>Notes</div>
+      return
     },
-    cell: ({ row }) => {
-
-      return (
-        <Popover>
-          <PopoverTrigger>
-            <Button className="text-left text-xs w-12 h-8 overflow-hidden text-ellipsis bg-foreground text-background" variant={'outline'}>View</Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            <span className="text-xs font-bold p-2 border-b border-border">Notes</span>
-            <div className="p-2 text-xs flex flex-col gap-2">
-              {row.getValue("notes")}
-            </div>
-
-          </PopoverContent>
-        </Popover>
-      )
+    cell: () => {
+      return
     }
   },
 
