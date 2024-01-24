@@ -33,7 +33,6 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     appDetails.user_id = user_id
 
     if(!appDetails.app_id) {
-      console.log(appDetails);
       const inserted = await db.insert(applications).values(appDetails).returning();
 
       return NextResponse.json({

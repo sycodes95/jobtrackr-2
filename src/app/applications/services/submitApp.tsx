@@ -38,7 +38,6 @@ export const submitApp = async ( applicationDetails: ApplicationDetails, user_id
       })
     });
     const savedRow = await fetchPUT.json();
-    console.log(savedRow);
 
     if(!fetchPUT.ok) return //create toast
 

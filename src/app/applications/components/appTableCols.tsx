@@ -22,6 +22,8 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { formatDateToReadable } from "@/utils/formatDateToReadable"
+import { ArrowUpDown } from "lucide-react"
+import { caseInsensitiveSort } from "../utils/caseInsensitiveSort"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 // export type Payment = {
@@ -34,31 +36,59 @@ import { formatDateToReadable } from "@/utils/formatDateToReadable"
 export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     accessorKey: "apply_date",
-    header: "Date",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Email
+          <ArrowUpDown fontSize={'small'} className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({row}) => {
       const date: string = row.getValue('apply_date');
-      console.log('DATE', date);
       return <span className="w-full text-center">{date ? formatDateToReadable(date) : 'n/a'}</span>
     }
   },
   {
     accessorKey: "company_name",
-    header: "Name",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown fontSize={'small'} className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       return <span className=" font-medium  overflow-hidden text-ellipsis   ">{row.getValue('company_name')}</span>
     },
+    sortingFn: 'text'
+    
   },
-  {
-    accessorKey: "company_website",
-    header: "Website",
-    cell: ({ row }) => {
-      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('company_website'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
-    },
-  },
+  
   {
     id: "favorite",
     accessorKey: "favorite",
-    header: "Favorite",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Favorite
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       return (
 
@@ -80,13 +110,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
       return <span>{row.getValue('apply_method')}</span>
     },
   },
-  {
-    accessorKey: "apply_url",
-    header: "Apply URL",
-    cell: ({ row }) => {
-      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('apply_url'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
-    },
-  },
+  
   {
     accessorKey: "position",
     header: "Position",
@@ -121,6 +145,20 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     accessorKey: "rejected",
     header: "Rejected",
+  },
+  {
+    accessorKey: "company_website",
+    header: "Website",
+    cell: ({ row }) => {
+      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('company_website'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
+    },
+  },
+  {
+    accessorKey: "apply_url",
+    header: "Apply URL",
+    cell: ({ row }) => {
+      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('apply_url'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
+    },
   },
   {
     id: "misc",

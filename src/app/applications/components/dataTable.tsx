@@ -6,6 +6,10 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  SortingState,
+  getSortedRowModel,
+  SortingFn,
+  
 } from "@tanstack/react-table"
 
 import {
@@ -17,6 +21,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { ApplicationDetails } from "../types/types"
+import { useEffect, useState } from "react"
+import { caseInsensitiveSort } from "../utils/caseInsensitiveSort"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -27,11 +33,23 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+
+  const [sorting, setSorting] = useState<SortingState>([])
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-  })
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
+    sortingFns: {
+      caseInsensitiveSort
+    }
+  });
+
 
   const colIsHidden = (cellColId: string | number) => {
     if(cellColId !== "contact_email" && cellColId !== "contact_phone" && cellColId !== "contact_name" && cellColId !== "notes" ){
@@ -50,7 +68,10 @@ export function DataTable<TData, TValue>({
     } else {
       return 'border-zinc-400'
     }
-  }
+  };
+
+  useEffect(()=> {
+  },[sorting])
 
   return (
     <div className="rounded-md border">
@@ -88,7 +109,6 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell, index) => {
                     if(!colIsHidden(cell.column.id)) {
-                      console.log(cell.column.id);
                       return <TableCell className={`text-xs  text-center p-2 max-w-20 overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>

@@ -72,7 +72,6 @@ export default function ApplicationForm (
   }
 
   const handleFormSubmit = async (e: FormEvent) => {
-    console.log('formsubmit');
     e.preventDefault();
     setSubmitIsLoading(true)
     if(userId) {
@@ -82,7 +81,6 @@ export default function ApplicationForm (
   }
 
   useEffect(()=> {
-    console.log(applicationDetails);
   },[applicationDetails])
   
   const createInput = <T extends keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr>(
