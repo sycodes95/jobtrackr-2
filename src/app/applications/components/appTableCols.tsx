@@ -44,7 +44,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Email
-          <ArrowUpDown fontSize={'small'} className="ml-2 h-4 w-4" />
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
         </Button>
       )
     },
@@ -63,7 +63,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
-          <ArrowUpDown fontSize={'small'} className="ml-2 h-4 w-4" />
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
         </Button>
       )
     },
@@ -73,7 +73,6 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     sortingFn: 'text'
     
   },
-  
   {
     id: "favorite",
     accessorKey: "favorite",
@@ -84,8 +83,8 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Favorite
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          Fav
+          <ArrowUpDown className="ml-1 h-3 w-3" />
         </Button>
       )
     },
@@ -105,19 +104,57 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
   },
   {
     accessorKey: "apply_method",
-    header: "Apply Method",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Method
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       return <span>{row.getValue('apply_method')}</span>
     },
+    sortingFn: 'text'
   },
   
   {
     accessorKey: "position",
-    header: "Position",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Position
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      return <span>{row.getValue('position')}</span>
+    },
+    sortingFn: 'text'
   },
   {
     accessorKey: "fit_rating",
-    header: "Fit Rating",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Fit Rating
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       return (
         <Rating
@@ -132,34 +169,55 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
   },
   {
     accessorKey: "location",
-    header: "Location",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Location
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "interview_date",
-    header: "Interview Date",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Interview
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "offer_amount",
-    header: "Offer Amount",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="text-xs"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Offer $
+          <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "rejected",
     header: "Rejected",
   },
-  {
-    accessorKey: "company_website",
-    header: "Website",
-    cell: ({ row }) => {
-      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('company_website'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
-    },
-  },
-  {
-    accessorKey: "apply_url",
-    header: "Apply URL",
-    cell: ({ row }) => {
-      return <Button className="text-left font-medium max-w-20 bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground overflow-hidden text-ellipsis " onClick={()=> copyToClip(row.getValue('apply_url'))}>{<ContentPasteIcon fontSize="inherit"/>}</Button>
-    },
-  },
+  
+  
   {
     id: "misc",
     accessorKey: "misc",
@@ -169,6 +227,9 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
       const contactEmail: string = row.getValue('contact_email')
       const contactPhone: string = row.getValue('contact_phone')
       const notes: string = row.getValue('notes')
+      const cWebsiteUrl: string = row.getValue('company_website')
+      const applyUrl: string = row.getValue('apply_url')
+
       
       return (
         <Popover>
@@ -196,9 +257,56 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
             </div>
 
             <span className="text-xs font-bold p-2 border-b border-border">Notes</span>
+
             <div className="p-2 text-xs flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span>{notes}</span>
+              </div>
+
+            </div>
+
+            <span className="text-xs font-bold p-2 border-b border-border">Company Website URL</span>
+            
+            <div className="p-2 text-xs flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                {
+                cWebsiteUrl ?
+                <Button className="flex items-center p-0 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(cWebsiteUrl)}>
+                  
+                    <ContentPasteIcon fontSize="small"/> 
+                    <span className=" text-xs">{cWebsiteUrl}</span>
+                  
+                </Button>
+                :
+                <span className="text-xs">
+                  n/a
+                </span>
+
+                }
+
+              </div>
+
+            </div>
+
+            <span className="text-xs font-bold p-2 border-b border-border">Apply URL</span>
+            
+            <div className="p-2 text-xs flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                {
+                applyUrl ?
+                <Button className="flex items-center p-0 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(applyUrl)}>
+                  
+                    <ContentPasteIcon fontSize="small"/> 
+                    <span className=" text-xs">{applyUrl}</span>
+                  
+                </Button>
+                :
+                <span className="text-xs">
+                  n/a
+                </span>
+
+                }
+
               </div>
 
             </div>
@@ -209,6 +317,24 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
         </Popover>
       )
     },
+  },
+  {
+    accessorKey: "apply_url",
+    header: () => {
+      return
+    },
+    cell: () => {
+      return
+    }
+  },
+  {
+    accessorKey: "company_website",
+    header: () => {
+      return
+    },
+    cell: () => {
+      return
+    }
   },
   {
     accessorKey: "notes",

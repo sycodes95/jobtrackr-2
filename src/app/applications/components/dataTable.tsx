@@ -46,16 +46,18 @@ export function DataTable<TData, TValue>({
       sorting,
     },
     sortingFns: {
-      caseInsensitiveSort
+      
     }
   });
 
 
-  const colIsHidden = (cellColId: string | number) => {
-    if(cellColId !== "contact_email" && cellColId !== "contact_phone" && cellColId !== "contact_name" && cellColId !== "notes" ){
-      return false
+  const colIsHidden = (cellColId: string) => {
+
+    const hiddenCols = ['apply_url', 'company_website', 'notes', 'contact_name', 'contact_email', 'contact_phone'];
+    if(hiddenCols.includes(cellColId)){
+      return true
     }
-    return true
+    return false
   };
 
   const applicationStatus = (original : ApplicationDetails) => {
