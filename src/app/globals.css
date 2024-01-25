@@ -121,6 +121,9 @@
   background: linear-gradient( to right, white, rgb(252, 193, 198), white);
 }
 
+th, td {
+  min-width: 20px;
+}
 
 
 

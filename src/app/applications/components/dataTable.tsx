@@ -93,14 +93,19 @@ export function DataTable<TData, TValue>({
       
     }
   }
-
+  const isSmallColumn = (columnId: string) => {
+    if(columnId === 'select' || columnId === 'actions'){
+      return true;
+    }
+    return false;
+  }
   useEffect(()=> {
     console.log(rowSelection);
   },[rowSelection])
 
   return (
 
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <div className="flex items-center justify-between py-4">
         <div></div>
         <Input
@@ -112,15 +117,15 @@ export function DataTable<TData, TValue>({
           className="max-w-sm border border-border"
         />
       </div>
-      <div className="rounded-md border">
-        <Table className="table-fixed">
+      <div className="rounded-md border overflow-x-auto">
+        <Table className="lg:table-fixed">
           <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow className="w-full" key={headerGroup.id}>
+              <TableRow className="" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   if(!colIsHidden(header.column.id)) {
                     return (
-                      <TableHead className={`text-xs text-center whitespace-nowrap min-w-full ${header.column.id === 'select' && ' !w-10 p-2 '}`} key={header.id}>
+                      <TableHead className={`text-xs text-center whitespace-nowrap  ${isSmallColumn(header.column.id) && ' !w-10 p-2 '} `} key={header.id}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -147,7 +152,7 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell, index) => {
                     if(!colIsHidden(cell.column.id)) {
-                      return <TableCell className={`text-xs  text-center p-2 max-w-20 overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
+                      return <TableCell className={`text-xs text-center p-2  overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4 '} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                     }

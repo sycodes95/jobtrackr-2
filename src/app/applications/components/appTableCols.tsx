@@ -28,7 +28,39 @@ import { fitRatingColor } from "../utils/fitRatingColor"
 
 import { Checkbox } from "@/components/ui/checkbox"
 
+import { MoreHorizontal } from "lucide-react"
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 export const columns: ColumnDef<ApplicationDetails>[] = [
+  {
+    id: "actions",
+    cell: ({ row }) => {
+ 
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
+            <DropdownMenuItem className="hover:cursor-pointer">Delete</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  },
   {
     id: "select",
     header: ({ table }) => (
@@ -64,7 +96,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -85,7 +117,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -106,7 +138,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -134,7 +166,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -154,7 +186,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -173,7 +205,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -210,7 +242,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -225,7 +257,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -240,7 +272,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     header: ({ column }) => {
       return (
         <Button
-          className="text-xs"
+          className="text-xs p-0 w-full h-full"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
