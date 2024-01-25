@@ -8,7 +8,7 @@ import {
   useReactTable,
   SortingState,
   getSortedRowModel,
-  SortingFn,
+  getPaginationRowModel,
   
 } from "@tanstack/react-table"
 
@@ -20,8 +20,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
+import { Button } from "@/components/ui/button"
+
 import { ApplicationDetails } from "../types/types"
 import { useEffect, useState } from "react"
+import { DataTablePagination } from "./dataTablePagination"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -33,7 +37,9 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
 
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>([]);
+
+  const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     data,
@@ -43,10 +49,10 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
+      rowSelection
     },
-    sortingFns: {
-      
-    }
+    getPaginationRowModel: getPaginationRowModel(),
+    onRowSelectionChange: setRowSelection,
   });
 
 
@@ -75,58 +81,65 @@ export function DataTable<TData, TValue>({
   },[sorting])
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                if(!colIsHidden(header.column.id)) {
-                  return (
-                    <TableHead className="text-xs text-center whitespace-nowrap p-2" key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
 
-                }
-                
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              
-              <TableRow
-                className="border-l-4 whitespace-nowrap text-center text-primary "
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell, index) => {
-                  if(!colIsHidden(cell.column.id)) {
-                    return <TableCell className={`text-xs  text-center p-2 max-w-20 overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+    <div>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  if(!colIsHidden(header.column.id)) {
+                    return (
+                      <TableHead className="text-xs text-center whitespace-nowrap p-2" key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    )
+
                   }
+                  
                 })}
               </TableRow>
-              
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                
+                <TableRow
+                  className="border-l-4 whitespace-nowrap text-center text-primary "
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell, index) => {
+                    if(!colIsHidden(cell.column.id)) {
+                      return <TableCell className={`text-xs  text-center p-2 max-w-20 overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                    }
+                  })}
+                </TableRow>
+                
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+
+        
+      </div>
+      <DataTablePagination table={table}/>
     </div>
+    
   )
 }
