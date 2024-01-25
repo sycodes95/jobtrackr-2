@@ -39,25 +39,47 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
+import AppModal from "./appModal"
+import CreateButton from "./createButton"
+import ApplicationForm from "./applicationForm"
+
 export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
  
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
-            <DropdownMenuItem className="hover:cursor-pointer">Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Sheet>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem className="hover:cursor-pointer">
+                <SheetTrigger className="w-full h-full flex justify-start">
+                  <span>Edit</span>
+                </SheetTrigger>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:cursor-pointer">Delete</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
+            <ApplicationForm />
+          </SheetContent>
+        </Sheet>
       )
     },
   },
