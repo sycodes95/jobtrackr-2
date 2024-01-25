@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/table"
 import { ApplicationDetails } from "../types/types"
 import { useEffect, useState } from "react"
-import { caseInsensitiveSort } from "../utils/caseInsensitiveSort"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -104,21 +103,19 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               
-                <TableRow
-                  className="border-l-4 whitespace-nowrap text-center text-primary "
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell, index) => {
-                    if(!colIsHidden(cell.column.id)) {
-                      return <TableCell className={`text-xs  text-center p-2 max-w-20 overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                    }
-                    
-                      
-                  })}
-                </TableRow>
+              <TableRow
+                className="border-l-4 whitespace-nowrap text-center text-primary "
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
+                {row.getVisibleCells().map((cell, index) => {
+                  if(!colIsHidden(cell.column.id)) {
+                    return <TableCell className={`text-xs  text-center p-2 max-w-20 overflow-hidden text-ellipsis pt-1 pb-1 ${index === 0 && 'border-l-4'} ${index === 0 && applicationStatus(cell.row.original as ApplicationDetails)}`} key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                  }
+                })}
+              </TableRow>
               
             ))
           ) : (

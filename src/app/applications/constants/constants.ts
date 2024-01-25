@@ -18,7 +18,8 @@ export const defaultApplicationDetails: ApplicationDetails  = {
   contact_email: '', 
   contact_phone: '', 
   notes: '', 
-}
+};
+
 
 export const applicationDetailsFormAttr  = {
   company_name: {  label: 'Company Name *', type: 'inputText' },
@@ -37,7 +38,8 @@ export const applicationDetailsFormAttr  = {
   contact_email: {  label: 'Contact Email', type: 'inputText' },
   contact_phone: {  label: 'Company Phone', type: 'inputText' },
   notes: {  label: 'Notes', type: 'textArea' },
-}
+};
+
 
 
 export const selectOptions: {[key: string] : string[]} = {
@@ -50,4 +52,6 @@ export const selectOptions: {[key: string] : string[]} = {
   rejected: [
     'From Response', 'After Interview', 'After Offer', 'Other'
   ]
-}
+};
+
+

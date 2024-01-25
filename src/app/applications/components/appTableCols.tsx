@@ -24,6 +24,7 @@ import Typography from '@mui/material/Typography';
 import { formatDateToReadable } from "@/utils/formatDateToReadable"
 import { ArrowUpDown } from "lucide-react"
 import { caseInsensitiveSort } from "../utils/caseInsensitiveSort"
+import { fitRatingColor } from "../utils/fitRatingColor"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 // export type Payment = {
@@ -150,20 +151,31 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Fit Rating
+          Fit
           <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
         </Button>
       )
     },
     cell: ({ row }) => {
+
+      const fitRating = row.getValue('fit_rating')
+      console.log(fitRating);
       return (
-        <Rating
-        className="text-emerald-400"
-          color="text-emerald-400"
-          size="small"
-          value={row.getValue('fit_rating')}
-          readOnly
-        />
+        // <Rating
+        // className="text-emerald-400"
+        //   color="text-emerald-400"
+        //   size="small"
+        //   value={row.getValue('fit_rating')}
+        //   readOnly
+        // />
+        <>
+          {
+          fitRating && typeof fitRating === 'number' ?
+          <span className={`${fitRatingColor(fitRating)} font-bold`}><em>{fitRating} / 5</em></span>
+          :
+          <span>n/a</span>
+          }
+        </>
       )
     }
   },
