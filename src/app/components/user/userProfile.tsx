@@ -14,21 +14,14 @@ import {
 
 export default function UserProfile () {
   const { user, error, isLoading } = useUser();
-  // const [picture, setPicture] = useState< string | StaticImport >('')
-
-  // useEffect(() => {
-  //   if(!error && !isLoading && user) {
-  //     typeof user.picture === 'string' && setPicture(user.picture)
-  //   }
-
-  // },[user, error, isLoading])
+  
   return (
     <div className=''>
       {
       !error && !isLoading && user && 
       <Popover>
         <PopoverTrigger className='h-full flex items-center'>
-          <img className='h-8 w-8 rounded-full' src={user.picture} alt=''/>
+          <img className='h-8 w-8 rounded-full' src={user.picture ?? ''} alt=''/>
         </PopoverTrigger>
         <PopoverContent className='w-fit text-xs border border-zinc-300'>
           <a href='/api/auth/logout'>

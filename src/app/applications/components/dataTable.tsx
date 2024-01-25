@@ -9,7 +9,8 @@ import {
   SortingState,
   getSortedRowModel,
   getPaginationRowModel,
-  
+  ColumnFiltersState,
+  getFilteredRowModel
 } from "@tanstack/react-table"
 
 import {
@@ -22,6 +23,8 @@ import {
 } from "@/components/ui/table"
 
 import { Button } from "@/components/ui/button"
+
+import { Input } from "@/components/ui/input"
 
 import { ApplicationDetails } from "../types/types"
 import { useEffect, useState } from "react"
@@ -41,6 +44,10 @@ export function DataTable<TData, TValue>({
 
   const [rowSelection, setRowSelection] = useState({});
 
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    []
+  )
+
   const table = useReactTable({
     data,
     columns,
@@ -49,16 +56,18 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
-      rowSelection
+      rowSelection,
+      columnFilters
     },
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
-
+  const hiddenCols = ['apply_url', 'company_website', 'notes', 'contact_name', 'contact_email', 'contact_phone'];
+  
   const colIsHidden = (cellColId: string) => {
-
-    const hiddenCols = ['apply_url', 'company_website', 'notes', 'contact_name', 'contact_email', 'contact_phone'];
     if(hiddenCols.includes(cellColId)){
       return true
     }
@@ -77,21 +86,41 @@ export function DataTable<TData, TValue>({
     }
   };
 
+  const deleteSelected = async () => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
   useEffect(()=> {
-  },[sorting])
+    console.log(rowSelection);
+  },[rowSelection])
 
   return (
 
-    <div>
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center justify-between py-4">
+        <div></div>
+        <Input
+          placeholder="Filter Company..."
+          value={(table.getColumn("company_name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("company_name")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm border border-border"
+        />
+      </div>
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+        <Table className="table-fixed">
+          <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow className="w-full" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   if(!colIsHidden(header.column.id)) {
                     return (
-                      <TableHead className="text-xs text-center whitespace-nowrap p-2" key={header.id}>
+                      <TableHead className={`text-xs text-center whitespace-nowrap min-w-full ${header.column.id === 'select' && ' !w-10 p-2 '}`} key={header.id}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -128,7 +157,7 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell colSpan={columns.length - hiddenCols.length} className="h-24 text-center w-full">
                   No results.
                 </TableCell>
               </TableRow>

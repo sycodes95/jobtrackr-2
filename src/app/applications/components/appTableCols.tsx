@@ -25,16 +25,40 @@ import { formatDateToReadable } from "@/utils/formatDateToReadable"
 import { ArrowUpDown } from "lucide-react"
 import { caseInsensitiveSort } from "../utils/caseInsensitiveSort"
 import { fitRatingColor } from "../utils/fitRatingColor"
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-// export type Payment = {
-//   id: string
-//   amount: number
-//   status: "pending" | "processing" | "success" | "failed"
-//   email: string
-// }
+
+import { Checkbox } from "@/components/ui/checkbox"
 
 export const columns: ColumnDef<ApplicationDetails>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <div className="flex h-full items-center p-2 justify-center">
+        <Checkbox
+          className=""
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      </div>
+      
+    ),
+    cell: ({ row }) => (
+
+      <div className="flex h-full items-center p-2">
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "apply_date",
     header: ({ column }) => {
@@ -44,15 +68,17 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Date
           <ArrowUpDown fontSize={'small'} className="ml-1 h-3 w-3" />
         </Button>
       )
     },
     cell: ({row}) => {
       const date: string = row.getValue('apply_date');
+      console.log(row.getValue('apply_date'));
       return <span className="w-full text-center">{date ? formatDateToReadable(date) : 'n/a'}</span>
-    }
+    },
+    sortingFn: 'datetime'
   },
   {
     accessorKey: "company_name",
