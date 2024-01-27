@@ -1,6 +1,7 @@
 "use client"
 import { FormEvent, useEffect, useState } from "react"
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { Oval } from 'react-loader-spinner'
 
 import {
   SheetClose,
@@ -227,9 +228,28 @@ export default function ApplicationForm (
         }
         <div className="w-full flex justify-end col-span-full items-center gap-4">
           <SheetClose>
-            <Button className="bg-black hover:bg-accent" >Close</Button>
+            <Button className="bg-black hover:bg-accent" type="button">Close</Button>
           </SheetClose>
-          <Button className="" type="submit">Submit</Button>
+            <Button className="flex items-center justify-center bg-background text-primary w-24" variant={`outline`} type="submit">
+              {
+              submitIsLoading ? 
+              <Oval
+              visible={true}
+              height="25"
+              width="25"
+              color="#000000"
+              secondaryColor="#808080"
+              ariaLabel="oval-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              />
+              :
+              <span>Submit</span>
+              
+              
+              }
+
+            </Button>
         </div>
       </form>
     </div>
