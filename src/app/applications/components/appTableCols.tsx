@@ -48,15 +48,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-import AppModal from "./appModal"
-import CreateButton from "./createButton"
 import ApplicationForm from "./applicationForm"
 
 export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
- 
+      const appDetails = row.original;
+      console.log(appDetails);
       return (
         <Sheet>
           <DropdownMenu>
@@ -77,7 +76,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
             </DropdownMenuContent>
           </DropdownMenu>
           <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
-            <ApplicationForm />
+            <ApplicationForm appDetails={appDetails} mode={`edit`}/>
           </SheetContent>
         </Sheet>
       )

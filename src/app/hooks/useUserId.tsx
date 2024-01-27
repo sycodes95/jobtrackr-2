@@ -21,6 +21,6 @@ export default function useUserId () {
     }     
   },[sub]) 
 
-  if(pgUser) return pgUser.id
+  if(pgUser) return pgUser.user_id
   return null
 }

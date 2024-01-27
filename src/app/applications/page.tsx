@@ -6,7 +6,6 @@ import PageHeader from "../components/pageHeader";
 import FeedIcon from '@mui/icons-material/Feed';
 import AppModal from "./components/appModal";
 import AppTable from "./components/appTable";
-import CreateButton from "./components/createButton";
 
 import {
   Sheet,
@@ -17,6 +16,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import ApplicationForm from "./components/applicationForm";
+import { Button } from "@/components/ui/button";
 
 
 export default function Applications () {
@@ -28,7 +28,9 @@ export default function Applications () {
         </PageHeader>
         <Sheet>
           <SheetTrigger className="w-fit flex justify-start">
-            <CreateButton />
+            <Button className="p-0" variant={`ghost`}>
+              <span className="p-2 border font-bold rounded-lg border-primary text-sm text-primary">Create New +</span>
+            </Button>
           </SheetTrigger>
           <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
             <ApplicationForm />

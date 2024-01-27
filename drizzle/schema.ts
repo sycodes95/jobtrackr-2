@@ -9,7 +9,7 @@ export const rejectedEnum = pgEnum('rejected', ['From Response', 'After Intervie
 
 
 export const users = pgTable('users', {
-  id: serial('id').primaryKey(),
+  user_id: serial('id').primaryKey(),
   nickname: text('nickname'),
   picture: text('picture'),
   updated_at: timestamp('updated_at'),
@@ -37,8 +37,7 @@ export const applications = pgTable('applications', {
   contact_email: text('contact_email'),
   contact_phone: text('contact_phone'),
   notes: text('notes'),
-  updated_at: timestamp('updated_at'),
-  user_id: integer('user_id').references(()=> users.id)
+  user_id: integer('user_id').references(()=> users.user_id)
 
 });
 

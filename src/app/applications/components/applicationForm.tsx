@@ -56,7 +56,7 @@ export default function ApplicationForm (
   : ApplicationFormProps 
 ) {
   const userId = useUserId()
-  const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(defaultApplicationDetails);
+  const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(appDetails ? appDetails : defaultApplicationDetails);
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
 
@@ -87,6 +87,7 @@ export default function ApplicationForm (
     key: T,
     value: ApplicationDetails[T]
   ) => {
+
     switch(applicationDetailsFormAttr[key].type) {
       case 'inputText': 
         return (
@@ -122,7 +123,7 @@ export default function ApplicationForm (
         )
       case 'date':
         return (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2" key={key}>
             <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Popover>
               <PopoverTrigger asChild>
@@ -154,7 +155,7 @@ export default function ApplicationForm (
         //creates string type of key in order to get select options using the key
         const keystring: string = key;
         return (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2" key={key}>
             <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Select onValueChange={(newValue) => handleInputChange(key, newValue as ApplicationDetails[T])}>
               <SelectTrigger className="w-full border border-border">
@@ -175,7 +176,7 @@ export default function ApplicationForm (
         )
       case 'rating':
         return (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2" key={key}>
             <Label>{applicationDetailsFormAttr[key].label}</Label>
             <div className="h-full flex items-center">
               <Rating
@@ -192,7 +193,7 @@ export default function ApplicationForm (
 
       case 'textArea':
         return (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2" key={key}>
             <Label>{applicationDetailsFormAttr[key].label}</Label>
             <Textarea 
             value={typeof value === 'string' ? value : ''} 
