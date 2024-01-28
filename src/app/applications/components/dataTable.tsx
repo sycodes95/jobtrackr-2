@@ -86,13 +86,7 @@ export function DataTable<TData, TValue>({
     }
   };
 
-  const deleteSelected = async () => {
-    try {
-      
-    } catch (error) {
-      
-    }
-  }
+  
   const isSmallColumn = (columnId: string) => {
     if(columnId === 'select' || columnId === 'actions'){
       return true;

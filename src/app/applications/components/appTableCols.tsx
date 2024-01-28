@@ -42,20 +42,20 @@ import {
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 
 import ApplicationForm from "./applicationForm"
+import { deleteApplications } from "../services/deleteApps"
 
 export const columns: ColumnDef<ApplicationDetails>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
       const appDetails = row.original;
-      console.log(appDetails);
+      const appId = row.original.app_id
+      const userId = row.original.user_id
+
       return (
         <Sheet>
           <DropdownMenu>
@@ -72,7 +72,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
                   <span>Edit</span>
                 </SheetTrigger>
               </DropdownMenuItem>
-              <DropdownMenuItem className="hover:cursor-pointer">Delete</DropdownMenuItem>
+              <DropdownMenuItem className="hover:cursor-pointer" onClick={()=> deleteApplications(appId ? [appId] : [], userId ? userId : null)}>Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 import { db } from "../../../../drizzle/db";
 import { applications, users } from "../../../../drizzle/schema";
-import { eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 
 export type ApplicationType = typeof applications.$inferInsert;
 
@@ -58,5 +58,29 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       application : null,
       error: er
     })
+  }
+}
+
+export async function DELETE(req: NextRequest, res: NextResponse) {
+  try {
+    const { appIdArray, user_id } : { appIdArray: number[], user_id: number} = await req.json();
+    console.log(appIdArray);
+    const deleted = await db.delete(applications)
+    .where(and(inArray(applications.app_id, appIdArray), eq(applications.user_id, user_id)));
+
+    return NextResponse.json({
+      queryType: 'delete',
+      application : deleted
+    });
+    
+  } catch (er) {
+    console.error('Error PUT application', er)
+
+    return NextResponse.json({
+      queryType: 'delete',
+      application : [],
+      error: er
+    });
+    
   }
 }
