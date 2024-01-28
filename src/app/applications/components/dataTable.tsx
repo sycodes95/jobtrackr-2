@@ -30,24 +30,27 @@ import {
 
 import { PopoverClose } from "@radix-ui/react-popover";
 
-import { Button } from "@/components/ui/button"
-
 import { Input } from "@/components/ui/input"
 
 import { ApplicationDetails } from "../types/types"
-import { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { DataTablePagination } from "./dataTablePagination"
 import { deleteApplications } from "../services/deleteApps"
+import { getAllApps } from "../services/getAllApps";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  setData: React.Dispatch<React.SetStateAction<ApplicationDetails[]>>;
+
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  setData
 }: DataTableProps<TData, TValue>) {
+
 
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -57,7 +60,6 @@ export function DataTable<TData, TValue>({
     []
   );
 
-  const [deleteSelectedIsOpen, setDeleteSelectedIsOpen] = useState(false)
 
   const table = useReactTable({
     data,
@@ -80,9 +82,9 @@ export function DataTable<TData, TValue>({
   
   const colIsHidden = (cellColId: string) => {
     if(hiddenCols.includes(cellColId)){
-      return true
+      return true;
     }
-    return false
+    return false;
   };
 
   const applicationStatus = (original : ApplicationDetails) => {
@@ -111,22 +113,23 @@ export function DataTable<TData, TValue>({
       <div className={`${table.getSelectedRowModel().rows.length > 0 ? 'justify-between' : 'justify-end'} flex items-center`}>
         {
         table.getSelectedRowModel().rows.length > 0 &&
-        <Popover open={deleteSelectedIsOpen}>
-          <PopoverTrigger className="text-xs p-2 bg-destructive rounded-lg text-background h-full" onClick={()=> setDeleteSelectedIsOpen(true)}>Delete Selected</PopoverTrigger>
+        <Popover>
+          <PopoverTrigger className="text-xs p-2 bg-destructive rounded-lg text-background h-full" >Delete Selected</PopoverTrigger>
           <PopoverContent className="text-xs">
             <div className="flex w-full flex-col gap-4">
               <span className="w-full border-border p-2 border-b">Are you sure?</span>
               
               <div className="w-full flex items-center justify-end gap-2">
-                <PopoverClose asChild className="text-xs " onClick={()=> setDeleteSelectedIsOpen(false)}>
+                <PopoverClose className="text-xs " >
                   Cancel
                 </PopoverClose>
-                <PopoverClose asChild className="text-xs bg-black text-background "  onClick={()=> {
+                <PopoverClose className="text-xs bg-black text-background "  onClick={ async()=> {
                   const selectedOriginals = table.getSelectedRowModel().rows.map((row) => (row.original as ApplicationDetails));
-                  const user_id = selectedOriginals[0].user_id
-                  const selectedIds = selectedOriginals.map(original => original.app_id ).filter(appId => appId !== undefined)
-                  deleteApplications(selectedIds, user_id)
-                  setDeleteSelectedIsOpen(false)
+                  const userId = selectedOriginals[0].user_id;
+                  const selectedIds = selectedOriginals.map(original => original.app_id ).filter(appId => appId !== undefined);
+                  await deleteApplications(selectedIds, userId)
+                  if(userId) getAllApps(userId).then(apps => setData(apps));
+
                 }}>
                   Confirm
                 </PopoverClose>

@@ -64,7 +64,6 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
                 <span className="sr-only">Open menu</span>
                 <MoreHorizontal className="h-4 w-4" />
               </div>
-              
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
