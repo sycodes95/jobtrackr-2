@@ -72,7 +72,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
                   <span>Edit</span>
                 </SheetTrigger>
               </DropdownMenuItem>
-              <DropdownMenuItem className="hover:cursor-pointer" onClick={()=> deleteApplications(appId ? [appId] : [], userId ? userId : null)}>Delete</DropdownMenuItem>
+              <DropdownMenuItem className="hover:cursor-pointer" onClick={()=> deleteApplications(appId ? [appId] : [], userId ? userId : undefined)}>Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
@@ -98,17 +98,20 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
       </div>
       
     ),
-    cell: ({ row }) => (
+    cell: ({ row }) => {
 
-      <div className="flex h-full items-center p-2">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
+      const selectedRows = row.getIsSelected();
+      return (
+        <div className="flex h-full items-center p-2">
+          <Checkbox
+            checked={selectedRows}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
 
-      </div>
-    ),
+        </div>
+      )
+    },
     enableSorting: false,
     enableHiding: false,
   },

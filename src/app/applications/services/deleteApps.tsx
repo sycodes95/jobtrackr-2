@@ -1,9 +1,9 @@
 import { config } from "@/config/config"
 import { toast } from "sonner";
 
-export const deleteApplications = async (appIdArray: number[], user_id: number | null) => {
+export const deleteApplications = async (appIdArray: (number | undefined)[], user_id: number | undefined) => {
 
-  if(appIdArray.length < 1 || user_id === null) {
+  if(appIdArray.length < 1 || user_id === null || user_id === undefined) {
     return toast(`Sorry! There was a problem deleting applications. Don't worry, it's not your fault. Try again later!`);
   }
   

@@ -22,6 +22,22 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+
 import { Button } from "@/components/ui/button"
 
 import { Input } from "@/components/ui/input"
@@ -29,6 +45,7 @@ import { Input } from "@/components/ui/input"
 import { ApplicationDetails } from "../types/types"
 import { useEffect, useState } from "react"
 import { DataTablePagination } from "./dataTablePagination"
+import { deleteApplications } from "../services/deleteApps"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -46,7 +63,9 @@ export function DataTable<TData, TValue>({
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     []
-  )
+  );
+
+  const [deleteSelectedIsOpen, setDeleteSelectedIsOpen] = useState(false)
 
   const table = useReactTable({
     data,
@@ -100,8 +119,31 @@ export function DataTable<TData, TValue>({
   return (
 
     <div className="flex flex-col gap-2 w-full">
-      <div className="flex items-center justify-between py-4">
-        <div></div>
+      <div className="flex items-center justify-between">
+        <Popover open={deleteSelectedIsOpen}>
+          <PopoverTrigger className="text-xs p-2 bg-destructive rounded-lg text-background h-full" onClick={()=> setDeleteSelectedIsOpen(true)}>Delete Selected</PopoverTrigger>
+          <PopoverContent className="text-xs">
+            <div className="flex w-full flex-col gap-4">
+              <span className="w-full border-border p-2 border-b">Are you sure?</span>
+
+              <div className="w-full flex items-center justify-end gap-2">
+                <Button className="text-xs " variant={`ghost`} onClick={()=> setDeleteSelectedIsOpen(false)}>
+                  Cancel
+                </Button>
+                <Button className="text-xs bg-black text-background " variant={`outline`} onClick={()=> {
+                  const selectedOriginals = table.getSelectedRowModel().rows.map((row) => (row.original as ApplicationDetails));
+                  const user_id = selectedOriginals[0].user_id
+                  const selectedIds = selectedOriginals.map(original => original.app_id ).filter(appId => appId !== undefined)
+                  deleteApplications(selectedIds, user_id)
+                  setDeleteSelectedIsOpen(false)
+                }}>
+                  Confirm
+                </Button>
+
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
         <Input
           placeholder="Filter Company..."
           value={(table.getColumn("company_name")?.getFilterValue() as string) ?? ""}
