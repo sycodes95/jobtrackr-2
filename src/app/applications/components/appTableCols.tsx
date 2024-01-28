@@ -60,7 +60,7 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
         <Sheet>
           <DropdownMenu>
             <DropdownMenuTrigger className="h-8 w-8 p-0 hover:cursor-pointer" asChild>
-              <div className="flex h-full items-center">
+              <div className="flex h-full items-center w-full justify-center">
                 <span className="sr-only">Open menu</span>
                 <MoreHorizontal className="h-4 w-4" />
               </div>
@@ -68,8 +68,8 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem className="hover:cursor-pointer">
-                <SheetTrigger className="w-full h-full flex justify-start">
+              <DropdownMenuItem className=" w-full h-full">
+                <SheetTrigger className="w-full h-full flex">
                   <span>Edit</span>
                 </SheetTrigger>
               </DropdownMenuItem>
