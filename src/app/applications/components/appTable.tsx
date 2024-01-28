@@ -18,6 +18,6 @@ export default function AppTable () {
   },[userId])
   return (
     <DataTable columns={columns} data={applications}/>
-  ) 
+  );
   
-}
+};
