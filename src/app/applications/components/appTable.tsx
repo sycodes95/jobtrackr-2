@@ -50,7 +50,6 @@ import ApplicationForm from "./applicationForm"
 import { deleteApplications } from "../services/deleteApps"
 import { getLayoutOrPageModule } from "next/dist/server/lib/app-dir-module";
 
-
 export default function AppTable () {
   const userId = useUserId()
   const [applications, setApplications] = useState<ApplicationDetails[]>([])
@@ -80,7 +79,7 @@ export default function AppTable () {
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:cursor-pointer" onClick={async ()=> {
                   await deleteApplications(appId ? [appId] : [], userId ? userId : undefined)
-                  if(userId) getAllApps(userId).then(apps => setApplications(apps))
+                  if(userId) getAllApps(userId).then(apps => setApplications(apps));
                 } }>Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

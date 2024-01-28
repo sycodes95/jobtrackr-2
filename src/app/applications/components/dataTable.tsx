@@ -60,7 +60,6 @@ export function DataTable<TData, TValue>({
     []
   );
 
-
   const table = useReactTable({
     data,
     columns,
@@ -70,7 +69,11 @@ export function DataTable<TData, TValue>({
     state: {
       sorting,
       rowSelection,
-      columnFilters
+      columnFilters,
+      pagination: {
+        pageIndex: 0,
+        pageSize: 20
+      }
     },
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
