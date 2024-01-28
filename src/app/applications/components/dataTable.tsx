@@ -103,11 +103,8 @@ export function DataTable<TData, TValue>({
       return true;
     }
     return false;
-  }
-  useEffect(()=> {
-    console.log(rowSelection);
-  },[rowSelection])
-
+  };
+  
   return (
 
     <div className="flex flex-col gap-2 w-full">
@@ -121,10 +118,10 @@ export function DataTable<TData, TValue>({
               <span className="w-full border-border p-2 border-b">Are you sure?</span>
               
               <div className="w-full flex items-center justify-end gap-2">
-                <PopoverClose className="text-xs " onClick={()=> setDeleteSelectedIsOpen(false)}>
+                <PopoverClose asChild className="text-xs " onClick={()=> setDeleteSelectedIsOpen(false)}>
                   Cancel
                 </PopoverClose>
-                <PopoverClose className="text-xs bg-black text-background "  onClick={()=> {
+                <PopoverClose asChild className="text-xs bg-black text-background "  onClick={()=> {
                   const selectedOriginals = table.getSelectedRowModel().rows.map((row) => (row.original as ApplicationDetails));
                   const user_id = selectedOriginals[0].user_id
                   const selectedIds = selectedOriginals.map(original => original.app_id ).filter(appId => appId !== undefined)

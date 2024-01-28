@@ -28,9 +28,9 @@ export default function Applications () {
         </PageHeader>
         <Sheet>
           <SheetTrigger className="w-fit flex justify-start">
-            <Button className="p-0" variant={`ghost`}>
+            <div className="p-0" >
               <span className="p-2 border font-bold rounded-lg border-primary text-sm text-primary">Create New +</span>
-            </Button>
+            </div>
           </SheetTrigger>
           <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
             <ApplicationForm />
