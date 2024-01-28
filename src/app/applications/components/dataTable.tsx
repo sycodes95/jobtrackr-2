@@ -38,6 +38,13 @@ import { DataTablePagination } from "./dataTablePagination"
 import { deleteApplications } from "../services/deleteApps"
 import { getAllApps } from "../services/getAllApps";
 
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import ApplicationForm from "./applicationForm";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -114,33 +121,49 @@ export function DataTable<TData, TValue>({
 
     <div className="flex flex-col gap-2 w-full">
       <div className={`${table.getSelectedRowModel().rows.length > 0 ? 'justify-between' : 'justify-end'} flex items-center`}>
-        {
-        table.getSelectedRowModel().rows.length > 0 &&
-        <Popover>
-          <PopoverTrigger className="text-xs p-2 bg-destructive rounded-lg text-background h-full" >Delete Selected</PopoverTrigger>
-          <PopoverContent className="text-xs">
-            <div className="flex w-full flex-col gap-4">
-              <span className="w-full border-border p-2 border-b">Are you sure?</span>
-              
-              <div className="w-full flex items-center justify-end gap-2">
-                <PopoverClose className="text-xs " >
-                  Cancel
-                </PopoverClose>
-                <PopoverClose className="text-xs bg-black text-background "  onClick={ async()=> {
-                  const selectedOriginals = table.getSelectedRowModel().rows.map((row) => (row.original as ApplicationDetails));
-                  const userId = selectedOriginals[0].user_id;
-                  const selectedIds = selectedOriginals.map(original => original.app_id ).filter(appId => appId !== undefined);
-                  await deleteApplications(selectedIds, userId)
-                  if(userId) getAllApps(userId).then(apps => setData(apps));
-
-                }}>
-                  Confirm
-                </PopoverClose>
+        <div className="w-full flex gap-2 items-center">
+          <Sheet>
+            <SheetTrigger className="w-fit flex justify-start">
+              <div className="p-0 " >
+                <span className="p-2 border font-bold rounded-lg bg-primary text-secondary border-primary text-sm ">Create New +</span>
               </div>
-            </div>
-          </PopoverContent>
-        </Popover>
-        }
+            </SheetTrigger>
+            <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
+              <ApplicationForm />
+            </SheetContent>
+          </Sheet>
+          {
+          table.getSelectedRowModel().rows.length > 0 &&
+          <Popover>
+            <PopoverTrigger className="text-xs p-2 bg-none text-red-400 border border-red-400 rounded-lg text-background h-full" >Delete Selected</PopoverTrigger>
+            <PopoverContent className="text-xs">
+              <div className="flex w-full flex-col gap-4">
+                <span className="w-full border-border p-2 border-b">Are you sure?</span>
+                
+                <div className="w-full flex items-center justify-end gap-2">
+                  <PopoverClose className="text-xs " >
+                    Cancel
+                  </PopoverClose>
+                  <PopoverClose className="text-xs bg-black text-background "  onClick={ async()=> {
+                    const selectedOriginals = table.getSelectedRowModel().rows.map((row) => (row.original as ApplicationDetails));
+                    const userId = selectedOriginals[0].user_id;
+                    const selectedIds = selectedOriginals.map(original => original.app_id ).filter(appId => appId !== undefined);
+                    await deleteApplications(selectedIds, userId)
+                    if(userId){
+                      getAllApps(userId).then(apps => setData(apps));
+                      setRowSelection({})
+                    } 
+
+                  }}>
+                    Confirm
+                  </PopoverClose>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          }
+        </div>
+        
         <Input
           placeholder="Filter Company..."
           value={(table.getColumn("company_name")?.getFilterValue() as string) ?? ""}
