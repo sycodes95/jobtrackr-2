@@ -30,6 +30,9 @@ import { Calendar } from "@/components/ui/calendar"
 
 import { Textarea } from "@/components/ui/textarea"
 
+import { useRouter } from 'next/navigation'
+ 
+
 import {
   Popover,
   PopoverContent,
@@ -43,7 +46,7 @@ import { applicationDetailsFormAttr, defaultApplicationDetails, selectOptions } 
 import { ApplicationDetails } from "../types/types";
 import { submitApp } from "../services/submitApp";
 import useUserId from "@/app/hooks/useUserId";
-
+import { usePathname } from 'next/navigation';
 
 interface ApplicationFormProps {
   appDetails?: ApplicationDetails;
@@ -56,10 +59,13 @@ export default function ApplicationForm (
   } 
   : ApplicationFormProps 
 ) {
+  const pathname = usePathname();
   const userId = useUserId()
   const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(appDetails ? appDetails : defaultApplicationDetails);
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
+
+  const router = useRouter()
 
   const handleInputChange = <T extends keyof ApplicationDetails>(
     key: T,
@@ -76,7 +82,8 @@ export default function ApplicationForm (
     e.preventDefault();
     setSubmitIsLoading(true)
     if(userId) {
-      await submitApp(applicationDetails, userId)
+      await submitApp(applicationDetails, userId);
+      window.location.reload();
     }
     setSubmitIsLoading(false)
   }
