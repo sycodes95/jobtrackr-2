@@ -1,0 +1,19 @@
+import { ApplicationDetails } from "@/app/applications/types/types";
+import { ApplicationType } from "../route";
+
+export const reformatDates = ( apps : ApplicationDetails[]) => {
+  if(!apps.some(app => app.apply_date)) return apps
+  console.log('date object');
+  const dateFormattedApps = apps.map(app => {
+    const newApp = {
+      ...app
+    }
+    if(app.apply_date && typeof app.apply_date === 'string') {
+      newApp.apply_date = new Date(app.apply_date)
+    }
+
+    return newApp
+  })
+
+  return dateFormattedApps
+}

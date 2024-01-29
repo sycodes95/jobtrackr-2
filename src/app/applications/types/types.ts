@@ -6,7 +6,7 @@ export interface ApplicationDetails {
   company_name: string;
   company_website: string;
   favorite: boolean;
-  apply_date: Date | undefined;
+  apply_date: string |Date | undefined;
   apply_method: 'Company Website' | 'Job Board' | 'Recruiter' | 'Referral' | 'Email' | 'Other' | '';
   apply_url: string;
   position: string;

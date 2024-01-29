@@ -131,7 +131,6 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     },
     cell: ({row}) => {
       const date: string = row.getValue('apply_date');
-      console.log(row.getValue('apply_date'));
       return <span className="w-full text-center">{date ? formatDateToReadable(date) : 'n/a'}</span>
     },
     sortingFn: 'datetime'
@@ -241,7 +240,6 @@ export const columns: ColumnDef<ApplicationDetails>[] = [
     cell: ({ row }) => {
 
       const fitRating = row.getValue('fit_rating')
-      console.log(fitRating);
       return (
         // <Rating
         // className="text-emerald-400"

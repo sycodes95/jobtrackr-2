@@ -15,7 +15,6 @@ export const submitApp = async ( applicationDetails: ApplicationDetails, user_id
         user_id
       })
     });
-    console.log(fetchPUT);
     if(fetchPUT.ok) {
       toast("Application Saved Successfully")
     }//create toast

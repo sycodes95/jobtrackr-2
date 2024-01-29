@@ -48,7 +48,6 @@ import {
 
 import ApplicationForm from "./applicationForm"
 import { deleteApplications } from "../services/deleteApps"
-import { getLayoutOrPageModule } from "next/dist/server/lib/app-dir-module";
 
 export default function AppTable () {
   const userId = useUserId()
@@ -58,9 +57,8 @@ export default function AppTable () {
       id: "actions",
       cell: ({ row }) => {
         const appDetails = row.original;
-        const appId = row.original.app_id
-        const userId = row.original.user_id
-
+        const appId = row.original.app_id;
+        const userId = row.original.user_id;
         return (
           <Sheet>
             <DropdownMenu>
@@ -139,7 +137,6 @@ export default function AppTable () {
       },
       cell: ({row}) => {
         const date: string = row.getValue('apply_date');
-        console.log(row.getValue('apply_date'));
         return <span className="w-full text-center">{date ? formatDateToReadable(date) : 'n/a'}</span>
       },
       sortingFn: 'datetime'
@@ -249,7 +246,6 @@ export default function AppTable () {
       cell: ({ row }) => {
 
         const fitRating = row.getValue('fit_rating')
-        console.log(fitRating);
         return (
           // <Rating
           // className="text-emerald-400"
