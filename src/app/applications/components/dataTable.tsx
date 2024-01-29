@@ -125,7 +125,7 @@ export function DataTable<TData, TValue>({
           <Sheet>
             <SheetTrigger className="w-fit flex justify-start">
               <div className="p-0 " >
-                <span className="p-2 border font-bold rounded-lg bg-primary text-secondary border-primary text-sm ">Create New +</span>
+                <span className="p-2 border font-bold rounded-lg bg-primary text-secondary border-primary text-sm hover:bg-primary/90 transition-colors">Create New +</span>
               </div>
             </SheetTrigger>
             <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">

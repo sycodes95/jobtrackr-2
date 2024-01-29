@@ -312,7 +312,18 @@ export default function AppTable () {
     },
     {
       accessorKey: "rejected",
-      header: "Rejected",
+      header: ({ column }) => {
+        return (
+          <Button
+            className="text-xs p-0 w-full h-full"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Rejected
+            <ArrowUpDown className="ml-1 h-3 w-3" />
+          </Button>
+        )
+      },
     },
     
     
