@@ -12,6 +12,10 @@ export const reformatDates = ( apps : ApplicationDetails[]) => {
       newApp.apply_date = new Date(app.apply_date)
     }
 
+    if(app.interview_date && typeof app.interview_date === 'string') {
+      newApp.interview_date = new Date(app.interview_date)
+    }
+
     return newApp
   })
 

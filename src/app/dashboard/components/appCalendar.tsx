@@ -46,13 +46,10 @@ export default function AppCalendar () {
   useEffect(()=> {
     console.log(data);
   },[data])
-  
-  
-
 
   return (
     <div className="h-full flex justify-center  overflow-x-auto">
-    <Calendar
+      <Calendar
         height={400}
         width={1200}
         data={data}
@@ -66,25 +63,19 @@ export default function AppCalendar () {
         monthBorderColor="#none"
         dayBorderWidth={0}
         dayBorderColor="#none"
-        // theme={
-        //   {
-        //     background: 'background',
-        //   }
-          
-        // }
         legends={[
           {
-              anchor: 'bottom-right',
-              direction: 'row',
-              translateY: 36,
-              itemCount: 4,
-              itemWidth: 42,
-              itemHeight: 36,
-              itemsSpacing: 14,
-              itemDirection: 'right-to-left'
+            anchor: 'bottom-right',
+            direction: 'row',
+            translateY: 36,
+            itemCount: 4,
+            itemWidth: 42,
+            itemHeight: 36,
+            itemsSpacing: 14,
+            itemDirection: 'right-to-left'
           }
         ]}
-    />
+      />
     </div>
   )
 }

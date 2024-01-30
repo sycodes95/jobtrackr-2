@@ -4,6 +4,7 @@ import AppCalendar from "./components/appCalendar";
 import Metrics from "./components/metrics";
 
 import GridViewIcon from '@mui/icons-material/GridView';
+import UpcomingInterviews from "./components/upcomingInterviews";
 
 export default function Dashboard () {
   return (
@@ -18,6 +19,10 @@ export default function Dashboard () {
         <div className="flex flex-col gap-8 w-full h-full">
           <Metrics />
           <AppCalendar />
+          
+        </div>
+        <div className="flex flex-col gap-8 w-full h-full">
+          <UpcomingInterviews />
         </div>
       </div>
     </PageContainer>

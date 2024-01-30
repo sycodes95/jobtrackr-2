@@ -3,3 +3,4 @@ export const yearAgoFromToday = () => {
   let oneYearAgo = new Date(today.setFullYear(today.getFullYear() - 1));
   return oneYearAgo;
 }
+
