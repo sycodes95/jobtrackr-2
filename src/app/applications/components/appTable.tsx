@@ -36,7 +36,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -48,10 +47,12 @@ import {
 
 import ApplicationForm from "./applicationForm"
 import { deleteApplications } from "../services/deleteApps"
+import useApps from "@/app/hooks/useApps";
 
 export default function AppTable () {
-  const userId = useUserId()
-  const [applications, setApplications] = useState<ApplicationDetails[]>([])
+
+  const { applications, setApplications } = useApps();
+
   const columns: ColumnDef<ApplicationDetails>[] = [
     {
       id: "actions",
@@ -491,14 +492,6 @@ export default function AppTable () {
     },
     
   ];
-
-
-  useEffect(() => {
-    if(userId){
-      getAllApps(userId).then(apps => setApplications(apps))
-    }
-  },[userId]);
-
 
   return (
     <DataTable columns={columns} data={applications} setData={setApplications}/>

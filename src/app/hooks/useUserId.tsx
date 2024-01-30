@@ -23,4 +23,4 @@ export default function useUserId () {
 
   if(pgUser) return pgUser.user_id
   return null
-}
+};

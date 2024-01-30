@@ -16,7 +16,7 @@ export default function PageHeader ( { children, title, description } : PageHead
       </span>
       {
       description && 
-      <span className="text-xs p-2">
+      <span className="text-xs text-primary">
         {description}
       </span>
       }
