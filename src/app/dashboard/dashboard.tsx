@@ -9,7 +9,7 @@ import UpcomingInterviews from "./components/upcomingInterviews";
 export default function Dashboard () {
   return (
     <PageContainer>
-      <div className="flex flex-col gap-8 w-full">
+      <div className="flex flex-col gap-8 w-full h-full">
         <PageHeader 
           title="Dashboard" 
           description="Overview of your job application metrics."

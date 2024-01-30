@@ -22,6 +22,13 @@ export default function Metrics () {
     "Total Offers": 0.5,
   });
 
+  const metricsBorderColors: {[key: string] : string} = {
+    "Total Applications": 'border-l-4 border-gray-400 text-gray-400',
+    "Total Interviews": 'border-l-4 border-blue-300 text-blue-300',
+    "Total Rejections": 'border-l-4 border-red-300 text-red-300',
+    "Total Offers": 'border-l-4 border-orange-300 text-orange-300',
+  }
+
   // const getMetricsFromApps = useCallback( () => {
   //   const totalApps = applications.length;
   //   const totalInterviews = applications.filter(app => app.interview_date && app.interview_date).length;
@@ -45,7 +52,7 @@ export default function Metrics () {
     <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
       {
       Object.entries(metrics).map(([key, value]) => (
-        <div className="text-black w-full h-full flex flex-col gap-2 rounded-lg border border-border p-4" key={key}>
+        <div className={`${metricsBorderColors[key]}  w-full h-full flex flex-col gap-2 rounded-lg border border-border p-4`} key={key}>
           <span className="font-bold text-primary">{key}</span>
           <span className="font-inter-tight-display text-4xl text-primary">{value}</span>
         </div>

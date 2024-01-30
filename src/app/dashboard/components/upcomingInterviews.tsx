@@ -28,8 +28,8 @@ export default function UpcomingInterviews () {
     console.log(upcomingInterviews);
   },[upcomingInterviews])
   return (
-    <div className="border border-border rounded-lg flex flex-col p-4 w-1/2">
-      <span className="font-bold w-full">Upcoming Interviews</span>
+    <div className=" rounded-lg flex flex-col gap-4 p-4 w-1/2">
+      <span className="font-bold w-full ">Upcoming Interviews</span>
       {
       upcomingInterviews.map((app) => (
         <Popover key={app.app_id}>
