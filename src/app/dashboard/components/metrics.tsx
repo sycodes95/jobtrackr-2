@@ -18,7 +18,7 @@ export default function Metrics () {
     "Total Applications": 123,
     "Total Interviews": 44,
     "Total Rejections": 69,
-    "Total Offers": 0.5,
+    "Total Offers": 1,
   });
 
   const metricsBorderColors: {[key: string] : string} = {
@@ -26,6 +26,12 @@ export default function Metrics () {
     "Total Interviews": 'border-l-4 border-blue-300 text-blue-300 border',
     "Total Rejections": 'border-l-4 border-red-300 text-red-300 border',
     "Total Offers": 'border-l-4 border-orange-300 text-orange-300 border',
+  }
+
+  const getPctOfTotal = ( count : number ) => {
+    if(!metrics["Total Applications"]) return null
+    const pct = Number(((count / metrics["Total Applications"]) * 100).toFixed(1));
+    return pct;
   }
 
   // const getMetricsFromApps = useCallback( () => {
@@ -47,13 +53,20 @@ export default function Metrics () {
   //     getMetricsFromApps();
   //   };
   // },[applications, getMetricsFromApps]);
+  
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
       {
       Object.entries(metrics).map(([key, value]) => (
         <div className={`${metricsBorderColors[key]}  w-full h-full flex flex-col gap-2 rounded-lg  p-4`} key={key}>
           <span className="font-bold text-primary">{key}</span>
-          <span className="font-inter-tight-display text-4xl ">{value}</span>
+          <div className="flex justify-between h-full items-end">
+            <span className="font-inter-tight-display text-4xl  ">{value}</span>
+            {
+            key !== 'Total Applications' && 
+            <span className="text-xs text-zinc-500 pb-1 pt-1">{getPctOfTotal(value)}% of total applications</span>
+            }
+          </div>
         </div>
       ))
       }

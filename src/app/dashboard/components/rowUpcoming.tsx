@@ -13,36 +13,35 @@ interface RowUpcomingProps {
 }
 export default function RowUpcoming ({ app }: RowUpcomingProps) {
   return (
-    <div className="flex text-left justify-between items-center gap-4 text-xs p-2 rounded-lg  border border-gray-300 pl-4 pr-4">
-      <div className="flex gap-4 items-center">
-
-      
-      <span className="w-24 font-semibold">{formatDateToReadable(app.apply_date as string)}</span>
-      <span className="w-24 ">{app.company_name}</span>
-      <span className="w-24">
+    <tr className="text-left gap-4 text-xs  rounded-lg  border-t border-border ">
+      <td className="w-24 font-semibold overflow-hidden text-ellipsis p-4 whitespace-nowrap">{formatDateToReadable(app.apply_date as string)}</td>
+      <td className="w-24 overflow-hidden text-ellipsis p-4 whitespace-nowrap">{app.company_name}</td>
+      <td className="w-24 overflow-hidden text-ellipsis p-4 whitespace-nowrap">
       {
       app.favorite ?
       <FavoriteIcon className="text-red-500" fontSize="small"/>
       :
       <FavoriteBorderIcon className="text-zinc-400" fontSize="small"/>
       }
-      </span>
+      </td>
       {
       app.fit_rating && typeof app.fit_rating === 'number' ?
-      <span className={`${fitRatingColor(app.fit_rating)} font-bold`}><em>{app.fit_rating} / 5</em></span>
+      <td className={`${fitRatingColor(app.fit_rating)} font-bold overflow-hidden text-ellipsis whitespace-nowrap p-4`}><em>{app.fit_rating} / 5</em></td>
       :
-      <span>n/a</span>
+      <td className="p-4 whitespace-nowrap"> n/a</td>
       }
-      </div>
+      <td className="whitespace-nowrap pl-4">
+        <AppMisc 
+        contactName={app.contact_name}
+        contactEmail={app.contact_email}
+        contactPhone={app.contact_phone}
+        notes={app.notes}
+        applyUrl={app.apply_url}
+        cWebsiteUrl={app.company_website}
+        />
+
+      </td>
       
-      <AppMisc 
-      contactName={app.contact_name}
-      contactEmail={app.contact_email}
-      contactPhone={app.contact_phone}
-      notes={app.notes}
-      applyUrl={app.apply_url}
-      cWebsiteUrl={app.company_website}
-      />
-    </div>
+    </tr>
   )
 }

@@ -9,7 +9,7 @@ export default function Applications () {
   return (
     <PageContainer>
       <div className="flex flex-col gap-8 w-full">
-        <PageHeader title="Applications">
+        <PageHeader title="Applications" description="Manage all of your job applications.">
           <FeedIcon />
         </PageHeader>
         <AppTable />

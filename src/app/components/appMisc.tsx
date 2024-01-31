@@ -29,7 +29,7 @@ export default function AppMisc ( {
 } : AppMiscProps) {
   return (
   <Popover>
-    <PopoverTrigger>
+    <PopoverTrigger >
       <Button className="text-left text-xs w-12 h-8 overflow-hidden text-ellipsis bg-foreground text-background" variant={'outline'}>View</Button>
     </PopoverTrigger>
     <PopoverContent className="flex flex-col gap-2">

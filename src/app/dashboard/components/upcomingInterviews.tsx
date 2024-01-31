@@ -32,21 +32,38 @@ export default function UpcomingInterviews () {
     console.log(upcomingInterviews);
   },[upcomingInterviews])
   return (
-    <div className=" rounded-lg flex flex-col gap-4 p-4 w-1/2 h-full ">
+    <div className=" rounded-lg flex flex-col gap-4 p-4 lg:w-1/2 h-full text-primary">
       <span className="font-bold w-full ">Upcoming Interviews</span>
 
       <div className="flex flex-col gap-2">
 
       {
-      upcomingInterviews.length > 0 ?
-      upcomingInterviews.map((app) => (
+      <div className="border border-border rounded-lg w-full h-full overflow-x-auto">
+        <table className="w-full h-full md:table-fixed">
+          <thead className="">
+            <tr className="text-xs text-left text-zinc-500">
+              <th className="p-4">Date</th>
+              <th className=" p-4">Fav</th>
+              <th className=" p-4">Company</th>
+              <th className=" p-4">Fit</th>
+              <th className=" p-4">Misc</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {
+            upcomingInterviews.map((application) => (
+              <RowUpcoming key={application.app_id} app={application} />
+            ))
+            }
+          </tbody>
         
-        <RowUpcoming key={app.app_id} app={app} />
-          
-      ))
-      :
-      <span className="p-2">n/a</span>
+        </table>
+      </div>
+      
+
       }
+
       </div>
 
     </div>
