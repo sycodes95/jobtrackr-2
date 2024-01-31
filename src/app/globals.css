@@ -109,6 +109,10 @@
   text-shadow: 0 0 5px rgb(4, 4, 4);
 }
 
+.text-outline-black {
+  -webkit-text-stroke: 1.5px black;
+}
+
 .landing-page-background-light {
   background: linear-gradient( rgb(255, 190, 196), white);
 }

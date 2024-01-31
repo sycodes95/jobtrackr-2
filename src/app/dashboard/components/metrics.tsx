@@ -1,7 +1,6 @@
 'use client'
 
 import useApps from "@/app/hooks/useApps"
-import { useScrollTrigger } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 
 interface Metrics {
@@ -23,10 +22,10 @@ export default function Metrics () {
   });
 
   const metricsBorderColors: {[key: string] : string} = {
-    "Total Applications": 'border-l-4 border-gray-400 text-gray-400',
-    "Total Interviews": 'border-l-4 border-blue-300 text-blue-300',
-    "Total Rejections": 'border-l-4 border-red-300 text-red-300',
-    "Total Offers": 'border-l-4 border-orange-300 text-orange-300',
+    "Total Applications": 'border-l-4 border-gray-400 text-gray-400 border ',
+    "Total Interviews": 'border-l-4 border-blue-300 text-blue-300 border',
+    "Total Rejections": 'border-l-4 border-red-300 text-red-300 border',
+    "Total Offers": 'border-l-4 border-orange-300 text-orange-300 border',
   }
 
   // const getMetricsFromApps = useCallback( () => {
@@ -52,9 +51,9 @@ export default function Metrics () {
     <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
       {
       Object.entries(metrics).map(([key, value]) => (
-        <div className={`${metricsBorderColors[key]}  w-full h-full flex flex-col gap-2 rounded-lg border border-border p-4`} key={key}>
+        <div className={`${metricsBorderColors[key]}  w-full h-full flex flex-col gap-2 rounded-lg  p-4`} key={key}>
           <span className="font-bold text-primary">{key}</span>
-          <span className="font-inter-tight-display text-4xl text-primary">{value}</span>
+          <span className="font-inter-tight-display text-4xl ">{value}</span>
         </div>
       ))
       }

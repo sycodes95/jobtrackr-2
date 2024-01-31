@@ -15,9 +15,13 @@ export default function UpcomingInterviews () {
   const { applications, setApplications } = useApps();
   const [upcomingInterviews, setUpcomingInterviews] = useState<ApplicationDetails[]>([])
   const getAppsWithInterviews = useCallback(() => {
+    const currentDate = new Date();
+    currentDate.setHours(0,0,0,0)
+
     const interviews = applications.filter( app => {
-      if(app.interview_date && new Date(app.interview_date) >= new Date()) return app
+      if(app.interview_date && (new Date(app.interview_date) >= currentDate)) return app
     })
+    console.log(interviews);
     setUpcomingInterviews(interviews)
   },[applications])
   useEffect(() => {
@@ -28,18 +32,22 @@ export default function UpcomingInterviews () {
     console.log(upcomingInterviews);
   },[upcomingInterviews])
   return (
-    <div className=" rounded-lg flex flex-col gap-4 p-4 w-1/2">
+    <div className=" rounded-lg flex flex-col gap-4 p-4 w-1/2 h-full ">
       <span className="font-bold w-full ">Upcoming Interviews</span>
+
+      <div className="flex flex-col gap-2">
+
       {
+      upcomingInterviews.length > 0 ?
       upcomingInterviews.map((app) => (
-        <Popover key={app.app_id}>
-          <PopoverTrigger>
-            <RowUpcoming app={app} />
-          </PopoverTrigger>
-          <PopoverContent>Place content for the popover here.</PopoverContent>
-        </Popover>
+        
+        <RowUpcoming key={app.app_id} app={app} />
+          
       ))
+      :
+      <span className="p-2">n/a</span>
       }
+      </div>
 
     </div>
   )

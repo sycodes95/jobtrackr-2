@@ -55,7 +55,7 @@ export default function AppCalendar () {
         data={data}
         from={elevenMonthsAgo()}
         to={new Date()}
-        emptyColor="#DADADA"
+        emptyColor="#DEDEDE"
         colors={[ '#61cdbb', '#97e3d5', '#e8c1a0', '#f47560' ]}
         margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
         yearSpacing={40}
