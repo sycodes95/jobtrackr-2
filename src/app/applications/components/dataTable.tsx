@@ -33,7 +33,7 @@ import { PopoverClose } from "@radix-ui/react-popover";
 import { Input } from "@/components/ui/input"
 
 import { ApplicationDetails } from "../types/types"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { DataTablePagination } from "./dataTablePagination"
 import { deleteApplications } from "../services/deleteApps"
 import { getAllApps } from "../services/getAllApps";
@@ -77,10 +77,6 @@ export function DataTable<TData, TValue>({
       sorting,
       rowSelection,
       columnFilters,
-      pagination: {
-        pageIndex: 0,
-        pageSize: 20
-      }
     },
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
@@ -88,6 +84,10 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  useEffect(()=> {
+    // set initial rows per page
+    if(table) table.setPageSize(20)
+  },[table])
   const hiddenCols = ['apply_url', 'company_website', 'notes', 'contact_name', 'contact_email', 'contact_phone'];
   
   const colIsHidden = (cellColId: string) => {
@@ -119,7 +119,7 @@ export function DataTable<TData, TValue>({
   
   return (
 
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-4 w-full">
       <div className={`${table.getSelectedRowModel().rows.length > 0 ? 'justify-between' : 'justify-end'} flex items-center`}>
         <div className="w-full flex gap-2 items-center">
           <Sheet>
