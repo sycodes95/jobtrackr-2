@@ -17,7 +17,6 @@ export default function AppCalendar () {
 
   const dayBorderColor = 'none'
 
-
   const { theme } = useTheme()
 
   const { applications, setApplications } = useApps();
@@ -57,9 +56,6 @@ export default function AppCalendar () {
 
   return (
     <>
-
-      
-      
       <div className="h-full flex justify-start overflow-x-auto">
         
         <Calendar
@@ -68,13 +64,13 @@ export default function AppCalendar () {
           data={data}
           from={elevenMonthsAgo()}
           to={new Date()}
-          emptyColor={theme ? (theme === 'dark' ? 'none' : 'DEDEDE') : defaultEmptyColor}
+          emptyColor={theme ? (theme === 'dark' ? '#0F1011' : '#DFDFDF') : defaultEmptyColor}
           colors={[ '#61cdbb', '#97e3d5', '#e8c1a0', '#f47560' ]}
           margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
           yearSpacing={40}
           monthBorderColor="#none"
           dayBorderWidth={2}
-          dayBorderColor={theme ? (theme === 'dark' ? 'none' : 'DEDEDE') : dayBorderColor}
+          dayBorderColor={theme ? (theme === 'dark' ? 'hsl(240 10% 8%)' : 'hsl(0 0% 100%)') : dayBorderColor}
           legends={[
             {
               anchor: 'bottom-right',
