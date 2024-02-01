@@ -13,6 +13,11 @@ interface Data {
 
 export default function AppCalendar () { 
 
+  const defaultEmptyColor = 'none'
+
+  const dayBorderColor = 'none'
+
+
   const { theme } = useTheme()
 
   const { applications, setApplications } = useApps();
@@ -51,38 +56,44 @@ export default function AppCalendar () {
   },[theme])
 
   return (
-    <div className="h-full flex justify-start overflow-x-auto">
-      {
-      theme &&
-      <Calendar
-        height={400}
-        width={1200}
-        data={data}
-        from={elevenMonthsAgo()}
-        to={new Date()}
-        emptyColor={theme === 'dark' ? 'none' : 'DEDEDE'}
-        colors={[ '#61cdbb', '#97e3d5', '#e8c1a0', '#f47560' ]}
-        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-        yearSpacing={40}
-        monthBorderColor="#none"
-        dayBorderWidth={2}
-        dayBorderColor={theme === 'dark' ? 'none' : 'DEDEDE'}
-        
-        legends={[
-          {
-            anchor: 'bottom-right',
-            direction: 'row',
-            translateY: 36,
-            itemCount: 4,
-            itemWidth: 42,
-            itemHeight: 36,
-            itemsSpacing: 14,
-            itemDirection: 'right-to-left'
-          }
-        ]}
-      />
-      }
+    <>
+
       
-    </div>
+      
+      <div className="h-full flex justify-start overflow-x-auto">
+        
+        <Calendar
+          height={400}
+          width={1200}
+          data={data}
+          from={elevenMonthsAgo()}
+          to={new Date()}
+          emptyColor={theme ? (theme === 'dark' ? 'none' : 'DEDEDE') : defaultEmptyColor}
+          colors={[ '#61cdbb', '#97e3d5', '#e8c1a0', '#f47560' ]}
+          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+          yearSpacing={40}
+          monthBorderColor="#none"
+          dayBorderWidth={2}
+          dayBorderColor={theme ? (theme === 'dark' ? 'none' : 'DEDEDE') : dayBorderColor}
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'row',
+              translateY: 36,
+              itemCount: 4,
+              itemWidth: 42,
+              itemHeight: 36,
+              itemsSpacing: 14,
+              itemDirection: 'right-to-left'
+            }
+          ]}
+        />
+      </div>
+      
+     
+
+      
+      
+    </>
   )
 }

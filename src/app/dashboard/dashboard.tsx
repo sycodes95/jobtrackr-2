@@ -1,3 +1,4 @@
+
 import PageContainer from "../components/pageContainer";
 import PageHeader from "../components/pageHeader";
 import AppCalendar from "./components/appCalendar";
@@ -19,7 +20,6 @@ export default function Dashboard () {
         <div className="flex flex-col gap-8 w-full h-full">
           <Metrics />
           <AppCalendar />
-          
         </div>
         <div className="flex flex-col gap-8 w-full h-full">
           <UpcomingInterviews />

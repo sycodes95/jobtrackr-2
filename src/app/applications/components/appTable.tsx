@@ -295,6 +295,11 @@ export default function AppTable () {
           </Button>
         )
       },
+      cell: ({row}) => {
+        const date: string = row.getValue('interview_date');
+        return <span className="w-full text-center">{date ? formatDateToReadable(date) : 'n/a'}</span>
+      },
+      sortingFn: 'datetime'
     },
     {
       accessorKey: "offer_amount",
