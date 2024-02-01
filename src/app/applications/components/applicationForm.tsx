@@ -41,7 +41,7 @@ import {
 
 import { Calendar as CalendarIcon } from "lucide-react"
 import { formatDate } from "@/utils/formatDate";
-import { isDate } from "date-fns";
+import { isDate, parseISO } from "date-fns";
 import { applicationDetailsFormAttr, defaultApplicationDetails, selectOptions } from "../constants/constants";
 import { ApplicationDetails } from "../types/types";
 import { submitApp } from "../services/submitApp";
@@ -89,6 +89,7 @@ export default function ApplicationForm (
   }
 
   useEffect(()=> {
+    console.log(applicationDetails);
   },[applicationDetails])
   
   const createInput = <T extends keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr>(
@@ -130,6 +131,14 @@ export default function ApplicationForm (
           </FormItem>
         )
       case 'date':
+        let date = undefined;
+        if(value && typeof value === 'string') {
+          date = parseISO(value);
+          date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+        } else if(value instanceof Date) {
+          date = value
+        }
         return (
           <div className="flex flex-col gap-2" key={key}>
             <Label>{applicationDetailsFormAttr[key].label}</Label>
@@ -143,13 +152,13 @@ export default function ApplicationForm (
                   }
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {isDate(value) ? formatDate(value , "PPP") : <span>...</span>}
+                  {date ? formatDate(date , "PPP") : <span>...</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
-                  selected={isDate(value) ? value : undefined}
+                  selected={value === 'string' || value instanceof Date ? new Date(value) : undefined}
                   onSelect={(value) => handleInputChange(key, value as ApplicationDetails[T])}
                   initialFocus
                 />
