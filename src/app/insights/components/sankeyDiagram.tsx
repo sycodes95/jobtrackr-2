@@ -1,16 +1,42 @@
 'use client'
-import { ResponsiveSankey, SankeyLinkDatum } from '@nivo/sankey'
-import { useState } from 'react';
-import { Layer, Rectangle, Sankey, Text, Tooltip } from 'recharts'
-import { DefaultSankeyData, defaultSankeyData } from '../constants';
+import { ResponsiveSankey } from '@nivo/sankey'
+import { useCallback, useEffect, useState } from 'react';
+import { DefaultSankeyData, defaultSankeyData, demoSankeyLinks } from '../constants';
+import useApps from '@/app/hooks/useApps';
+import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/sankeyValues';
 
 
 
 export default function SankeyDiagram () {
-
+  const { applications } = useApps();
   const [sankeyData, setSankeyData] = useState<DefaultSankeyData>(defaultSankeyData)
 
-  
+  const [useDemoData, _ ] = useState(true)
+
+  const formatAppsToSankeyLinks = useCallback(() => {
+    const links = [
+      getAppliedGhosted(applications),
+      getAppliedRejected(applications),
+      getAppliedInterview(applications),
+      getInterviewRejected(applications),
+      getInterviewOffer(applications),
+      getOfferRejected(applications),
+    ];
+
+    setSankeyData(prev => ({ ...prev, 'links': links}))
+  },[applications])
+
+  useEffect(() => {
+    if(applications.length > 0 && !useDemoData) {
+      formatAppsToSankeyLinks();
+    }
+  },[applications, formatAppsToSankeyLinks, useDemoData])
+
+  useEffect(() => {
+    if(useDemoData){
+      setSankeyData(prev => ({...prev, 'links': demoSankeyLinks}))
+    }
+  },[useDemoData])
 
   return (
     <div className='h-[400px] w-full'>

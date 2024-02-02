@@ -1,15 +1,18 @@
 
 export interface DefaultSankeyData {
-  "nodes" : {
-    "id": string;
-    "nodeColor" : string;
-  }[],
-  "links" : {
-    "source": string;
-    "target" : string;
-    "value": number;
-  }[],
+  "nodes" : SankeyNode[],
+  "links" : SankeyLink[],
+}
 
+export type SankeyNode = {
+  "id": string;
+  "nodeColor" : string;
+}
+
+export type SankeyLink = {
+  "source": string;
+  "target" : string;
+  "value": number;
 }
 
 export const defaultSankeyData: DefaultSankeyData = {
@@ -39,33 +42,67 @@ export const defaultSankeyData: DefaultSankeyData = {
     {
       "source": "Applied",
       "target": "Ghosted",
-      "value": 55
+      "value": 0
     },
     {
       "source": "Applied",
       "target": "Rejected",
-      "value": 61
+      "value": 0
     },
     {
       "source": "Applied",
       "target": "Interview",
-      "value": 94
+      "value": 0
     },
     {
       "source": "Interview",
       "target": "Rejected",
-      "value": 195
+      "value": 0
     },
     {
       "source": "Interview",
       "target": "Offer",
-      "value": 85
+      "value": 0
     },
     {
       "source": "Offer",
       "target": "Rejected",
-      "value": 5
+      "value": 0
     },
     
   ]
 }
+
+export const demoSankeyLinks: SankeyLink[] = [
+  {
+    "source": "Applied",
+    "target": "Ghosted",
+    "value": 55
+  },
+  {
+    "source": "Applied",
+    "target": "Rejected",
+    "value": 61
+  },
+  {
+    "source": "Applied",
+    "target": "Interview",
+    "value": 94
+  },
+  {
+    "source": "Interview",
+    "target": "Rejected",
+    "value": 195
+  },
+  {
+    "source": "Interview",
+    "target": "Offer",
+    "value": 85
+  },
+  {
+    "source": "Offer",
+    "target": "Rejected",
+    "value": 5
+  },
+  
+]
