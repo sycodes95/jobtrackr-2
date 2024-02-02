@@ -4,12 +4,17 @@ import { useCallback, useEffect, useState } from 'react';
 import { DefaultSankeyData, defaultSankeyData, demoSankeyLinks } from '../constants';
 import useApps from '@/app/hooks/useApps';
 import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/sankeyValues';
+import { useTheme } from 'next-themes';
 
 
 
 export default function SankeyDiagram () {
   const { applications } = useApps();
+
+  const { theme } = useTheme()
   const [sankeyData, setSankeyData] = useState<DefaultSankeyData>(defaultSankeyData)
+
+  const [themeIsLoaded, setThemeIsLoaded] = useState(false)
 
   const [useDemoData, _ ] = useState(true)
 
@@ -38,15 +43,18 @@ export default function SankeyDiagram () {
     }
   },[useDemoData])
 
+  useEffect(()=> {
+    theme && setThemeIsLoaded(true);
+  },[theme])
+
   return (
     <div className='h-[400px] w-full'>
 
       <ResponsiveSankey
-
         data={sankeyData}
         margin={{ top: 40, right: 160, bottom: 40, left: 50 }}
         align="justify"
-        colors={{ scheme: 'nivo' }}
+        colors={{ scheme: `${theme === 'dark' ? 'nivo' : 'nivo'}` }}
         nodeOpacity={1}
         nodeHoverOthersOpacity={0.35}
         nodeThickness={2}
@@ -61,9 +69,10 @@ export default function SankeyDiagram () {
             ]
           ]
         }}
+        linkBlendMode={theme === 'dark' ? 'lighten' : 'darken'}
         nodeBorderRadius={3}
-        linkOpacity={0.8}
-        linkHoverOthersOpacity={0.1}
+        linkOpacity={0.7}
+        linkHoverOthersOpacity={0.2}
         linkContract={3}
         enableLinkGradient={true}
         labelPosition="outside"
@@ -93,7 +102,7 @@ export default function SankeyDiagram () {
               {
                 on: 'hover',
                 style: {
-                    itemTextColor: '#000'
+                  itemTextColor: '#000'
                 }
               }
             ]
