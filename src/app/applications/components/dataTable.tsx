@@ -44,6 +44,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import ApplicationForm from "./applicationForm";
+import { paginationArr } from "../constants/constants";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -86,8 +87,9 @@ export function DataTable<TData, TValue>({
 
   useEffect(()=> {
     // set initial rows per page
-    if(table) table.setPageSize(20)
-  },[table])
+    if(table) table.setPageSize(paginationArr[0])
+  },[table]);
+
   const hiddenCols = ['apply_url', 'company_website', 'notes', 'contact_name', 'contact_email', 'contact_phone'];
   
   const colIsHidden = (cellColId: string) => {

@@ -40,8 +40,6 @@ export const applicationDetailsFormAttr  = {
   notes: {  label: 'Notes', type: 'textArea' },
 };
 
-
-
 export const selectOptions: {[key: string] : string[]} = {
   apply_method: [
     'Company Website', 'Job Board', 'Recruiter', 'Referral', 'Email', 'Other'
@@ -53,5 +51,9 @@ export const selectOptions: {[key: string] : string[]} = {
     'From Response', 'After Interview', 'After Offer', 'Other'
   ]
 };
+
+export const paginationArr = [
+  1, 2 ,3
+];
 
 

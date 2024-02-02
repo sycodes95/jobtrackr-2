@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { paginationArr } from "../constants/constants"
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
@@ -22,6 +23,8 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
+
+  
   return (
     <div className="flex items-center justify-between px-2 text-primary">
       <div className="flex-1 text-sm text-muted-foreground">
@@ -41,8 +44,8 @@ export function DataTablePagination<TData>({
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
-              {[20, 40, 60].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize ? pageSize : '20'}`}>
+              {paginationArr.map((pageSize) => (
+                <SelectItem className="hover:cursor-pointer" key={pageSize} value={`${pageSize ? pageSize : '20'}`}>
                   {pageSize}
                 </SelectItem>
               ))}

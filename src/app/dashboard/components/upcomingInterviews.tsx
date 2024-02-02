@@ -32,7 +32,7 @@ export default function UpcomingInterviews () {
     console.log(upcomingInterviews);
   },[upcomingInterviews])
   return (
-    <div className=" rounded-lg flex flex-col gap-4 p-4 lg:w-1/2 h-full text-primary">
+    <div className=" rounded-lg flex flex-col gap-4 lg:w-1/2 h-full text-primary">
       <span className="font-bold w-full ">Upcoming Interviews</span>
 
       <div className="flex flex-col gap-2">

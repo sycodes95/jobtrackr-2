@@ -18,10 +18,16 @@ export default function AppCalendar () {
   const dayBorderColor = 'none'
 
   const { theme } = useTheme()
+  
+  const [themeLoaded, setThemeLoaded] = useState(false)
 
   const { applications, setApplications } = useApps();
 
   const [data, setData] = useState<CalendarDatum[]>([]);
+
+  useEffect(()=> {
+    if(theme) setThemeLoaded(true)
+  },[theme])
 
   const formatData = useCallback(() => {
 
@@ -56,34 +62,41 @@ export default function AppCalendar () {
 
   return (
     <>
-      <div className="h-full flex justify-start overflow-x-auto"> 
-        
+      <div className="h-[460px] flex justify-start flex-col gap-4 items-start overflow-x-auto "> 
+        <span className="font-semibold text-primary">
+          Applications Calendar
+        </span>
+        {
+        themeLoaded &&
         <Calendar
-          height={400}
-          width={1200}
-          data={data}
-          from={elevenMonthsAgo()}
-          to={new Date()}
-          emptyColor={theme ? (theme === 'dark' ? '#0F1011' : '#DFDFDF') : defaultEmptyColor}
-          colors={[ '#61cdbb', '#97e3d5', '#e8c1a0', '#f47560' ]}
-          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-          yearSpacing={40}
-          monthBorderColor="#none"
-          dayBorderWidth={2}
-          dayBorderColor={theme ? (theme === 'dark' ? 'hsl(240 10% 8%)' : 'hsl(0 0% 100%)') : dayBorderColor}
-          legends={[
-            {
-              anchor: 'bottom-right',
-              direction: 'row',
-              translateY: 36,
-              itemCount: 4,
-              itemWidth: 42,
-              itemHeight: 36,
-              itemsSpacing: 14,
-              itemDirection: 'right-to-left'
-            }
-          ]}
+        key={theme}
+        height={400}
+        width={1200}
+        data={data}
+        from={elevenMonthsAgo()}
+        to={new Date()}
+        emptyColor={theme ? (theme === 'dark' ? '#0F1011' : '#DFDFDF') : defaultEmptyColor}
+        colors={[ '#61cdbb', '#97e3d5', '#e8c1a0', '#f47560' ]}
+        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+        yearSpacing={40}
+        monthBorderColor="#none"
+        dayBorderWidth={2}
+        dayBorderColor={theme ? (theme === 'dark' ? 'hsl(240 10% 8%)' : 'hsl(0 0% 100%)') : dayBorderColor}
+        legends={[
+          {
+            anchor: 'bottom-right',
+            direction: 'row',
+            translateY: 36,
+            itemCount: 4,
+            itemWidth: 42,
+            itemHeight: 36,
+            itemsSpacing: 14,
+            itemDirection: 'right-to-left'
+          }
+        ]}
         />
+        }
+        
       </div>
       
      
