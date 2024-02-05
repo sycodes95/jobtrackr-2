@@ -34,12 +34,17 @@ export default function AppCalendar () {
     const formatted: CalendarDatum[] = []
 
     applications.forEach((app) => {
-      const dateIndex = formatted.findIndex(data => data.day === app.apply_date)
+      const date: string = app.apply_date as string;
+      const [formattedDate, _] = date.split('T');
+      
+      const dateIndex = formatted.findIndex(data => {
+        console.log(data.day, app.apply_date);
+        if(data.day === formattedDate) return data
+      })
       if(dateIndex !== -1) {
         formatted[dateIndex].value += 1;
       } else {
-        const date: string = app.apply_date as string;
-        const [formattedDate, _] = date.split('T');
+        
         formatted.push({
           value: 1,
           day: formattedDate
@@ -55,6 +60,10 @@ export default function AppCalendar () {
       formatData();
     }
   },[applications, formatData])
+
+  useEffect(()=> {
+    console.log(data);
+  },[data])
 
   return (
     <>

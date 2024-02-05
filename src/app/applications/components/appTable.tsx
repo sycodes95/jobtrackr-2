@@ -69,8 +69,8 @@ export default function AppTable () {
                   <MoreHorizontal className="h-4 w-4" />
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuContent className="bg-card" align="end">
+                <DropdownMenuLabel className="border-b">Actions</DropdownMenuLabel>
                 <DropdownMenuItem className=" w-full h-full">
                   <SheetTrigger className="w-full h-full flex">
                     <span>Edit</span>
@@ -351,7 +351,7 @@ export default function AppTable () {
             <PopoverTrigger>
               <Button className="text-left text-xs w-12 h-8 overflow-hidden text-ellipsis bg-foreground text-background" variant={'outline'}>View</Button>
             </PopoverTrigger>
-            <PopoverContent className="flex flex-col gap-2">
+            <PopoverContent className="flex flex-col gap-2 bg-card">
 
               <span className="text-xs font-bold p-2 border-b border-border">Contact Info</span>
               

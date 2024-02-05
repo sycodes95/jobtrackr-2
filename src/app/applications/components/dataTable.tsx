@@ -175,7 +175,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm border border-border text-primary"
         />
       </div>
-      <div className="rounded-md border overflow-x-auto">
+      <div className="rounded-md border overflow-x-auto bg-card">
         <Table className="lg:table-fixed">
           <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
