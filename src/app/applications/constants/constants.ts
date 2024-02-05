@@ -53,7 +53,7 @@ export const selectOptions: {[key: string] : string[]} = {
 };
 
 export const paginationArr = [
-  1, 2 ,3
+  20, 40 ,60
 ];
 
 

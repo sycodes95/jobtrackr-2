@@ -17,7 +17,7 @@ export default function Hero () {
 
   
   return (
-    <div className="flex flex-col h-fit items-center gap-6  w-full">
+    <div className="flex flex-col h-fit items-center gap-6 w-full">
 
       <div className=" relative h-fit ">
         <HeroGithubButton />

@@ -77,32 +77,32 @@ export const demoSankeyLinks: SankeyLink[] = [
   {
     "source": "Applied",
     "target": "Ghosted",
-    "value": 55
+    "value": 325
   },
   {
     "source": "Applied",
     "target": "Rejected",
-    "value": 61
+    "value": 122
   },
   {
     "source": "Applied",
     "target": "Interview",
-    "value": 94
+    "value": 42
   },
   {
     "source": "Interview",
     "target": "Rejected",
-    "value": 195
+    "value": 33
   },
   {
     "source": "Interview",
     "target": "Offer",
-    "value": 85
+    "value": 4
   },
   {
     "source": "Offer",
     "target": "Rejected",
-    "value": 5
+    "value": 2
   },
   
 ]

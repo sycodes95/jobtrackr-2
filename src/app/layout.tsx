@@ -49,14 +49,13 @@ export default async function RootLayout({
     <html lang="en" className={`${GeistMono.variable} flex h-full w-full`} suppressHydrationWarning>
       <UserProvider>
         <body className={` min-h-screen h-full w-full bg-background flex-col flex items-center text-jet`}>
-          <ThemeProvider
+          {/* <ThemeProvider
             attribute="class"
             defaultTheme="light"
-            enableSystem
             disableTransitionOnChange
-          >
+          > */}
             <NextTopLoader showSpinner={true} color="#000000" />
-            <Header  isAuthenticated={isAuthenticated}/>
+            {/* <Header  isAuthenticated={isAuthenticated}/> */}
             <CheckAuth 
             isAuthenticated={isAuthenticated} 
             >
@@ -65,7 +64,7 @@ export default async function RootLayout({
 
             <Footer  />
             
-          </ThemeProvider>
+          {/* </ThemeProvider> */}
         </body>
       </UserProvider>
     </html>

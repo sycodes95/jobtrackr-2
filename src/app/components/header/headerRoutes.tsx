@@ -16,7 +16,7 @@ export default function HeaderRoutes () {
     <div className="flex items-center gap-6">
       {
       Object.entries(routes).map(([key, value]) => (
-        <Link className={`${path === value ? 'text-jet' : 'text-zinc-500'} w-fit text-sm font-inter-tight font-semibold`} href={value} key={key}>
+        <Link className={`${path === value ? 'text-primary' : 'text-zinc-500'} w-fit text-sm font-inter-tight font-semibold`} href={value} key={key}>
           {key}
         </Link>
       ))

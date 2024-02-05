@@ -11,6 +11,7 @@ interface HeaderProps {
 }
 
 export default function Header ( { isAuthenticated } : HeaderProps ) {
+
   return (
     <Container type={`header`}>
       <HeaderContainer className="flex items-center justify-between w-full p-4 h-14 bg-background max-w-7xl">

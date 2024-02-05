@@ -6,8 +6,6 @@ import useApps from '@/app/hooks/useApps';
 import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/sankeyValues';
 import { useTheme } from 'next-themes';
 
-
-
 export default function SankeyDiagram () {
   const { applications } = useApps();
 
@@ -48,11 +46,11 @@ export default function SankeyDiagram () {
   },[theme])
 
   return (
-    <div className='h-[400px] w-full'>
+    <div className='h-[500px] w-full'>
 
       <ResponsiveSankey
         data={sankeyData}
-        margin={{ top: 40, right: 160, bottom: 40, left: 50 }}
+        margin={{ top: 40, right: 140, bottom: 40, left: 20 }}
         align="justify"
         colors={{ scheme: `${theme === 'dark' ? 'nivo' : 'nivo'}` }}
         nodeOpacity={1}
@@ -72,20 +70,15 @@ export default function SankeyDiagram () {
         linkBlendMode={theme === 'dark' ? 'lighten' : 'darken'}
         nodeBorderRadius={3}
         linkOpacity={0.7}
-        linkHoverOthersOpacity={0.2}
-        linkContract={3}
+        linkHoverOthersOpacity={0.5}
+        linkContract={0.5}
         enableLinkGradient={true}
         labelPosition="outside"
         labelOrientation="vertical"
         labelPadding={16}
         labelTextColor={{
           from: 'color',
-          modifiers: [
-            [
-              'darker',
-              1
-            ]
-          ]
+          
         }}
         legends={[
           {

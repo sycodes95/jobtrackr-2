@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Header from "../components/header/header";
 import LandingPage from "../landingPage/landingPage";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "../components/themeProvider";
 
 interface CheckAuthProps {
   isAuthenticated: boolean;
@@ -23,11 +24,23 @@ export default function CheckAuth ( { isAuthenticated, children } : CheckAuthPro
     <>
       {
       isAuthenticated ?
-      <>
-      {children}
-      </>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="light"
+        disableTransitionOnChange
+      >
+        <Header  isAuthenticated={isAuthenticated}/>
+        {children}
+      </ThemeProvider>
       :
-      <LandingPage />
+      <ThemeProvider
+        attribute="class"
+        forcedTheme="light"
+        disableTransitionOnChange
+      >
+        <Header  isAuthenticated={isAuthenticated}/>
+        <LandingPage />
+      </ThemeProvider>
       }
       <Toaster />
     </>
