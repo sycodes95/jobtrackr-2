@@ -38,7 +38,7 @@ export default function UpcomingInterviews () {
       <div className="flex flex-col gap-2">
 
       {
-      <div className="border border-border rounded-lg w-full h-full overflow-x-auto">
+      <div className="border border-border bg-card rounded-lg w-full h-full overflow-x-auto">
         <table className="w-full h-full md:table-fixed">
           <thead className="">
             <tr className="text-xs text-left text-zinc-500">
@@ -52,9 +52,13 @@ export default function UpcomingInterviews () {
           </thead>
           <tbody>
             {
+            upcomingInterviews && upcomingInterviews.length > 0 ?
             upcomingInterviews.map((application) => (
               <RowUpcoming key={application.app_id} app={application} />
             ))
+            :
+            <RowUpcoming noRows={true} />
+
             }
           </tbody>
         

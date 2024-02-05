@@ -55,10 +55,6 @@ export default function AppCalendar () {
       formatData();
     }
   },[applications, formatData])
-  
-  useEffect(()=> {
-    console.log(theme);
-  },[theme])
 
   return (
     <>
@@ -68,6 +64,7 @@ export default function AppCalendar () {
         </span>
         {
         themeLoaded &&
+
         <Calendar
         key={theme}
         height={400}
@@ -95,6 +92,7 @@ export default function AppCalendar () {
           }
         ]}
         />
+
         }
         
       </div>

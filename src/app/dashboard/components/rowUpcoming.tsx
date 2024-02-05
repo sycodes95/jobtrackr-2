@@ -9,10 +9,15 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 interface RowUpcomingProps {
-  app: ApplicationDetails
+  app?: ApplicationDetails;
+  noRows?: boolean;
 }
-export default function RowUpcoming ({ app }: RowUpcomingProps) {
+export default function RowUpcoming ({ app, noRows = false}: RowUpcomingProps) {
   return (
+
+    <>
+    {
+    app && !noRows ?
     <tr className="text-left gap-4 text-xs  rounded-lg  border-t border-border ">
       <td className="w-24 font-semibold overflow-hidden text-ellipsis p-4 whitespace-nowrap">{formatDateToReadable(app.apply_date as string)}</td>
       <td className="w-24 overflow-hidden text-ellipsis p-4 whitespace-nowrap">{app.company_name}</td>
@@ -43,5 +48,14 @@ export default function RowUpcoming ({ app }: RowUpcomingProps) {
       </td>
       
     </tr>
+    :
+
+    <tr className="text-left gap-4 text-xs  rounded-lg  border-t border-border col-span-full ">
+      <td className="w-24 font-semibold overflow-hidden text-ellipsis p-4 whitespace-nowrap col-span-full">n/a</td>
+    </tr>
+    
+    }
+    </>
+    
   )
 }

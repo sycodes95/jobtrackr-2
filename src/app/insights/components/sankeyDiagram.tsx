@@ -1,12 +1,17 @@
 'use client'
 import { ResponsiveSankey } from '@nivo/sankey'
 import { useCallback, useEffect, useState } from 'react';
-import { DefaultSankeyData, KeyStringString, defaultSankeyData, demoSankeyLinks, legendColors } from '../constants';
+import { DefaultSankeyData, KeyStringString, defaultSankeyData, demoSankeyLinks, legendData } from '../constants';
 import useApps from '@/app/hooks/useApps';
 import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/sankeyValues';
 import { useTheme } from 'next-themes';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import CreateIcon from '@mui/icons-material/Create';
+import ChatIcon from '@mui/icons-material/Chat';
+import PaidIcon from '@mui/icons-material/Paid';
+import MoodBadIcon from '@mui/icons-material/MoodBad';
+import { FaGhost } from "react-icons/fa";
 import {
   Card,
   CardContent,
@@ -59,24 +64,49 @@ export default function SankeyDiagram () {
     theme && setThemeIsLoaded(true);
   },[theme]);
 
-  useEffect(() => {
-    console.log(colorSchemes.nivo);
-  },[colorSchemes])
-
   const getLegendColor = (name: string) => {
     console.log(name);
-    if(legendColors[name]) {
-      console.log(`text-[${legendColors[name]}]`);
-      return `text-[${legendColors[name]}]`
+    if(legendData[name]) {
+      console.log(`text-[${legendData[name]}]`);
+      return `text-[${legendData[name]}]`
     }
   }
 
-  const legendColors: {[key:string] : string} = {
-    "Applied": "text-[#e8c1a0]",
-    "Rejected": "text-[#f47560]",
-    "Interview": "text-[#f1e15b]",
-    "Offer": "text-[#e8a838]",
-    "Ghosted": "text-[#61cdbb]",
+  // const legendData: {[key:string] : {
+  //   textColor: string;
+  //   icon: React.ReactNode
+  // }} = {
+  //   "Applied": "text-[#e8c1a0]",
+  //   "Rejected": "text-[#f47560]",
+  //   "Interview": "text-[#f1e15b]",
+  //   "Offer": "text-[#e8a838]",
+  //   "Ghosted": "text-[#61cdbb]",
+  // }
+
+  const legendData: {[key:string] : {
+    textColor: string;
+    icon: React.ReactNode
+  }} = {
+    "Applied": {
+      textColor: "text-[#e8c1a0]",
+      icon: <CreateIcon className='text-[#e8c1a0] text-sm' />
+    },
+    "Rejected": {
+      textColor: "text-[#f47560]",
+      icon: <ThumbDownOffAltIcon className='text-[#f47560] text-sm' />
+    },
+    "Interview": {
+      textColor: "text-[#f1e15b]",
+      icon: <ChatIcon className='text-[#f1e15b] text-sm' />
+    },
+    "Offer": {
+      textColor: "text-[#e8a838]",
+      icon: <PaidIcon className='text-[#e8a838] text-sm' />
+    },
+    "Ghosted": {
+      textColor: "text-[#61cdbb]",
+      icon: <FaGhost className='text-[#61cdbb] text-sm' />
+    },
   }
 
   return (
@@ -104,17 +134,14 @@ export default function SankeyDiagram () {
         }}
         linkBlendMode={theme === 'dark' ? 'lighten' : 'darken'}
         nodeBorderRadius={3}
-        linkOpacity={0.7}
+        linkOpacity={theme === 'dark' ? 0.7 : 0.9}
         linkHoverOthersOpacity={0.5}
         linkContract={0.5}
         enableLinkGradient={true}
         labelPosition="outside"
         labelOrientation="vertical"
         labelPadding={16}
-        labelTextColor={{
-          from: 'color',
-          
-        }}
+        
         legends={[
           {
             anchor: 'bottom-right',
@@ -140,24 +167,34 @@ export default function SankeyDiagram () {
       </div>
 
 
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 '>
         {
         sankeyData &&
         sankeyData.links.map((link) => (
           <Card key={link.source + link.target}>
-            <CardHeader>
-              <CardTitle className='text-sm flex font-normal items-center gap-1 text-'>
-                <span className={`${legendColors[`${link.source}`]}`}>{link.source}</span>
+            <CardHeader className='p-0'>
+              <CardTitle className='text-xs flex font-normal items-center gap-1 pb-2 border-b border-border p-4'>
+                <div className='flex items-center p-2 gap-2 rounded-lg  bg-footer-background'>
+                  {
+                  legendData[link.source].icon
+                  }
+                  <span className={`${legendData[`${link.source}`].textColor}`}>{link.source}</span>
+                </div>
                 <ArrowRightIcon />
-                <span className={`
-                ${getLegendColor(link.target)}
-                `}>{link.target}</span>
+
+                <div className='flex items-center p-2 gap-2 rounded-lg  bg-footer-background'>
+                  {
+                  legendData[link.target].icon
+                  }
+                  <span className={`${legendData[`${link.target}`].textColor} `}>{link.target}</span>
+                </div>
               </CardTitle>
               {/* <CardDescription>Card Description</CardDescription> */}
             </CardHeader>
-            <CardContent>
-              <div className='flex items-center gap-4'>
+            <CardContent className='p-4 flex flex-col gap-4'>
+              <div className='flex items-center justify-between gap-4'>
                 <span className='font-regular text-xs p-2 rounded-lg border border-border'>Percentage</span>
+                <div className='w-full ml-2 mr-2 border-b h-[0px]'></div>
                 <span>
                   {
                    getPct(528, link.value) 
@@ -165,11 +202,17 @@ export default function SankeyDiagram () {
                   %
                 </span>
               </div>
+
+              <div className='flex items-center justify-between gap-4'>
+                <span className='font-regular text-xs p-2 rounded-lg border border-border'>Amount</span>
+                <div className='w-full ml-2 mr-2 border-b h-[0px]'></div>
+                <span>
+                  {link.value}
+                </span>
+              </div>
               
             </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
+            
           </Card>
         ))
         }
