@@ -9,6 +9,10 @@ export type SankeyNode = {
   "nodeColor" : string;
 }
 
+export type KeyStringString = {
+  [key : string] : string
+}
+
 export type SankeyLink = {
   "source": string;
   "target" : string;
@@ -105,4 +109,12 @@ export const demoSankeyLinks: SankeyLink[] = [
     "value": 2
   },
   
-]
+];
+
+export const legendColors: {[key:string] : string} = {
+  "Applied": "#e8c1a0",
+  "Rejected": "#f47560",
+  "Interview": "#f1e15b",
+  "Offer": "#e8a838",
+  "Ghosted": "#61cdbb",
+}

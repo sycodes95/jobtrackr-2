@@ -62,7 +62,6 @@ export default async function RootLayout({
               {children}
             </CheckAuth>
 
-            <Footer  />
             
           {/* </ThemeProvider> */}
         </body>

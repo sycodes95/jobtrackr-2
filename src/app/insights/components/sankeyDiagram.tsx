@@ -1,20 +1,34 @@
 'use client'
 import { ResponsiveSankey } from '@nivo/sankey'
 import { useCallback, useEffect, useState } from 'react';
-import { DefaultSankeyData, defaultSankeyData, demoSankeyLinks } from '../constants';
+import { DefaultSankeyData, KeyStringString, defaultSankeyData, demoSankeyLinks, legendColors } from '../constants';
 import useApps from '@/app/hooks/useApps';
 import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/sankeyValues';
 import { useTheme } from 'next-themes';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+import { colorSchemes } from '@nivo/colors';
+import { getPct } from '@/app/utils/getPct';
+
 
 export default function SankeyDiagram () {
   const { applications } = useApps();
 
   const { theme } = useTheme()
-  const [sankeyData, setSankeyData] = useState<DefaultSankeyData>(defaultSankeyData)
+  const [sankeyData, setSankeyData] = useState<DefaultSankeyData>(defaultSankeyData);
 
-  const [themeIsLoaded, setThemeIsLoaded] = useState(false)
+  const [themeIsLoaded, setThemeIsLoaded] = useState(false);
 
-  const [useDemoData, _ ] = useState(true)
+  const [useDemoData, _ ] = useState(true);
 
   const formatAppsToSankeyLinks = useCallback(() => {
     const links = [
@@ -27,26 +41,47 @@ export default function SankeyDiagram () {
     ];
 
     setSankeyData(prev => ({ ...prev, 'links': links}))
-  },[applications])
+  },[applications]);
 
   useEffect(() => {
     if(applications.length > 0 && !useDemoData) {
       formatAppsToSankeyLinks();
-    }
-  },[applications, formatAppsToSankeyLinks, useDemoData])
+    };
+  },[applications, formatAppsToSankeyLinks, useDemoData]);
 
   useEffect(() => {
     if(useDemoData){
       setSankeyData(prev => ({...prev, 'links': demoSankeyLinks}))
-    }
-  },[useDemoData])
+    };
+  },[useDemoData]);
 
   useEffect(()=> {
     theme && setThemeIsLoaded(true);
-  },[theme])
+  },[theme]);
+
+  useEffect(() => {
+    console.log(colorSchemes.nivo);
+  },[colorSchemes])
+
+  const getLegendColor = (name: string) => {
+    console.log(name);
+    if(legendColors[name]) {
+      console.log(`text-[${legendColors[name]}]`);
+      return `text-[${legendColors[name]}]`
+    }
+  }
+
+  const legendColors: {[key:string] : string} = {
+    "Applied": "text-[#e8c1a0]",
+    "Rejected": "text-[#f47560]",
+    "Interview": "text-[#f1e15b]",
+    "Offer": "text-[#e8a838]",
+    "Ghosted": "text-[#61cdbb]",
+  }
 
   return (
-    <div className='h-[500px] w-full'>
+    <div className='h-full w-full flex flex-col gap-8'>
+      <div className='h-[500px] w-full '>
 
       <ResponsiveSankey
         data={sankeyData}
@@ -101,7 +136,44 @@ export default function SankeyDiagram () {
             ]
           }
         ]}
-    />
+      />
+      </div>
+
+
+      <div className='grid grid-cols-3 gap-4'>
+        {
+        sankeyData &&
+        sankeyData.links.map((link) => (
+          <Card key={link.source + link.target}>
+            <CardHeader>
+              <CardTitle className='text-sm flex font-normal items-center gap-1 text-'>
+                <span className={`${legendColors[`${link.source}`]}`}>{link.source}</span>
+                <ArrowRightIcon />
+                <span className={`
+                ${getLegendColor(link.target)}
+                `}>{link.target}</span>
+              </CardTitle>
+              {/* <CardDescription>Card Description</CardDescription> */}
+            </CardHeader>
+            <CardContent>
+              <div className='flex items-center gap-4'>
+                <span className='font-regular text-xs p-2 rounded-lg border border-border'>Percentage</span>
+                <span>
+                  {
+                   getPct(528, link.value) 
+                  }
+                  %
+                </span>
+              </div>
+              
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+        ))
+        }
+      </div>
       {/* <Sankey
         width={960}
         height={400}

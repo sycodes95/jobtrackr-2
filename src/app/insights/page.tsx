@@ -11,8 +11,9 @@ export default function Insights () {
           description="Advanced insights into your job applications."
         />
 
-        <div>
+        <div className="flex flex-col gap-8">
           <SankeyDiagram />
+          
         </div>
       </div>
     </PageContainer>

@@ -7,6 +7,7 @@ import Header from "../components/header/header";
 import LandingPage from "../landingPage/landingPage";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "../components/themeProvider";
+import Footer from "../components/footer/footer";
 
 interface CheckAuthProps {
   isAuthenticated: boolean;
@@ -31,6 +32,7 @@ export default function CheckAuth ( { isAuthenticated, children } : CheckAuthPro
       >
         <Header  isAuthenticated={isAuthenticated}/>
         {children}
+        <Footer  />
       </ThemeProvider>
       :
       <ThemeProvider
@@ -40,6 +42,7 @@ export default function CheckAuth ( { isAuthenticated, children } : CheckAuthPro
       >
         <Header  isAuthenticated={isAuthenticated}/>
         <LandingPage />
+        <Footer  />
       </ThemeProvider>
       }
       <Toaster />
