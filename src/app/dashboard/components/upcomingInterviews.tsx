@@ -3,11 +3,6 @@ import { ApplicationDetails } from "@/app/applications/types/types";
 import useApps from "@/app/hooks/useApps"
 import { useCallback, useEffect, useState } from "react";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import RowUpcoming from "./rowUpcoming";
 
 export default function UpcomingInterviews () {
@@ -21,16 +16,12 @@ export default function UpcomingInterviews () {
     const interviews = applications.filter( app => {
       if(app.interview_date && (new Date(app.interview_date) >= currentDate)) return app
     })
-    console.log(interviews);
     setUpcomingInterviews(interviews)
   },[applications])
   useEffect(() => {
     getAppsWithInterviews()
   },[applications, getAppsWithInterviews])
 
-  useEffect(() => {
-    console.log(upcomingInterviews);
-  },[upcomingInterviews])
   return (
     <div className=" rounded-lg flex flex-col gap-4 lg:w-1/2 h-full text-primary">
       <span className="font-bold w-full ">Upcoming Interviews</span>

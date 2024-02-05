@@ -9,8 +9,7 @@ export default function HeaderRoutes () {
   const routes = {
     'Applications' : '/applications',
     'Insights' : '/insights',
-
-  }
+  };
 
   return (
     <div className="flex items-center gap-6">

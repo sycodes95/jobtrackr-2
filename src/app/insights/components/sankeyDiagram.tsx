@@ -10,8 +10,9 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import CreateIcon from '@mui/icons-material/Create';
 import ChatIcon from '@mui/icons-material/Chat';
 import PaidIcon from '@mui/icons-material/Paid';
-import MoodBadIcon from '@mui/icons-material/MoodBad';
 import { FaGhost } from "react-icons/fa";
+import { Progress } from "@/components/ui/progress"
+
 import {
   Card,
   CardContent,
@@ -194,7 +195,8 @@ export default function SankeyDiagram () {
             <CardContent className='p-4 flex flex-col gap-4'>
               <div className='flex items-center justify-between gap-4'>
                 <span className='font-regular text-xs p-2 rounded-lg border border-border'>Percentage</span>
-                <div className='w-full ml-2 mr-2 border-b h-[0px]'></div>
+                {/* <div className='w-full ml-2 mr-2 border-b h-[0px]'></div> */}
+                <Progress className='h-2' value={getPct(528, link.value) } />
                 <span>
                   {
                    getPct(528, link.value) 
