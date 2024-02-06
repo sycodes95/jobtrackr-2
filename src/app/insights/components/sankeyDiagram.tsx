@@ -26,7 +26,9 @@ export default function SankeyDiagram () {
       getOfferRejected(applications),
     ];
 
-    setSankeyData(prev => ({ ...prev, 'links': links.filter(link => link && link) as SankeyLink[]}))
+    // setSankeyData(prev => ({ ...prev, 'links': links.filter(link => link && link) as SankeyLink[]}))
+    setSankeyData(prev => ({ ...prev, 'links': links}))
+
   },[applications]);
 
   useEffect(() => {
@@ -41,6 +43,10 @@ export default function SankeyDiagram () {
       setSankeyData(prev => ({...prev, 'links': demoSankeyLinks}))
     };
   },[]);
+
+  useEffect(() => {
+console.log(sankeyData);
+  },[sankeyData])
 
   return (
     <div className='h-full w-full flex flex-col gap-8'>
@@ -68,7 +74,7 @@ export default function SankeyDiagram () {
           nodeBorderRadius={3}
           linkOpacity={theme === 'dark' ? 0.7 : 0.9}
           linkHoverOthersOpacity={0.5}
-          linkContract={0.5}
+          linkContract={0}
           enableLinkGradient={true}
           labelPosition="outside"
           labelOrientation="vertical"
