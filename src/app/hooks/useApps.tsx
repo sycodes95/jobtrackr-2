@@ -3,13 +3,13 @@ import useUserId from "./useUserId"
 import { getAllApps } from "../applications/services/getAllApps";
 import { ApplicationDetails } from "../applications/types/types";
 import { demoApps } from "../applications/constants/constants";
+import { useDemoMode } from "../constants";
 
 export default function useApps () {
-  const useDemo = true;
   const userId = useUserId();
-  const [applications, setApplications] = useState<ApplicationDetails[]>(useDemo ? demoApps: [])
+  const [applications, setApplications] = useState<ApplicationDetails[]>(useDemoMode ? demoApps: [])
   const getApps = useCallback( async () => {
-    if(typeof userId !== 'number' || useDemo) return
+    if(typeof userId !== 'number' || useDemoMode) return
     try {
       const apps = await getAllApps(userId);
       setApplications(apps)
@@ -17,7 +17,7 @@ export default function useApps () {
       console.log('Error in getApps useApps hook', error);
       setApplications([])
     }
-  },[userId, useDemo])
+  },[userId])
 
   useEffect(() => {
     getApps()

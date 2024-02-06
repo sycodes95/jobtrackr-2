@@ -1,11 +1,12 @@
 'use client'
 import { ResponsiveSankey } from '@nivo/sankey'
 import { useCallback, useEffect, useState } from 'react';
-import { DefaultSankeyData, defaultSankeyData, demoApplicationsLength, demoSankeyLinks } from '../constants';
+import { DefaultSankeyData, SankeyLink, defaultSankeyData, demoApplicationsLength, demoSankeyLinks } from '../constants';
 import useApps from '@/app/hooks/useApps';
 import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/sankeyValues';
 import { useTheme } from 'next-themes';
 import SankeyMetricCard from './sankeyMetricCard';
+import { useDemoMode } from '@/app/constants';
 
 export default function SankeyDiagram () {
   const { applications } = useApps();
@@ -13,9 +14,8 @@ export default function SankeyDiagram () {
   const { theme } = useTheme()
   const [sankeyData, setSankeyData] = useState<DefaultSankeyData>(defaultSankeyData);
 
-  const [useDemoData, _ ] = useState(false);
 
-  const [appTotal, setAppTotal] = useState(!useDemoData ? 0 : demoApplicationsLength)
+  const [appTotal, setAppTotal] = useState(!useDemoMode ? 0 : demoApplicationsLength)
 
   const formatAppsToSankeyLinks = useCallback(() => {
     const links = [
@@ -26,21 +26,22 @@ export default function SankeyDiagram () {
       getInterviewOffer(applications),
       getOfferRejected(applications),
     ];
-    setSankeyData(prev => ({ ...prev, 'links': links}))
+
+    setSankeyData(prev => ({ ...prev, 'links': links.filter(link => link && link) as SankeyLink[]}))
   },[applications]);
 
   useEffect(() => {
-    if(applications.length > 0 && !useDemoData) {
+    if(applications.length > 0 && !useDemoMode) {
       formatAppsToSankeyLinks();
       setAppTotal(applications.length);
     };
-  },[applications, formatAppsToSankeyLinks, useDemoData]);
+  },[applications, formatAppsToSankeyLinks]);
 
   useEffect(() => {
-    if(useDemoData){
+    if(useDemoMode){
       setSankeyData(prev => ({...prev, 'links': demoSankeyLinks}))
     };
-  },[useDemoData]);
+  },[]);
 
   return (
     <div className='h-full w-full flex flex-col gap-8'>
