@@ -12,7 +12,11 @@ export default function useApps () {
     if(typeof userId !== 'number' || useDemoMode) return
     try {
       const apps = await getAllApps(userId);
-      setApplications(apps)
+      const sortedByApplyDated = apps.sort((a: ApplicationDetails, b: ApplicationDetails) => {
+        return new Date(b.apply_date as string).getTime() - new Date(a.apply_date as string).getTime()
+      });
+
+      setApplications(sortedByApplyDated);
     } catch (error) {
       console.log('Error in getApps useApps hook', error);
       setApplications([])
@@ -21,7 +25,8 @@ export default function useApps () {
 
   useEffect(() => {
     getApps()
-  },[userId, getApps])
+  },[userId, getApps]);
+
 
   return {
     applications, 

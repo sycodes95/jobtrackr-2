@@ -139,7 +139,7 @@ export default function AppTable () {
         const date: string = row.getValue('apply_date');
         return <span className="w-full text-center">{date ? formatDateToReadable(date) : 'n/a'}</span>
       },
-      sortingFn: 'datetime'
+      sortingFn: 'datetime',
     },
     {
       accessorKey: "company_name",
