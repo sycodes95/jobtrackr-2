@@ -26,7 +26,7 @@ export type SankeyLink = {
   "value": number;
 }
 
-export const SankeyData: SankeyData = {
+export const defaultSankeyData: SankeyData = {
   "nodes": [
     {
       "id": "Applied",
@@ -83,7 +83,28 @@ export const SankeyData: SankeyData = {
     
   ]
 }
-
+export const demoSankeyNodes: SankeyNode[] = [
+  {
+    "id": "Applied",
+    "nodeColor": "hsl(0, 0%, 0%)"
+  },
+  {
+    "id": "Rejected",
+    "nodeColor": "hsl(227, 70%, 50%)"
+  },
+  {
+    "id": "Interview",
+    "nodeColor": "hsl(264, 70%, 50%)"
+  },
+  {
+    "id": "Offer",
+    "nodeColor": "hsl(29, 70%, 50%)"
+  },
+  {
+    "id": "Ghosted",
+    "nodeColor": "hsl(29, 70%, 50%)"
+  },
+]
 export const demoSankeyLinks: SankeyLink[] = [
   {
     "source": "Applied",

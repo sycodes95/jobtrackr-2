@@ -1,7 +1,7 @@
 'use client'
 import { ResponsiveSankey } from '@nivo/sankey'
 import { useCallback, useEffect, useState } from 'react';
-import { SankeyData, SankeyLink, demoApplicationsLength, demoSankeyLinks, legendColors } from '../constants';
+import { SankeyData, SankeyLink, defaultSankeyData, demoApplicationsLength, demoSankeyLinks, demoSankeyNodes, legendColors } from '../constants';
 import useApps from '@/app/hooks/useApps';
 import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/getSankeyValues';
 import { useTheme } from 'next-themes';
@@ -13,7 +13,7 @@ export default function SankeyDiagram () {
   const { applications } = useApps();
 
   const { theme } = useTheme()
-  const [sankeyData, setSankeyData] = useState<SankeyData>(SankeyData);
+  const [sankeyData, setSankeyData] = useState<SankeyData | null>(null);
 
   const [appTotal, setAppTotal] = useState(!useDemoMode ? 0 : demoApplicationsLength)
 
@@ -27,7 +27,9 @@ export default function SankeyDiagram () {
       getOfferRejected(applications),
     ].filter(link => link.value);
     const nodes = generateSankeyNodes(applications)
-    setSankeyData(prev => ({ nodes, 'links': links}))
+
+    console.log(links, nodes);
+    setSankeyData(({ nodes, 'links': links}))
 
   },[applications]);
 
@@ -40,7 +42,7 @@ export default function SankeyDiagram () {
 
   useEffect(() => {
     if(useDemoMode){
-      setSankeyData(prev => ({...prev, 'links': demoSankeyLinks}))
+      setSankeyData({nodes: demoSankeyNodes, 'links': demoSankeyLinks})
     };
   },[]);
 
@@ -51,6 +53,9 @@ console.log(sankeyData);
   return (
     <div className='h-full w-full flex flex-col gap-8'>
       <div className='h-[500px] w-full '>
+        {
+        sankeyData &&
+        
         <ResponsiveSankey
           data={sankeyData}
           margin={{ top: 40, right: 140, bottom: 40, left: 20 }}
@@ -102,6 +107,7 @@ console.log(sankeyData);
             }
           ]}
         />
+        }
       </div>
 
 
