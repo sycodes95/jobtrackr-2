@@ -1,18 +1,19 @@
 'use client'
 import { ResponsiveSankey } from '@nivo/sankey'
 import { useCallback, useEffect, useState } from 'react';
-import { DefaultSankeyData, SankeyLink, defaultSankeyData, demoApplicationsLength, demoSankeyLinks } from '../constants';
+import { SankeyData, SankeyLink, demoApplicationsLength, demoSankeyLinks, legendColors } from '../constants';
 import useApps from '@/app/hooks/useApps';
-import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/sankeyValues';
+import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/getSankeyValues';
 import { useTheme } from 'next-themes';
 import SankeyMetricCard from './sankeyMetricCard';
 import { useDemoMode } from '@/app/constants';
+import { generateSankeyNodes } from '../utils/generateSankeyNodes';
 
 export default function SankeyDiagram () {
   const { applications } = useApps();
 
   const { theme } = useTheme()
-  const [sankeyData, setSankeyData] = useState<DefaultSankeyData>(defaultSankeyData);
+  const [sankeyData, setSankeyData] = useState<SankeyData>(SankeyData);
 
   const [appTotal, setAppTotal] = useState(!useDemoMode ? 0 : demoApplicationsLength)
 
@@ -24,10 +25,9 @@ export default function SankeyDiagram () {
       getInterviewRejected(applications),
       getInterviewOffer(applications),
       getOfferRejected(applications),
-    ];
-
-    // setSankeyData(prev => ({ ...prev, 'links': links.filter(link => link && link) as SankeyLink[]}))
-    setSankeyData(prev => ({ ...prev, 'links': links}))
+    ].filter(link => link.value);
+    const nodes = generateSankeyNodes(applications)
+    setSankeyData(prev => ({ nodes, 'links': links}))
 
   },[applications]);
 
@@ -55,7 +55,8 @@ console.log(sankeyData);
           data={sankeyData}
           margin={{ top: 40, right: 140, bottom: 40, left: 20 }}
           align="justify"
-          colors={{ scheme: `${theme === 'dark' ? 'nivo' : 'nivo'}` }}
+          // colors={{ scheme: `${theme === 'dark' ? 'nivo' : 'nivo'}` }}
+          colors={node => legendColors[node.id]}
           nodeOpacity={1}
           nodeHoverOthersOpacity={0.35}
           nodeThickness={2}
@@ -74,12 +75,11 @@ console.log(sankeyData);
           nodeBorderRadius={3}
           linkOpacity={theme === 'dark' ? 0.7 : 0.9}
           linkHoverOthersOpacity={0.5}
-          linkContract={0}
+          linkContract={0.3}
           enableLinkGradient={true}
           labelPosition="outside"
           labelOrientation="vertical"
           labelPadding={16}
-          
           legends={[
             {
               anchor: 'bottom-right',
@@ -119,23 +119,7 @@ console.log(sankeyData);
         ))
         }
       </div>
-      {/* <Sankey
-        width={960}
-        height={400}
-        data={data} 
-        node={{stroke: '#77c878', strokeWidth: 2, textRendering: 'meow'}}
-        nodePadding={50}
-        margin={{
-        left: 20,
-          right: 20,
-          top: 60,
-          bottom: 60,
-        }}
-        link={{ stroke: '#77c878' }}
-        >
-        <Tooltip />
-      </Sankey> */}
-  
+      
     </div>
   )
 }

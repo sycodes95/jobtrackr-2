@@ -6,7 +6,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import { FaGhost } from "react-icons/fa";
 
 
-export interface DefaultSankeyData {
+export interface SankeyData {
   "nodes" : SankeyNode[],
   "links" : SankeyLink[],
 }
@@ -26,7 +26,7 @@ export type SankeyLink = {
   "value": number;
 }
 
-export const defaultSankeyData: DefaultSankeyData = {
+export const SankeyData: SankeyData = {
   "nodes": [
     {
       "id": "Applied",

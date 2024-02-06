@@ -12,9 +12,8 @@ export const getAppliedGhosted = ( apps : ApplicationDetails[]) : SankeyLink  =>
     "target": "Ghosted",
     "value": ghosted.length
   }
-
 };
-
+// 
 export const getAppliedRejected = ( apps : ApplicationDetails[]) : SankeyLink => {
   const rejected = apps.filter((app) => app.rejected && !app.interview_date);
   return {
@@ -23,27 +22,27 @@ export const getAppliedRejected = ( apps : ApplicationDetails[]) : SankeyLink =>
     "value": rejected.length
   }
 };
-
+// 
 export const getAppliedInterview = ( apps : ApplicationDetails[]) : SankeyLink => {
   const interviews = apps.filter((app) => (app.interview_date));
-
+// 
   return {
     "source": "Applied",
     "target": "Interview",
     "value": interviews.length
   }
 };
-
+// 
 export const getInterviewRejected = ( apps : ApplicationDetails[]) : SankeyLink => {
   const interviewRejections = apps.filter((app) => (app.interview_date && app.rejected));
-
+// 
   return {
     "source": "Interview",
     "target": "Rejected",
     "value": interviewRejections.length
   }
 };
-
+// 
 export const getInterviewOffer = ( apps : ApplicationDetails[]) : SankeyLink => {
   const interviewOffers = apps.filter((app) => (app.interview_date && app.offer_amount));
   return {
@@ -52,18 +51,18 @@ export const getInterviewOffer = ( apps : ApplicationDetails[]) : SankeyLink => 
     "value": interviewOffers.length
   }
 };
-
+// 
 export const getOfferRejected = ( apps : ApplicationDetails[]) : SankeyLink => {
   const offerRejections = apps.filter((app) => (app.offer_amount && app.rejected));
-
+// 
   return {
     "source": "Offer",
     "target": "Rejected",
     "value": offerRejections.length
   }
-
+// 
 };
-
+// 
 // export const getAppliedGhosted = ( apps : ApplicationDetails[]) : SankeyLink | void => {
 //   const ghosted = apps.filter((app) => {
 //     if(!app.interview_date && !app.rejected && !app.offer_amount) {
