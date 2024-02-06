@@ -36,7 +36,7 @@ export default function AppCalendar () {
     applications.forEach((app) => {
       const date: string = app.apply_date as string;
       const [formattedDate, _] = date.split('T');
-      
+
       const dateIndex = formatted.findIndex(data => {
         console.log(data.day, app.apply_date);
         if(data.day === formattedDate) return data
@@ -88,6 +88,7 @@ export default function AppCalendar () {
         monthBorderColor="#none"
         dayBorderWidth={2}
         dayBorderColor={theme ? (theme === 'dark' ? 'hsl(240 10% 8%)' : 'hsl(0 0% 100%)') : dayBorderColor}
+        
         legends={[
           {
             anchor: 'bottom-right',

@@ -1,3 +1,10 @@
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import CreateIcon from '@mui/icons-material/Create';
+import ChatIcon from '@mui/icons-material/Chat';
+import PaidIcon from '@mui/icons-material/Paid';
+import { FaGhost } from "react-icons/fa";
+
 
 export interface DefaultSankeyData {
   "nodes" : SankeyNode[],
@@ -111,6 +118,8 @@ export const demoSankeyLinks: SankeyLink[] = [
   
 ];
 
+export const demoApplicationsLength = 528;
+
 export const legendColors: {[key:string] : string} = {
   "Applied": "#e8c1a0",
   "Rejected": "#f47560",
@@ -118,3 +127,31 @@ export const legendColors: {[key:string] : string} = {
   "Offer": "#e8a838",
   "Ghosted": "#61cdbb",
 }
+
+
+export const legendData: {[key:string] : {
+  textColor: string;
+  icon: React.ReactNode
+}} = {
+  "Applied": {
+    textColor: "text-[#e8c1a0]",
+    icon: <CreateIcon className='text-[#e8c1a0] text-sm' />
+  },
+  "Rejected": {
+    textColor: "text-[#f47560]",
+    icon: <ThumbDownOffAltIcon className='text-[#f47560] text-sm' />
+  },
+  "Interview": {
+    textColor: "text-[#f1e15b]",
+    icon: <ChatIcon className='text-[#f1e15b] text-sm' />
+  },
+  "Offer": {
+    textColor: "text-[#e8a838]",
+    icon: <PaidIcon className='text-[#e8a838] text-sm' />
+  },
+  "Ghosted": {
+    textColor: "text-[#61cdbb]",
+    icon: <FaGhost className='text-[#61cdbb] text-sm' />
+  },
+}
+

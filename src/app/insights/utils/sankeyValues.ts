@@ -16,10 +16,10 @@ export const getAppliedGhosted = ( apps : ApplicationDetails[]) : SankeyLink => 
 };
 
 export const getAppliedRejected = ( apps : ApplicationDetails[]) : SankeyLink => {
-  const rejected = apps.filter((app) => app.rejected);
+  const rejected = apps.filter((app) => app.rejected && !app.interview_date);
   return {
     "source": "Applied",
-    "target": "Ghosted",
+    "target": "Rejected",
     "value": rejected.length
   }
 };
@@ -28,7 +28,7 @@ export const getAppliedInterview = ( apps : ApplicationDetails[]) : SankeyLink =
   const interviews = apps.filter((app) => (app.interview_date));
   return {
     "source": "Applied",
-    "target": "Ghosted",
+    "target": "Interview",
     "value": interviews.length
   }
 };
@@ -36,8 +36,8 @@ export const getAppliedInterview = ( apps : ApplicationDetails[]) : SankeyLink =
 export const getInterviewRejected = ( apps : ApplicationDetails[]) : SankeyLink => {
   const interviewRejections = apps.filter((app) => (app.interview_date && app.rejected));
   return {
-    "source": "Applied",
-    "target": "Ghosted",
+    "source": "Interview",
+    "target": "Rejected",
     "value": interviewRejections.length
   }
 };
@@ -45,8 +45,8 @@ export const getInterviewRejected = ( apps : ApplicationDetails[]) : SankeyLink 
 export const getInterviewOffer = ( apps : ApplicationDetails[]) : SankeyLink => {
   const interviewOffers = apps.filter((app) => (app.interview_date && app.offer_amount));
   return {
-    "source": "Applied",
-    "target": "Ghosted",
+    "source": "Interview",
+    "target": "Offer",
     "value": interviewOffers.length
   }
 };
@@ -54,8 +54,8 @@ export const getInterviewOffer = ( apps : ApplicationDetails[]) : SankeyLink => 
 export const getOfferRejected = ( apps : ApplicationDetails[]) : SankeyLink => {
   const offerRejections = apps.filter((app) => (app.offer_amount && app.rejected));
   return {
-    "source": "Applied",
-    "target": "Ghosted",
+    "source": "Offer",
+    "target": "Rejected",
     "value": offerRejections.length
   }
 };
