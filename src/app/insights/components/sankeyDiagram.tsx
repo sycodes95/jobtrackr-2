@@ -14,7 +14,6 @@ export default function SankeyDiagram () {
   const { theme } = useTheme()
   const [sankeyData, setSankeyData] = useState<DefaultSankeyData>(defaultSankeyData);
 
-
   const [appTotal, setAppTotal] = useState(!useDemoMode ? 0 : demoApplicationsLength)
 
   const formatAppsToSankeyLinks = useCallback(() => {

@@ -18,7 +18,6 @@ import { copyToClip } from "@/app/utils/copyToClip"
 
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
@@ -349,7 +348,7 @@ export default function AppTable () {
         return (
           <Popover>
             <PopoverTrigger>
-              <Button className="text-left text-xs w-12 h-8 overflow-hidden text-ellipsis bg-foreground text-background" variant={'outline'}>View</Button>
+              <span className="text-left text-xs w-12 h-8 overflow-hidden text-ellipsis bg-foreground text-background p-2 rounded-sm" >View</span>
             </PopoverTrigger>
             <PopoverContent className="flex flex-col gap-2 bg-card">
 

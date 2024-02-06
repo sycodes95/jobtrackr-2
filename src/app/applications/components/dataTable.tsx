@@ -83,6 +83,8 @@ export function DataTable<TData, TValue>({
     onRowSelectionChange: setRowSelection,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    autoResetPageIndex: true,
+    
   });
 
   useEffect(()=> {
