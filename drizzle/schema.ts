@@ -37,7 +37,7 @@ export const applications = pgTable('applications', {
   contact_email: text('contact_email'),
   contact_phone: text('contact_phone'),
   notes: text('notes'),
-  user_id: integer('user_id').references(()=> users.user_id)
+  user_id: integer('user_id').references(()=> users.user_id, { onDelete: 'cascade'})
 
 });
 

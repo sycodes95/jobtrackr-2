@@ -26,9 +26,6 @@ export default function SankeyDiagram () {
       getInterviewOffer(applications),
       getOfferRejected(applications),
     ];
-
-    console.log(links);
-
     setSankeyData(prev => ({ ...prev, 'links': links}))
   },[applications]);
 
@@ -48,58 +45,57 @@ export default function SankeyDiagram () {
   return (
     <div className='h-full w-full flex flex-col gap-8'>
       <div className='h-[500px] w-full '>
-
-      <ResponsiveSankey
-        data={sankeyData}
-        margin={{ top: 40, right: 140, bottom: 40, left: 20 }}
-        align="justify"
-        colors={{ scheme: `${theme === 'dark' ? 'nivo' : 'nivo'}` }}
-        nodeOpacity={1}
-        nodeHoverOthersOpacity={0.35}
-        nodeThickness={2}
-        nodeSpacing={200}
-        nodeBorderWidth={0}
-        nodeBorderColor={{
-          from: 'color',
-          modifiers: [
-            [
-              'darker',
-              0.8
+        <ResponsiveSankey
+          data={sankeyData}
+          margin={{ top: 40, right: 140, bottom: 40, left: 20 }}
+          align="justify"
+          colors={{ scheme: `${theme === 'dark' ? 'nivo' : 'nivo'}` }}
+          nodeOpacity={1}
+          nodeHoverOthersOpacity={0.35}
+          nodeThickness={2}
+          nodeSpacing={200}
+          nodeBorderWidth={0}
+          nodeBorderColor={{
+            from: 'color',
+            modifiers: [
+              [
+                'darker',
+                0.8
+              ]
             ]
-          ]
-        }}
-        linkBlendMode={theme === 'dark' ? 'lighten' : 'darken'}
-        nodeBorderRadius={3}
-        linkOpacity={theme === 'dark' ? 0.7 : 0.9}
-        linkHoverOthersOpacity={0.5}
-        linkContract={0.5}
-        enableLinkGradient={true}
-        labelPosition="outside"
-        labelOrientation="vertical"
-        labelPadding={16}
-        
-        legends={[
-          {
-            anchor: 'bottom-right',
-            direction: 'column',
-            translateX: 130,
-            itemWidth: 100,
-            itemHeight: 14,
-            itemDirection: 'right-to-left',
-            itemsSpacing: 2,
-            itemTextColor: '#999',
-            symbolSize: 14,
-            effects: [
-              {
-                on: 'hover',
-                style: {
-                  itemTextColor: '#000'
+          }}
+          linkBlendMode={theme === 'dark' ? 'lighten' : 'darken'}
+          nodeBorderRadius={3}
+          linkOpacity={theme === 'dark' ? 0.7 : 0.9}
+          linkHoverOthersOpacity={0.5}
+          linkContract={0.5}
+          enableLinkGradient={true}
+          labelPosition="outside"
+          labelOrientation="vertical"
+          labelPadding={16}
+          
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'column',
+              translateX: 130,
+              itemWidth: 100,
+              itemHeight: 14,
+              itemDirection: 'right-to-left',
+              itemsSpacing: 2,
+              itemTextColor: '#999',
+              symbolSize: 14,
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemTextColor: '#000'
+                  }
                 }
-              }
-            ]
-          }
-        ]}
-      />
+              ]
+            }
+          ]}
+        />
       </div>
 
 
