@@ -1,7 +1,8 @@
 import ApplicationForm from '../components/applicationForm'; // Adjust the import path as necessary
 
 import { expect, test } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 global.ResizeObserver = class ResizeObserver {
@@ -51,15 +52,21 @@ const renderAppForm = () => {
 }
 
 test('renders without crashing', () => {
-  const render = renderAppForm()
+  renderAppForm()
   expect(screen.getByText(/Add \/ Edit Application Details/i));
+});
 
-  // it('updates input field on change', () => {
-  //   render(<ApplicationForm />);
-  //   const inputElement = screen.getByPlaceholderText('...'); // Use a more specific placeholder or role if necessary
-  //   fireEvent.change(inputElement, { target: { value: 'New Value' } });
-  //   expect(inputElement.value).toBe('New Value');
-  // });
+test('text area changes value when user types in it', async () => {
+  const { container } = renderAppForm()
 
-  // Add more tests here
+  const textArea: HTMLTextAreaElement | null = container.querySelector('[data-testid="text-area"]')
+  
+  if(textArea){
+    await user.click(textArea)
+    await user.type(textArea, 'hello noob')
+    expect(textArea.value).toBe('hello noob')
+
+  } else {
+    throw new Error('Textarea not found');
+  }
 });

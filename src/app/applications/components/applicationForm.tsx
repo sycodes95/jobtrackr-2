@@ -163,7 +163,7 @@ export default function ApplicationForm (
         const keystring: string = key;
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label>{applicationDetailsFormAttr[key].label}</Label>
+            <Label htmlFor={key} >{applicationDetailsFormAttr[key].label}</Label>
             <Select onValueChange={(newValue) => handleInputChange(key, newValue as ApplicationDetails[T])}>
               <SelectTrigger className="w-full border border-border">
                 <SelectValue placeholder="..." />
@@ -172,7 +172,7 @@ export default function ApplicationForm (
                 
                 {
                 selectOptions[keystring].map((option) => (
-                  <SelectItem className="hover:cursor-pointer focus:bg-foreground/15" key={option} value={option}>
+                  <SelectItem id={key} className="hover:cursor-pointer focus:bg-foreground/15" key={option} value={option}>
                     {option}
                   </SelectItem>
                 ))
@@ -201,8 +201,10 @@ export default function ApplicationForm (
       case 'textArea':
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label>{applicationDetailsFormAttr[key].label}</Label>
+            <Label htmlFor="text-area">{applicationDetailsFormAttr[key].label}</Label>
             <Textarea 
+            data-testid='text-area'
+            id="text-area"
             value={typeof value === 'string' ? value : ''} 
             onChange={(e)=> handleInputChange(key, e.target.value as ApplicationDetails[T])}
             />
