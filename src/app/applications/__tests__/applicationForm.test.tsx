@@ -18,20 +18,14 @@ global.ResizeObserver = class ResizeObserver {
   }
 };
 
-const renderAppForm = () => {
+const renderApplicationForm = () => {
 
   //mock resize observer
   global.ResizeObserver = class ResizeObserver {
-    constructor(callback: any) {}
-    observe() {
-      // do nothing
-    }
-    unobserve() {
-      // do nothing
-    }
-    disconnect() {
-      // do nothing
-    }
+    constructor() {}
+    observe() {}
+    unobserve() {}
+    disconnect() {}
   };
 
   const renderComponent = render(
@@ -39,32 +33,28 @@ const renderAppForm = () => {
       <ApplicationForm />
     </UserProvider>
   );
-
-  const {
-    container
-  } = renderComponent
-
+  
   return {
-    container
+    container: renderComponent.container
   }
   
 
 }
 
 test('renders without crashing', () => {
-  renderAppForm()
+  renderApplicationForm()
   expect(screen.getByText(/Add \/ Edit Application Details/i));
 });
 
 test('text area changes value when user types in it', async () => {
-  const { container } = renderAppForm()
-
+  const { container } = renderApplicationForm()
   const textArea: HTMLTextAreaElement | null = container.querySelector('[data-testid="text-area"]')
-  
+  expect(textArea).toBeTruthy();
   if(textArea){
-    await user.click(textArea)
+    // await user.click(textArea)
     await user.type(textArea, 'hello noob')
     expect(textArea.value).toBe('hello noob')
+    expect(textArea.value).not.toBe('hello boob')
 
   } else {
     throw new Error('Textarea not found');
