@@ -5,19 +5,6 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import user from '@testing-library/user-event'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 
-global.ResizeObserver = class ResizeObserver {
-  constructor(callback: any) {}
-  observe() {
-    // do nothing
-  }
-  unobserve() {
-    // do nothing
-  }
-  disconnect() {
-    // do nothing
-  }
-};
-
 const renderApplicationForm = () => {
 
   //mock resize observer
@@ -37,7 +24,6 @@ const renderApplicationForm = () => {
   return {
     container: renderComponent.container
   }
-  
 
 }
 
