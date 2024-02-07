@@ -91,8 +91,8 @@ export default function ApplicationForm (
       case 'inputText': 
         return (
           <FormItem key={key}>
-            <Label>{applicationDetailsFormAttr[key].label}</Label>
-            <Input className="border border-border" name="company_name" type="text" 
+            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
+            <Input id={key} className="border border-border" name="company_name" type="text" 
             value={typeof value !== 'string' ? '' : value} placeholder="..." 
             required={key === 'company_name' ? true: false}
             onChange={(e) => handleInputChange(key, e.target.value as ApplicationDetails[T])}></Input>
@@ -101,8 +101,8 @@ export default function ApplicationForm (
       case 'inputNumber': 
         return (
           <FormItem key={key}>
-            <Label>{applicationDetailsFormAttr[key].label}</Label>
-            <Input className="border border-border" name="company_name" type="number" 
+            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
+            <Input id={key} className="border border-border" name="company_name" type="number" 
             value={typeof value !== 'number' ? undefined : value} placeholder="..."
             onChange={(e) => handleInputChange(key, e.target.value as ApplicationDetails[T])}></Input>
           </FormItem>
@@ -110,10 +110,10 @@ export default function ApplicationForm (
       case 'checkbox': 
         return (
           <FormItem key={key}>
-            <Label>{applicationDetailsFormAttr[key].label}</Label>
+            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
             <div className="flex h-full items-center">
 
-              <Checkbox 
+              <Checkbox id={key}
               checked={typeof value !== 'boolean' ? false : value} 
               onCheckedChange={(value) => handleInputChange(key, value as ApplicationDetails[T])}
               />
@@ -131,10 +131,11 @@ export default function ApplicationForm (
         }
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label>{applicationDetailsFormAttr[key].label}</Label>
+            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
+                  id={key}
                   variant={"outline"}
                   className={
                   ` w-full justify-start text-left font-normal border border-border",
@@ -187,6 +188,7 @@ export default function ApplicationForm (
             <Label>{applicationDetailsFormAttr[key].label}</Label>
             <div className="h-full flex items-center">
               <Rating
+                id="rating"
                 className="w-fit text-emerald-400"
                 name="simple-controlled"
                 value={typeof value !== 'number' ? null : value}
@@ -228,7 +230,6 @@ export default function ApplicationForm (
           </SheetHeader>
 
         <form className="grid grid-cols-3 gap-4 p-4" onSubmit={handleFormSubmit}>
-
           {
           Object.entries(applicationDetails).map(([key, details]) => {
             if(key !== 'user_id' && key !== 'app_id') {
