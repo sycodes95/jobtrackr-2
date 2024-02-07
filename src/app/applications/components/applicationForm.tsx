@@ -4,6 +4,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Oval } from 'react-loader-spinner'
 
 import {
+  Sheet,
   SheetClose,
   SheetHeader,
   SheetTitle,
@@ -29,9 +30,6 @@ import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 
 import { Textarea } from "@/components/ui/textarea"
-
-import { useRouter } from 'next/navigation'
- 
 
 import {
   Popover,
@@ -59,13 +57,9 @@ export default function ApplicationForm (
   } 
   : ApplicationFormProps 
 ) {
-  const pathname = usePathname();
   const userId = useUserId()
   const [applicationDetails, setApplicationDetails] = useState<ApplicationDetails>(appDetails ? appDetails : defaultApplicationDetails);
   const [submitIsLoading, setSubmitIsLoading] = useState(false)
-  const [submitError, setSubmitError] = useState(false)
-
-  const router = useRouter()
 
   const handleInputChange = <T extends keyof ApplicationDetails>(
     key: T,
@@ -87,10 +81,6 @@ export default function ApplicationForm (
     }
     setSubmitIsLoading(false)
   }
-
-  useEffect(()=> {
-    console.log(applicationDetails);
-  },[applicationDetails])
   
   const createInput = <T extends keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr>(
     key: T,
@@ -224,28 +214,30 @@ export default function ApplicationForm (
   }
 
   return (
-    <div className="relative flex flex-col flex-wrap w-full text-primary z-[60]">
-      <div className="top-0 sticky bg-foreground/90 h-6 rounded-t-lg w-full"></div>
-      <SheetHeader className="p-4 flex items-center border-b border-b-border justify-start w-full">
-        <SheetTitle className="flex items-center justify-start w-full">
-          <EditNoteIcon className="text-2xl" fontSize="inherit" />
-          <span className="font-inter-tight-display text-xl p-2 flex items-center"> Add / Edit Application Details</span>
-        </SheetTitle>
-      </SheetHeader>
+    <Sheet>
+      <div className="relative flex flex-col flex-wrap w-full text-primary z-[60]">
+        <div className="top-0 sticky bg-foreground/90 h-6 rounded-t-lg w-full"></div>
+        
+          <SheetHeader className="p-4 flex items-center border-b border-b-border justify-start w-full">
+            <SheetTitle className="flex items-center justify-start w-full">
+              <EditNoteIcon className="text-2xl" fontSize="inherit" />
+              <span className="font-inter-tight-display text-xl p-2 flex items-center"> Add / Edit Application Details</span>
+            </SheetTitle>
+          </SheetHeader>
 
-      <form className="grid grid-cols-3 gap-4 p-4" onSubmit={handleFormSubmit}>
+        <form className="grid grid-cols-3 gap-4 p-4" onSubmit={handleFormSubmit}>
 
-        {
-        Object.entries(applicationDetails).map(([key, details]) => {
-          if(key !== 'user_id' && key !== 'app_id') {
-            return createInput(key as keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr, details)
+          {
+          Object.entries(applicationDetails).map(([key, details]) => {
+            if(key !== 'user_id' && key !== 'app_id') {
+              return createInput(key as keyof ApplicationDetails & keyof typeof applicationDetailsFormAttr, details)
+            }
+          })
           }
-        })
-        }
-        <div className="w-full flex justify-end col-span-full items-center gap-4">
-          <SheetClose>
-            <Button className="bg-black hover:bg-accent" type="button">Close</Button>
-          </SheetClose>
+          <div className="w-full flex justify-end col-span-full items-center gap-4">
+            <SheetClose>
+              <Button className="bg-black hover:bg-accent" type="button">Close</Button>
+            </SheetClose>
             <Button className="flex items-center justify-center bg-background text-primary w-24" variant={`outline`} type="submit">
               {
               submitIsLoading ? 
@@ -261,13 +253,12 @@ export default function ApplicationForm (
               />
               :
               <span>Submit</span>
-              
-              
               }
 
             </Button>
-        </div>
-      </form>
-    </div>
+          </div>
+        </form>
+      </div>
+    </Sheet>
   )
 }

@@ -1,6 +1,5 @@
 import { toast } from "sonner";
 import { ApplicationDetails } from "../types/types";
-import { formatAppForPG } from "../utils/formatAppForPG";
 
 export const submitApp = async ( applicationDetails: ApplicationDetails, user_id: number ) => {
   try {

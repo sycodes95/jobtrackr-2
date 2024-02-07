@@ -1,7 +1,7 @@
 'use client'
 import { ResponsiveSankey } from '@nivo/sankey'
 import { useCallback, useEffect, useState } from 'react';
-import { SankeyData, SankeyLink, defaultSankeyData, demoApplicationsLength, demoSankeyLinks, demoSankeyNodes, legendColors } from '../constants';
+import { SankeyData, demoApplicationsLength, demoSankeyLinks, demoSankeyNodes, legendColors } from '../constants';
 import useApps from '@/app/hooks/useApps';
 import { getAppliedGhosted, getAppliedInterview, getAppliedRejected, getInterviewOffer, getInterviewRejected, getOfferRejected } from '../utils/getSankeyValues';
 import { useTheme } from 'next-themes';
@@ -28,7 +28,6 @@ export default function SankeyDiagram () {
     ].filter(link => link.value);
     const nodes = generateSankeyNodes(applications)
 
-    console.log(links, nodes);
     setSankeyData(({ nodes, 'links': links}))
 
   },[applications]);
@@ -45,10 +44,6 @@ export default function SankeyDiagram () {
       setSankeyData({nodes: demoSankeyNodes, 'links': demoSankeyLinks})
     };
   },[]);
-
-  useEffect(() => {
-console.log(sankeyData);
-  },[sankeyData])
 
   return (
     <div className='h-full w-full flex flex-col gap-8'>

@@ -82,7 +82,7 @@ export default function AppTable () {
               </DropdownMenuContent>
             </DropdownMenu>
             <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
-              <ApplicationForm appDetails={appDetails} mode={`edit`}/>
+              <ApplicationForm appDetails={appDetails}/>
             </SheetContent>
           </Sheet>
         )
