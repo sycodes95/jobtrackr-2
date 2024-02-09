@@ -162,8 +162,6 @@ test('renders apply_date component and selects a date', async () => {
     await user.click(applyDateTrigger);
 
     const dateToSelect = await screen.findByRole('gridcell', { name: `${testToBeDay}`})
-    console.log(dateToSelect);
-
     
     if(dateToSelect) {
       await user.click(dateToSelect);
@@ -179,18 +177,4 @@ test('renders apply_date component and selects a date', async () => {
 
   }
 
-  // Step 2: Open the calendar popover by clicking the button
-
-  
-
-  // Assuming your calendar component renders days as buttons
-  // You might need to adjust the query to find the specific date you want to select
-
-  // Step 3: Click on the date to select it
-
-  // Step 4: Verify the button now displays the selected date in the correct format
-  // You'll need to know the expected date format to make this assertion
-
-  // Additional checks can include verifying the call to `handleInputChange` with the right arguments
-  // This might involve mocking the function and checking it was called as expected
 });

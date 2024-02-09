@@ -130,12 +130,13 @@ export default function ApplicationForm (
         }
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
+            <Label >{applicationDetailsFormAttr[key].label}</Label>
             <Popover>
               <PopoverTrigger id={key} >
                 <Button
                   id={`${key + '_button'}`}
                   variant={"outline"}
+                  type="button"
                   className={
                   ` w-full justify-start text-left font-normal border border-border",
                     ${!value && "text-muted-foreground pl-2 pr-2" }`

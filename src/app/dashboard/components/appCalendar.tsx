@@ -34,6 +34,7 @@ export default function AppCalendar () {
     const formatted: CalendarDatum[] = []
 
     applications.forEach((app) => {
+      if(!app.apply_date) return
       const date: string = app.apply_date as string;
       const [formattedDate, _] = date.split('T');
 
