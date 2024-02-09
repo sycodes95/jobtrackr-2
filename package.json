@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run generate && npm run pgpush && next build",
+    "build": "next build && npm run pgpush",
     "start": "next start",
     "lint": "next lint",
     "generate": "drizzle-kit generate:pg",
