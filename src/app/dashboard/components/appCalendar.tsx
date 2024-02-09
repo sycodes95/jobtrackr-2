@@ -39,7 +39,6 @@ export default function AppCalendar () {
       const [formattedDate, _] = date.split('T');
 
       const dateIndex = formatted.findIndex(data => {
-        console.log(data.day, app.apply_date);
         if(data.day === formattedDate) return data
       })
       if(dateIndex !== -1) {
@@ -61,10 +60,6 @@ export default function AppCalendar () {
       formatData();
     }
   },[applications, formatData])
-
-  useEffect(()=> {
-    console.log(data);
-  },[data])
 
   return (
     <>

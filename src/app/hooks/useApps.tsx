@@ -18,7 +18,7 @@ export default function useApps () {
 
       setApplications(sortedByApplyDated);
     } catch (error) {
-      console.log('Error in getApps useApps hook', error);
+      console.error('Error in getApps useApps hook', error);
       setApplications([])
     }
   },[userId])

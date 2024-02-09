@@ -165,7 +165,6 @@ test('renders apply_date component and selects a date', async () => {
     
     if(dateToSelect) {
       await user.click(dateToSelect);
-      console.log('DATE TO SELECTTTTTTTTTTTTTT');
       expect(applyDateButton.textContent).toBe(formatDate(toBeDate, "PPP"));
       // expect(button.textContent).toBe(formatDate(toBeDate, "PPP"));
 

@@ -3,7 +3,6 @@ import { ApplicationType } from "../route";
 
 export const reformatDates = ( apps : ApplicationDetails[]) => {
   if(!apps.some(app => app.apply_date)) return apps
-  console.log('date object');
   const dateFormattedApps = apps.map(app => {
     const newApp = {
       ...app
