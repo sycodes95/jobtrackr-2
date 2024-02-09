@@ -1,7 +1,7 @@
 import ApplicationForm from '../components/applicationForm'; // Adjust the import path as necessary
 
 import { expect, test } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import user from '@testing-library/user-event'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { formatDate } from '@/utils/formatDate';
@@ -96,6 +96,42 @@ test('favorite field changes boolean value when user checks checkbox', async () 
   
 });
 
+// const doesDateButtonChange = (
+//   button: Element | null, 
+//   buttonType: 'apply' | 'interview',
+//   container: HTMLElement
+//   ) => {
+//   const testToBeDay = 15
+//   const testNotToBeDay = 15
+  
+//   const toBeDate = new Date()
+//   toBeDate.setDate(testToBeDay)
+
+//   const notToBeDate = new Date()
+//   notToBeDate.setDate(testNotToBeDay)
+
+//   if(button){
+//     user.click(button);
+//     const allDateToSelect = Array.from(container.querySelectorAll('button[name="day"]'));
+//     const dateToSelect = allDateToSelect.find(el => el.textContent === `${testToBeDay}`) // This example selects the 15th of the month shown
+//      // This example selects the 15th of the month shown
+
+//     if(dateToSelect) {
+//       user.click(dateToSelect);
+      
+//       expect(button.textContent).toBe('meow');
+//       // expect(button.textContent).toBe(formatDate(toBeDate, "PPP"));
+
+//       expect(button.textContent).not.toBe(formatDate(notToBeDate, "PPP"));
+//     }
+
+//   } else {
+//     throw new Error(`${buttonType} button not found`);
+
+//   }
+
+// }
+
 test('renders apply_date component and selects a date', async () => {
   const { container } = renderApplicationForm()
 
@@ -109,29 +145,43 @@ test('renders apply_date component and selects a date', async () => {
   notToBeDate.setDate(testNotToBeDay)
 
   // Step 1: Check if the button to trigger the calendar is rendered
-  const dateButton = container.querySelector('#apply_date'); // Adjust the name based on your button's content
-  expect(dateButton).toBeTruthy();
+  const applyDateTrigger = container.querySelector('#apply_date'); // Adjust the name based on your button's content
+  const applyDateButton = container.querySelector('#apply_date_button')
+  expect(applyDateTrigger).toBeTruthy();
+  expect(applyDateButton).toBeTruthy();
+
+
+  const interviewDateTrigger = container.querySelector('#interview_date');
+  const interviewDateButton = container.querySelector('#interview_date_button')
+   // Adjust the name based on your button's content
+  expect(interviewDateTrigger).toBeTruthy();
+  expect(interviewDateButton).toBeTruthy();
+
+
+  if(applyDateTrigger && applyDateButton){
+    await user.click(applyDateTrigger);
+
+    const dateToSelect = await screen.findByRole('gridcell', { name: `${testToBeDay}`})
+    console.log(dateToSelect);
+
+    
+    if(dateToSelect) {
+      await user.click(dateToSelect);
+      console.log('DATE TO SELECTTTTTTTTTTTTTT');
+      expect(applyDateButton.textContent).toBe(formatDate(toBeDate, "PPP"));
+      // expect(button.textContent).toBe(formatDate(toBeDate, "PPP"));
+
+      expect(applyDateButton.textContent).not.toBe(formatDate(notToBeDate, "PPP"));
+    } 
+
+  } else {
+    throw new Error(`Apply Date button not found`);
+
+  }
 
   // Step 2: Open the calendar popover by clicking the button
 
-  if(dateButton){
-    user.click(dateButton);
-    const allDateToSelect = Array.from(container.querySelectorAll('button[name="day"]'));
-    const dateToSelect = allDateToSelect.find(el => el.textContent === `${testToBeDay}`) // This example selects the 15th of the month shown
-     // This example selects the 15th of the month shown
-
-    if(dateToSelect) {
-      user.click(dateToSelect);
-      
-      // expect(dateButton).to(formatDate(toBeDate, "PPP"));
-      expect(dateButton.textContent).toBe(formatDate(toBeDate, "PPP"));
-      expect(dateButton.textContent).not.toBe(formatDate(notToBeDate, "PPP"));
-    }
-
-  } else {
-    throw new Error('apply_date input not found');
-
-  }
+  
 
   // Assuming your calendar component renders days as buttons
   // You might need to adjust the query to find the specific date you want to select

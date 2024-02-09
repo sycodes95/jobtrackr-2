@@ -18,7 +18,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import FormItem from "./formItem";
@@ -133,9 +132,9 @@ export default function ApplicationForm (
           <div className="flex flex-col gap-2" key={key}>
             <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
             <Popover>
-              <PopoverTrigger asChild>
+              <PopoverTrigger id={key} >
                 <Button
-                  id={key}
+                  id={`${key + '_button'}`}
                   variant={"outline"}
                   className={
                   ` w-full justify-start text-left font-normal border border-border",
