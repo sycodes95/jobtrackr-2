@@ -1,8 +1,9 @@
 import Container from "../container";
 import Logo from "../logo/logo";
+import MobileMenu from "../mobileMenu/mobileMenu";
 import UserProfile from "../user/userProfile";
 import HeaderContainer from "./headerContainer";
-import HeaderRoutes from "./headerRoutes";
+import AppRoutes from "./appRoutes";
 import LoginButton from "./loginButton";
 import { ModeToggle } from "./modeToggle";
 
@@ -16,11 +17,11 @@ export default function Header ( { isAuthenticated } : HeaderProps ) {
     <Container type={`header`}>
       <HeaderContainer className="flex items-center justify-between w-full p-4 h-14 bg-background max-w-7xl">
 
-        <div id="header-left" className="flex items-center gap-6">
+        <div id="header-left" className={`flex items-center gap-6`}>
           <Logo />
           {
           isAuthenticated &&
-          <HeaderRoutes />
+          <AppRoutes className={`hidden md:flex items-center gap-6`} />
           }
         </div>
 
@@ -28,6 +29,7 @@ export default function Header ( { isAuthenticated } : HeaderProps ) {
           {
           isAuthenticated ?
           <>
+          <MobileMenu />
           <UserProfile />
           <ModeToggle />
           </>

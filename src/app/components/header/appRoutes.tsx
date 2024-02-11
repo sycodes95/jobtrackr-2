@@ -3,20 +3,26 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import GridViewIcon from '@mui/icons-material/GridView';
+import { Header } from "next/dist/lib/load-custom-routes";
+import { appRoutes } from "@/app/constants";
 
-export default function HeaderRoutes () { 
+interface HeaderRoutesProps {
+  className?: string;
+}
+
+export default function HeaderRoutes ({ className } : HeaderRoutesProps) { 
 
   const path = usePathname();
-  const routes = {
-    'Dashboard' : '/',
-    'Applications' : '/applications',
-    'Insights' : '/insights',
-  };
+  // const routes = {
+  //   'Dashboard' : '/',
+  //   'Applications' : '/applications',
+  //   'Insights' : '/insights',
+  // };
 
   return (
-    <div className="flex items-center gap-6">
+    <div className={`${className} `}>
       {
-      Object.entries(routes).map(([key, value]) => (
+      Object.entries(appRoutes).map(([key, value]) => (
         <Link className={`${path === value ? 'text-primary' : 'text-zinc-500'} w-fit text-sm font-inter-tight font-semibold`} href={value} key={key}>
           {
           key !== 'Dashboard' ? 

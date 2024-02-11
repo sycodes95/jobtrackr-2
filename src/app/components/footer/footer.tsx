@@ -5,7 +5,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 export default function Footer () {
   return (
     <Container type="footer"> 
-      <div className="w-full max-w-7xl flex items-center justify-between h-24 gap-8 ">
+      <div className="w-full max-w-7xl flex items-center justify-between h-24 gap-8 p-4">
         <span className="text-xs text-zinc-400">
           ©2024 Jobtrackr. All rights reserved.
         </span>
