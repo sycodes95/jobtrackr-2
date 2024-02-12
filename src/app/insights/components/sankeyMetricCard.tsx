@@ -30,7 +30,7 @@ export default function SankeyMetricCard ( {
     <Card key={source + target}>
       <CardHeader className='p-0'>
         <CardTitle className='text-xs flex font-normal items-center gap-1 pb-2 border-b border-border p-4'>
-          <div className='flex items-center p-2 gap-2 rounded-lg bg-footer-background '>
+          <div className='flex items-center p-2 gap-2 rounded-lg bg-footer-background h-8'>
             {
             legendData[source].icon
             }
@@ -38,7 +38,7 @@ export default function SankeyMetricCard ( {
           </div>
           <ArrowRightIcon />
   
-          <div className='flex items-center p-2 gap-2 rounded-lg bg-footer-background '>
+          <div className='flex items-center p-2 gap-2 rounded-lg bg-footer-background h-8'>
             {
             legendData[target].icon
             }
