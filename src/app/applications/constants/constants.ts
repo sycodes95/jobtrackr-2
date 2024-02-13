@@ -12,7 +12,7 @@ export const defaultApplicationDetails: ApplicationDetails  = {
   fit_rating: null, 
   location: '', 
   interview_date: undefined, 
-  offer_amount: undefined, 
+  offer_amount: null, 
   rejected: '', 
   contact_name: '', 
   contact_email: '', 

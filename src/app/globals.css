@@ -81,13 +81,19 @@
 }
 
 
+
 @font-face {
   font-family: InterTight;
   src: url(../assets/fonts/InterTight-VariableFont_wght.ttf);
 }
 
+.font-main{
+  font-family: Main, Verdana, Geneva, Tahoma, sans-serif ;
+}
+
 .font-inter-tight{
   font-family: InterTight, Verdana, Geneva, Tahoma, sans-serif ;
+
 }
 
 .font-inter-tight-display{
