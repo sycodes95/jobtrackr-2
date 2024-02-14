@@ -32,7 +32,7 @@ export default function AppMisc ( {
     <PopoverTrigger >
       <Button className="text-left text-xs w-12 h-8 overflow-hidden text-ellipsis bg-foreground text-background" variant={'outline'}>View</Button>
     </PopoverTrigger>
-    <PopoverContent className="flex flex-col gap-2">
+    <PopoverContent className="flex flex-col gap-2 bg-card">
 
       <span className="text-xs font-bold p-2 border-b border-border">Contact Info</span>
       
@@ -67,7 +67,7 @@ export default function AppMisc ( {
         <div className="flex items-center justify-between">
           {
           cWebsiteUrl ?
-          <Button className="flex items-center p-0 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(cWebsiteUrl)}>
+          <Button className="flex items-center p-2 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(cWebsiteUrl)}>
             
               <ContentPasteIcon fontSize="small"/> 
               <span className=" text-xs">{cWebsiteUrl}</span>
@@ -90,7 +90,7 @@ export default function AppMisc ( {
         <div className="flex items-center justify-between">
           {
           applyUrl ?
-          <Button className="flex items-center p-0 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(applyUrl)}>
+          <Button className="flex items-center p-2 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(applyUrl)}>
             
               <ContentPasteIcon fontSize="small"/> 
               <span className=" text-xs">{applyUrl}</span>

@@ -385,11 +385,9 @@ export default function AppTable () {
                 <div className="flex items-center justify-between">
                   {
                   cWebsiteUrl ?
-                  <Button className="flex items-center p-0 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(cWebsiteUrl)}>
-                    
-                      <ContentPasteIcon fontSize="small"/> 
-                      <span className=" text-xs">{cWebsiteUrl}</span>
-                    
+                  <Button className="flex items-center p-2 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(cWebsiteUrl)}>
+                    <ContentPasteIcon fontSize="small"/> 
+                    <span className=" text-xs">{cWebsiteUrl}</span>
                   </Button>
                   :
                   <span className="text-xs">
@@ -408,10 +406,10 @@ export default function AppTable () {
                 <div className="flex items-center justify-between">
                   {
                   applyUrl ?
-                  <Button className="flex items-center p-0 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(applyUrl)}>
+                  <Button className="flex items-center p-2 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(applyUrl)}>
                     
-                      <ContentPasteIcon fontSize="small"/> 
-                      <span className=" text-xs">{applyUrl}</span>
+                    <ContentPasteIcon fontSize="small"/> 
+                    <span className=" text-xs">{applyUrl}</span>
                     
                   </Button>
                   :
