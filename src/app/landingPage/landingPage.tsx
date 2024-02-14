@@ -23,7 +23,7 @@ export default function LandingPage () {
       <PageContainer>
         <div className=" flex flex-col items-center justify-center w-full h-full grow">
           <Hero />
-          <Image className=" absolute top-0 -z-40 opacity-40 blur-lg rotate-180" src={coralArt} alt="" fill priority />
+          <Image className=" absolute top-0 -z-40 opacity-30 blur-lg rotate-180" src={coralArt} alt="" fill priority />
         </div>
       </PageContainer>
       
