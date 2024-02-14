@@ -8,6 +8,7 @@ import {
   SheetClose,
   SheetHeader,
   SheetTitle,
+  SheetContent
 } from "@/components/ui/sheet"
 
 import {
@@ -220,16 +221,15 @@ export default function ApplicationForm (
   return (
     <Sheet>
       <div className="relative flex flex-col flex-wrap w-full text-primary z-[60]">
-        <div className="top-0 sticky bg-foreground/90 h-6 rounded-t-lg w-full"></div>
         
-          <SheetHeader className="p-4 flex items-center border-b border-b-border justify-start w-full">
-            <SheetTitle className="flex items-center justify-start w-full">
-              <EditNoteIcon className="text-2xl" fontSize="inherit" />
-              <span className="font-inter-tight-display text-xl p-2 flex items-center"> Add / Edit Application Details</span>
-            </SheetTitle>
-          </SheetHeader>
-
-        <form className="grid grid-cols-3 gap-4 p-4" onSubmit={handleFormSubmit}>
+        <SheetHeader className="p-4 flex items-center border-b border-b-border justify-start w-full">
+          <SheetTitle className="flex items-center justify-start w-full">
+            <EditNoteIcon className="text-2xl" fontSize="inherit" />
+            <span className="font-inter-tight-display text-xl p-2 flex items-center"> Add / Edit Application Details</span>
+          </SheetTitle>
+        </SheetHeader>
+        
+        <form className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto" onSubmit={handleFormSubmit}>
           {
           Object.entries(applicationDetails).map(([key, details]) => {
             if(key !== 'user_id' && key !== 'app_id') {
@@ -238,10 +238,10 @@ export default function ApplicationForm (
           })
           }
           <div className="w-full flex justify-end col-span-full items-center gap-4">
-            <SheetClose>
-              <Button className="bg-black hover:bg-accent" type="button">Close</Button>
+            <SheetClose className="w-16 bg-primary h-10 p-2 rounded-md text-secondary text-sm">
+              <span className="" >Close</span>
             </SheetClose>
-            <Button className="flex items-center justify-center bg-background text-primary w-24" variant={`outline`} type="submit">
+            <Button className="flex items-center justify-center bg-emerald-500 text-background w-24 h-10" variant={`outline`} type="submit">
               {
               submitIsLoading ? 
               <Oval

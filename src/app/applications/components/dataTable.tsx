@@ -129,7 +129,7 @@ export function DataTable<TData, TValue>({
                 <span className="p-2 border font-bold rounded-lg bg-primary text-secondary border-primary text-sm hover:bg-primary/90 transition-colors">Create New +</span>
               </div>
             </SheetTrigger>
-            <SheetContent side={'bottom'} className="min-h-[69%] max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
+            <SheetContent side={'bottom'} className="min-h-[69%] max-h-[100dvh] overflow-y-auto max-w-7xl w-full border-2 border-border p-4 rounded-lg ">
               <ApplicationForm />
             </SheetContent>
           </Sheet>
