@@ -12,9 +12,8 @@ export default function UpcomingInterviews () {
   const getAppsWithInterviews = useCallback(() => {
     const currentDate = new Date();
     currentDate.setHours(0,0,0,0)
-
     const interviews = applications.filter( app => {
-      if(app.interview_date && (new Date(app.interview_date) >= currentDate)) return app
+      if(app.interview_date && (new Date(app.interview_date) >= currentDate) && app.offer_amount === null) return app
     })
     setUpcomingInterviews(interviews)
   },[applications])
@@ -27,7 +26,6 @@ export default function UpcomingInterviews () {
       <span className="font-bold w-full ">Upcoming Interviews</span>
 
       <div className="flex flex-col gap-2">
-
       {
       <div className="border border-border bg-card rounded-lg w-full h-full overflow-x-auto">
         <table className="w-full h-full md:table-fixed">
