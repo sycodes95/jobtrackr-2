@@ -103,7 +103,7 @@ export default function ApplicationForm (
             <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
             <Input id={key} className="border border-border" name="company_name" type="number"  
             value={typeof value !== 'number' ? undefined : value} placeholder="..."
-            onChange={(e) => handleInputChange(key, e.target.value !== undefined ? e.target.value as ApplicationDetails[T] : null as ApplicationDetails[T])}></Input>
+            onChange={(e) => handleInputChange(key, e.target.value ? e.target.value as ApplicationDetails[T] : null as ApplicationDetails[T])}></Input>
           </FormItem>
         )
       case 'checkbox': 
