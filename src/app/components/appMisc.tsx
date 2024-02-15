@@ -39,15 +39,15 @@ export default function AppMisc ( {
       <div className="p-2 text-xs flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <span className="">Company Name:</span>
-          <span>{contactName}</span>
+          <span className=" break-all">{contactName}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="">Company Email:</span>
-          <span>{contactEmail}</span>
+          <span className=" break-all">{contactEmail}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="">Company Phone:</span>
-          <span>{contactPhone}</span>
+          <span className=" break-all">{contactPhone}</span>
         </div>
 
       </div>
@@ -55,8 +55,8 @@ export default function AppMisc ( {
       <span className="text-xs font-bold p-2 border-b border-border">Notes</span>
 
       <div className="p-2 text-xs flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <span>{notes}</span>
+        <div className="flex items-center justify-between flex-wrap">
+          <span className=" break-all">{notes}</span>
         </div>
 
       </div>
@@ -67,10 +67,10 @@ export default function AppMisc ( {
         <div className="flex items-center justify-between">
           {
           cWebsiteUrl ?
-          <Button className="flex items-center p-2 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(cWebsiteUrl)}>
+          <Button className="flex  items-center p-2 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(cWebsiteUrl)}>
             
-              <ContentPasteIcon fontSize="small"/> 
-              <span className=" text-xs">{cWebsiteUrl}</span>
+            <ContentPasteIcon fontSize="small"/> 
+            <span className=" text-xs overflow-hidden text-ellipsis">{cWebsiteUrl}</span>
             
           </Button>
           :
@@ -92,8 +92,8 @@ export default function AppMisc ( {
           applyUrl ?
           <Button className="flex items-center p-2 gap-2 justify-start font-medium w-full bg-background hover:text-zinc-400 text-xl hover:bg-accent text-foreground " onClick={()=> copyToClip(applyUrl)}>
             
-              <ContentPasteIcon fontSize="small"/> 
-              <span className=" text-xs">{applyUrl}</span>
+            <ContentPasteIcon fontSize="small"/> 
+            <span className=" text-xs overflow-hidden text-ellipsis">{applyUrl}</span>
             
           </Button>
           :
