@@ -45,6 +45,7 @@ import { ApplicationDetails } from "../types/types";
 import { submitApp } from "../services/submitApp";
 import useUserId from "@/app/hooks/useUserId";
 import { usePathname } from 'next/navigation';
+import { appLabelIcons } from "../constants/appLabelIcons";
 
 interface ApplicationFormProps {
   appDetails?: ApplicationDetails;
@@ -91,7 +92,10 @@ export default function ApplicationForm (
       case 'inputText': 
         return (
           <FormItem key={key}>
-            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
+            <Label className="flex items-center gap-2">
+              {appLabelIcons[key]}
+              <span>{applicationDetailsFormAttr[key].label}</span>
+            </Label>
             <Input id={key} className="border border-border" name="company_name" type="text" 
             value={typeof value !== 'string' ? '' : value} placeholder="..." 
             required={key === 'company_name' ? true: false}
@@ -101,7 +105,10 @@ export default function ApplicationForm (
       case 'inputNumber': 
         return (
           <FormItem key={key}>
-            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
+            <Label className="flex items-center gap-2">
+              {appLabelIcons[key]}
+              <span>{applicationDetailsFormAttr[key].label}</span>
+            </Label>
             <Input id={key} className="border border-border" name="company_name" type="number"  
             value={typeof value !== 'number' ? undefined : value} placeholder="..."
             onChange={(e) => handleInputChange(key, e.target.value ? e.target.value as ApplicationDetails[T] : null as ApplicationDetails[T])}></Input>
@@ -110,7 +117,10 @@ export default function ApplicationForm (
       case 'checkbox': 
         return (
           <FormItem key={key}>
-            <Label htmlFor={key}>{applicationDetailsFormAttr[key].label}</Label>
+            <Label className="flex items-center gap-2">
+              {appLabelIcons[key]}
+              <span>{applicationDetailsFormAttr[key].label}</span>
+            </Label>
             <div className="flex h-full items-center">
 
               <Checkbox id={key}
@@ -131,7 +141,10 @@ export default function ApplicationForm (
         }
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label >{applicationDetailsFormAttr[key].label}</Label>
+            <Label className="flex items-center gap-2">
+              {appLabelIcons[key]}
+              <span>{applicationDetailsFormAttr[key].label}</span>
+            </Label>
             <Popover>
               <PopoverTrigger id={key} >
                 <Button
@@ -165,7 +178,10 @@ export default function ApplicationForm (
         const keystring: string = key;
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label htmlFor={key} >{applicationDetailsFormAttr[key].label}</Label>
+            <Label className="flex items-center gap-2">
+              {appLabelIcons[key]}
+              <span>{applicationDetailsFormAttr[key].label}</span>
+            </Label>
             <Select onValueChange={(newValue) => handleInputChange(key, newValue as ApplicationDetails[T])}>
               <SelectTrigger className="w-full border border-border">
                 <SelectValue placeholder="..." />
@@ -186,7 +202,10 @@ export default function ApplicationForm (
       case 'rating':
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label>{applicationDetailsFormAttr[key].label}</Label>
+            <Label className="flex items-center gap-2">
+              {appLabelIcons[key]}
+              <span>{applicationDetailsFormAttr[key].label}</span>
+            </Label>
             <div className="h-full flex items-center">
               <Rating
                 id="rating"
@@ -204,7 +223,10 @@ export default function ApplicationForm (
       case 'textArea':
         return (
           <div className="flex flex-col gap-2" key={key}>
-            <Label htmlFor="text-area">{applicationDetailsFormAttr[key].label}</Label>
+            <Label className="flex items-center gap-2">
+              {appLabelIcons[key]}
+              <span>{applicationDetailsFormAttr[key].label}</span>
+            </Label>
             <Textarea 
             data-testid='text-area'
             id="text-area"

@@ -1,4 +1,5 @@
 import { ApplicationDetails } from "../types/types"
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
 
 
 export const defaultApplicationDetails: ApplicationDetails  = {
@@ -29,7 +30,7 @@ export const applicationDetailsFormAttr  = {
   apply_method: {  label: 'Apply Method', type: 'select' },
   apply_url: {  label: 'Apply URL', type: 'inputText' },
   position: {  label: 'Position', type: 'inputText' },
-  fit_rating: { label: 'Fit Rating', type: 'rating' },
+  fit_rating: { label: 'Fit Rating', type: 'rating'},
   location: {  label: 'Location', type: 'select' },
   interview_date: {  label: 'Interview Date', type: 'date' },
   offer_amount: {  label: 'Offer Amount', type: 'inputNumber' },
