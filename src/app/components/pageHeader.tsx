@@ -10,7 +10,9 @@ export default function PageHeader ( { children, title, description } : PageHead
       <span className="font-inter-tight-display text-2xl text-primary flex gap-2 items-center">
         {
         children && 
-        children
+        <div className="p-1 rounded-sm bg-primary text-background flex items-center justify-center text-sm ">
+          {children}
+        </div>
         }
         {title}
       </span>

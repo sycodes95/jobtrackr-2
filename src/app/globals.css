@@ -140,5 +140,9 @@ th, td {
   min-width: 20px;
 }
 
-
+.break-all {
+  word-wrap: break-word; /* Old version of overflow-wrap for wider browser support */
+  overflow-wrap: break-word; /* Ensures that long words will wrap and not overflow the container */
+  word-break: break-all; /* This will break the word at any character to ensure wrapping */
+}
 

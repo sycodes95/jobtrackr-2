@@ -3,11 +3,13 @@ import { ApplicationDetails } from "@/app/applications/types/types";
 import useApps from "@/app/hooks/useApps"
 import { useCallback, useEffect, useState } from "react";
 
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
+
 import RowUpcoming from "./rowUpcoming";
 
 export default function UpcomingInterviews () {
 
-  const { applications, setApplications } = useApps();
+  const { applications } = useApps();
   const [upcomingInterviews, setUpcomingInterviews] = useState<ApplicationDetails[]>([])
   const getAppsWithInterviews = useCallback(() => {
     const currentDate = new Date();
@@ -23,7 +25,10 @@ export default function UpcomingInterviews () {
 
   return (
     <div className=" rounded-lg flex flex-col gap-4 lg:w-1/2 h-full text-primary">
-      <span className="font-bold w-full ">Upcoming Interviews</span>
+      <div className="flex items-center gap-2 font-inter-tight-display">
+        <RecordVoiceOverIcon fontSize="small" />
+        <span className="font-bold w-full ">Upcoming Interviews</span>
+      </div>
 
       <div className="flex flex-col gap-2">
       {
@@ -32,8 +37,8 @@ export default function UpcomingInterviews () {
           <thead className="">
             <tr className="text-xs text-left text-zinc-500">
               <th className="p-4">Date</th>
-              <th className=" p-4">Fav</th>
               <th className=" p-4">Company</th>
+              <th className=" p-4">Fav</th>
               <th className=" p-4">Fit</th>
               <th className=" p-4">Misc</th>
 
@@ -41,7 +46,7 @@ export default function UpcomingInterviews () {
           </thead>
           <tbody>
             {
-            upcomingInterviews && upcomingInterviews.length > 0 ?
+            upcomingInterviews.length > 0 ?
             upcomingInterviews.map((application) => (
               <RowUpcoming key={application.app_id} app={application} />
             ))

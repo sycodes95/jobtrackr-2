@@ -6,6 +6,7 @@ import { CalendarDatum, ResponsiveCalendar, Calendar } from '@nivo/calendar'
 import { yearAgoFromToday } from "../utils/yearAgoFromToday";
 import { elevenMonthsAgo } from "../utils/elevenMonthsAgo";
 import { useTheme } from "next-themes";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 interface Data {
   value: number;
   day: string;
@@ -64,9 +65,13 @@ export default function AppCalendar () {
   return (
     <>
       <div className="h-[460px] flex justify-start flex-col gap-4 items-start overflow-x-auto "> 
-        <span className="font-semibold text-primary">
-          Applications Calendar
-        </span>
+
+        <div className="flex items-center gap-2 text-primary font-inter-tight-display">
+          <CalendarMonthIcon fontSize="small"/>
+          <span className="font-semibold text-primary">
+            Applications Calendar
+          </span>
+        </div>
         {
         themeLoaded &&
 

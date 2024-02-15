@@ -6,6 +6,7 @@ import Metrics from "./components/metrics";
 
 import GridViewIcon from '@mui/icons-material/GridView';
 import UpcomingInterviews from "./components/upcomingInterviews";
+import OfferList from "./components/offerList";
 
 export default function Dashboard () {
   return (
@@ -15,14 +16,15 @@ export default function Dashboard () {
           title="Dashboard" 
           description="Overview of your job application metrics."
         >
-          <GridViewIcon />
+          <GridViewIcon fontSize="inherit" />
         </PageHeader>
         <div className="flex flex-col gap-8 w-full h-full">
           <Metrics />
           <AppCalendar />
         </div>
-        <div className="flex flex-col gap-8 w-full h-full">
+        <div className="flex flex-col  lg:flex-row gap-8 w-full h-full">
           <UpcomingInterviews />
+          <OfferList />
         </div>
       </div>
     </PageContainer>
