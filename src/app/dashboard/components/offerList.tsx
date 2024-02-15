@@ -21,13 +21,8 @@ export default function OfferList () {
   useEffect(() => {
     if(applications.length > 0){
       getOffers();
-
     }
   },[applications, getOffers]);
-
-  useEffect(()=> {
-    console.log(offers);
-  },[offers])
 
   return (
     <div className=" rounded-lg flex flex-col gap-4 lg:w-1/2 h-full text-primary">
