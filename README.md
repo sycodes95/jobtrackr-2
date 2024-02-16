@@ -1,17 +1,20 @@
 ## Jobtrackr
 
-https://jobtrackr.pro
+Website: https://jobtrackr.pro
 
 ## Project Images
 
+Landing Page
 ![Landing Page](./src/assets/images/readMe/landing.png "Landing Page")
 
+Dashboard
 ![Dashboard](./src/assets/images/readMe/dashboard.png "Dashboard")
 
+Applications Page
 ![Applications Page](./src/assets/images/readMe/applications.png "Applications Page")
 
+Insights (Data Vis & Metrics)
 ![Insights (Data Vis & Metrics)](./src/assets/images/readMe/insights.png "Insights (Data Vis & Metrics)")
-
 
 ## Tech Stack
 
