@@ -1,4 +1,4 @@
-export const useDemoMode = false;  
+export const useDemoMode = true;  
 
 export const appRoutes = {
   'Dashboard' : '/',
