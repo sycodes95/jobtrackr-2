@@ -3,13 +3,22 @@
 https://jobtrackr.pro
 
 ## Project Images
+
 ![Landing Page](./src/assets/images/readMe/landing.png "Landing Page")
+
+![Dashboard](./src/assets/images/readMe/dashboard.png "Dashboard")
+
+![Applications Page](./src/assets/images/readMe/applications.png "Applications Page")
+
+![Insights (Data Vis & Metrics)](./src/assets/images/readMe/insights.png "Insights (Data Vis & Metrics)")
+
 
 ## Tech Stack
 
--Front End: Next.Js | TypeScript | TailwindCSS
--Back End: Drizzle ORM | PostgreSQL
--Libraries: Nivo | Material UI | Shadcn UI
+- **Front End:** Next.Js | TypeScript | TailwindCSS
+- **Back End:** Drizzle ORM | PostgreSQL
+- **Libraries:** Nivo | Material UI | Shadcn UI
+
 
 ## Goal
 
