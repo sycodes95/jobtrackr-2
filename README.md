@@ -2,20 +2,6 @@
 
 Website: https://jobtrackr.pro
 
-## Project Images
-
-Landing Page
-![Landing Page](./src/assets/images/readMe/landing.png "Landing Page")
-
-Dashboard
-![Dashboard](./src/assets/images/readMe/dashboard.png "Dashboard")
-
-Applications Page
-![Applications Page](./src/assets/images/readMe/applications.png "Applications Page")
-
-Insights (Data Vis & Metrics)
-![Insights (Data Vis & Metrics)](./src/assets/images/readMe/insights.png "Insights (Data Vis & Metrics)")
-
 ## Tech Stack
 
 - **Front End:** Next.Js | TypeScript | TailwindCSS
@@ -35,6 +21,22 @@ I decided to go with Drizzle ORM because it was the most "SQL like", and so I th
 Although with learning any new technology there is a slight learning curve in the beginning, I got the hang of it pretty quickly and understood why 
 many developers choose to use an ORM over raw sql. It really increased my development speed and it helped that drizzle was quite intuitive to use. 
 Not having to deal with raw sql almost felt like the transition I made from building websites with pure javascript to react, or even from vanilla CSS to tailwindCSS. It really does make life easier. I AM SPEED.
+
+## Project Images
+
+Landing Page
+![Landing Page](./src/assets/images/readMe/landing.png "Landing Page")
+
+Dashboard
+![Dashboard](./src/assets/images/readMe/dashboard.png "Dashboard")
+
+Applications Page
+![Applications Page](./src/assets/images/readMe/applications.png "Applications Page")
+
+Insights (Data Vis & Metrics)
+![Insights (Data Vis & Metrics)](./src/assets/images/readMe/insights.png "Insights (Data Vis & Metrics)")
+
+## Setup
 
 Running Dev Server:
 
