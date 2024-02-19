@@ -9,6 +9,7 @@ export default function Container ( { children, type = 'default'} : ContainerPro
     'footer' : 'h-fit w-full border-t border-t-border bg-footer-background',
     'default' : 'h-full w-full'
   }
+  
   return (
     <div className={`flex justify-center bg-background ${type && containerTypeStyle[`${type}`]}`}>
       {children}
