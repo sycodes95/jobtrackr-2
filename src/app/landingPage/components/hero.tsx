@@ -5,8 +5,8 @@ export default function Hero () {
 
   const title = (
     <>
-      <span className="text-6xl text-coral text-center glow-text-pink">Tracking your job applications</span>
-      <span className="text-6xl text-jet text-center glow-text-black border-b border-zinc-300">made simple. </span>
+      <span className="text-5xl md:text-6xl text-coral text-center glow-text-pink">Tracking your job applications</span>
+      <span className="text-5xl md:text-6xl text-jet text-center glow-text-black border-b border-zinc-300">made simple. </span>
     </>
   )
 
@@ -17,13 +17,13 @@ export default function Hero () {
 
   
   return (
-    <div className="flex flex-col h-fit items-center gap-6 w-full">
+    <div className="flex flex-col h-fit items-center gap-6 w-full p-4 pt-16 pb-16">
 
       <div className=" relative h-fit ">
         <HeroGithubButton />
       </div>
 
-      <h1 className="flex flex-col items-center  font-inter-tight-display">
+      <h1 className="flex flex-col items-center  font-inter-tight-display md:text-4xl">
         {title}
       </h1>
 

@@ -219,7 +219,7 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length - hiddenCols.length} className="h-24 text-center w-full">
+                <TableCell colSpan={columns.length - hiddenCols.length} className="h-24 text-center w-full text-primary">
                   No results.
                 </TableCell>
               </TableRow>
