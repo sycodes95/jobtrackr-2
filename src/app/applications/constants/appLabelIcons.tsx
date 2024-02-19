@@ -2,7 +2,6 @@ import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import RadarIcon from '@mui/icons-material/Radar';
 import HttpIcon from '@mui/icons-material/Http';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faChessBoard } from '@fortawesome/free-solid-svg-icons'
 import { faComments } from '@fortawesome/free-solid-svg-icons'
