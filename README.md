@@ -1,4 +1,4 @@
-## Jobtrackr
+![Logo](./src/assets/images/readMe/logo.png "Logo")
 
 Website: https://jobtrackr.pro
 
@@ -12,6 +12,18 @@ Website: https://jobtrackr.pro
 ## Goal
 
 I wanted to create a simple way to track job applications, and also view metrics and useful data visualizations in order to help the user see how effective their job hunting strategies really are.
+
+## Key Features 
+
+- Track application status. ( No Response (Ghost), Interviews, Rejections, Offers )
+
+- Calendar chart to see how many applications you sent out each day.
+
+- Upcoming Interviews, Pending Offers are displayed on dashboard.
+
+- Data visualization using sankey diagram.
+
+- Other useful metrics to help you gauge your job hunting stragies' effectiveness.
 
 ## What I learned
 
@@ -32,6 +44,9 @@ Dashboard
 
 Applications Page
 ![Applications Page](./src/assets/images/readMe/applications.png "Applications Page")
+
+Application Form
+![Application Form](./src/assets/images/readMe/applicationForm.png "Application Form")
 
 Insights (Data Vis & Metrics)
 ![Insights (Data Vis & Metrics)](./src/assets/images/readMe/insights.png "Insights (Data Vis & Metrics)")
