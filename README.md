@@ -8,7 +8,6 @@ Website: https://jobtrackr.pro
 - **Back End:** Drizzle ORM | PostgreSQL
 - **Other Libraries:** Nivo | Material UI | Shadcn UI
 
-
 ## Goal
 
 I wanted to create a simple way to track job applications, and also view metrics and useful data visualizations in order to help the user see how effective their job hunting strategies really are.

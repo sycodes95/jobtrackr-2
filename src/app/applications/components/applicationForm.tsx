@@ -260,9 +260,7 @@ export default function ApplicationForm (
           })
           }
           <div className="w-full flex justify-end col-span-full items-center gap-4">
-            <SheetClose className="w-16 bg-primary h-10 p-2 rounded-md text-secondary text-sm">
-              <span className="" >Close</span>
-            </SheetClose>
+            
             <Button className="flex items-center justify-center bg-emerald-500 text-background w-24 h-10" variant={`outline`} type="submit">
               {
               submitIsLoading ? 
