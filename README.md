@@ -37,7 +37,7 @@ I decided to go with Drizzle ORM because it was the most "SQL like", and so I th
 
 Although with learning any new technology there is a slight learning curve in the beginning, I got the hang of it pretty quickly and understood why 
 many developers choose to use an ORM over raw sql. It really increased my development speed and it also helped that drizzle was quite intuitive to use. 
-Not having to deal with raw sql almost felt like the transition I made from building websites with pure javascript to react, or even from vanilla CSS to tailwindCSS. It really does make life easier. I AM SPEED.
+Not having to deal with raw sql almost felt like the transition I made from building websites with pure javascript to react, or even from vanilla CSS to tailwindCSS. It really does make life easier. 
 
 ---
 
@@ -72,7 +72,6 @@ Application form modal.
 ![Application Form](./src/assets/images/readMe/applicationForm.png "Application Form")
 
 ---
-
 
 **Insights (Data Vis & Metrics)**
 
