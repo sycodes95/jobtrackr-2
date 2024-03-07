@@ -1,18 +1,16 @@
-version: '3.8'
+version: "3.8"
 services:
-  web:
-    image: your-web-app-image
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_HOST=http://localhost:3000
-    env_file:
-      - ./.env
   db:
     image: postgres
+    restart: always
+    container_name: jobtrackr-postgres
     ports:
-      - "5433:5432"
+      - 5433:5432
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=
-      - POSTGRES_DB=jobtrackrpro
+      POSTGRES_DB: jobtrackrpro
+      POSTGRES_PASSWORD: example
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+volumes:
+  postgres:
